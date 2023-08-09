@@ -13,6 +13,9 @@ class User(db.Model):
     created_at= db.Column(db.DataTime, nullable=False, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(
     ), default=db.func.current_timestamp())
+    racks = db.relationship('Rack', backref='user', lazy=True)
+    equipments = db.relationship('Equipment', backref='user', lazy=True)
+    
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -28,7 +31,7 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class Equipment(db.Model):
+class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     brand = db.Column(db.String(120),  nullable=False)
     model = db.Column(db.String(120),  nullable=False)
@@ -76,7 +79,8 @@ class Rack(db.Model):
     fases=db.Column(db.String(10))
     output_connector=db.Column(db.String(100))
     neutro=db.Column(db.Boolean())
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('racks', lazy=True))
     def __repr__(self):
         return f'<Rack {self.id}>'
     
@@ -132,6 +136,10 @@ class Equipment(db.Model):
     operation_temp=db.Column(db.String(20))
     thermal_disipation=db.Column(db.String(20))
     power_config=db.Column(db.String(20))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('equipments', lazy=True))
+    description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
+    description = db.relationship('Description', backref=db.backref('equipments', lazy=True))
     
     def __repr__(self):
         return f'<Equipment {self.id}>'
