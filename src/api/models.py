@@ -14,10 +14,9 @@ class User(db.Model):
                           default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(
     ), default=db.func.current_timestamp())
-    racks = db.relationship('Rack', backref='user', lazy=True)
-    equipments = db.relationship('Equipment', backref='user', lazy=True)
-    
-    
+    user_owned_racks = db.relationship('Rack', back_populates='user_owner', lazy=True)
+    equipments = db.relationship('Equipment', back_populates='equipment_owner', lazy=True)
+
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -80,8 +79,11 @@ class Rack(db.Model):
     fases=db.Column(db.String(10))
     output_connector=db.Column(db.String(100))
     neutro=db.Column(db.Boolean())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('racks', lazy=True))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_owner = db.relationship('User', back_populates='user_owned_racks', foreign_keys=[owner_id])
+
+
+    
     def __repr__(self):
         return f'<Rack {self.id}>'
     
@@ -138,10 +140,10 @@ class Equipment(db.Model):
     thermal_disipation=db.Column(db.String(20))
     power_config=db.Column(db.String(20))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('equipments', lazy=True))
+    equipment_owner = db.relationship('User', back_populates='equipments', foreign_keys=[user_id])
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
     description = db.relationship('Description', backref=db.backref('equipments', lazy=True))
-    
+
     def __repr__(self):
         return f'<Equipment {self.id}>'
     
