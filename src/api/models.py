@@ -10,7 +10,8 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     coordination =db.Column(db.String(120), nullable=False)
     salt=db.Column(db.String(100), unique=False, nullable=False)
-    created_at= db.Column(db.DataTime, nullable=False, default=db.func.current_timestamp())
+    create_at = db.Column(db.DateTime, nullable=False,
+                          default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(
     ), default=db.func.current_timestamp())
     racks = db.relationship('Rack', backref='user', lazy=True)
@@ -125,7 +126,7 @@ class Equipment(db.Model):
     anchor=db.Column(db.String(120))
     service_area=db.Column(JSON, nullable=True)
     access_width=db.Column(db.String(120))
-    access_inclination=dc.Column(db.String(120))
+    access_inclination=db.Column(db.String(120))
     access_length=db.Column(db.String(120))
     rack_unit_position=db.Column(db.String(120))
     total_rack_units=db.Column(db.Integer)
