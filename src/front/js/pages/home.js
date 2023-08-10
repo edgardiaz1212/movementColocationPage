@@ -10,6 +10,17 @@ export const Home = () => {
 	return (
 		<div className="text-center mt-5">
 			<h1>Solicitud</h1>
+			<div>
+        Tipo de servicio
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">Colocacion en Rack</option>
+          <option value="2">Colocacion Catalogado</option>
+          
+          
+        </select>
+      </div>
+			
 			<Link to='/rack'>
 				<button>Agregar Rack</button>
 			</Link>

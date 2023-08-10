@@ -1,8 +1,10 @@
 import React from "react";
+import Details from "../component/Details.jsx";
 
 function Rack() {
   return (
     <>
+    <Details/>
       <form className=" container ">
         <div className="p-3 mb-2 bg-info">
           <h2>Caracteristicas del Gabinete</h2>

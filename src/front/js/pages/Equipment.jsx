@@ -1,8 +1,10 @@
 import React from "react";
+import Details from "../component/Details.jsx";
 
 function Equipment() {
   return (
     <>
+      <Details />
       <div className="container">
         <div className="p-3 mb-2 bg-info">
           <h2>ESPECIFICACIONES FÍSICAS DEL EQUIPO</h2>
@@ -324,15 +326,16 @@ function Equipment() {
           placeholder="Introduzca el valor"
         />
       </div>
-<div>
-Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">1</option>
-        <option value="2">n+1</option>
-        <option value="3">2n+1</option>
-        <option value="4">Descrita en observaciones</option>
-      </select></div>
+      <div>
+        Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Open this select menu</option>
+          <option value="1">1</option>
+          <option value="2">n+1</option>
+          <option value="3">2n+1</option>
+          <option value="4">Descrita en observaciones</option>
+        </select>
+      </div>
     </>
   );
 }
