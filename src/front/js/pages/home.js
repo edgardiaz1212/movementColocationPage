@@ -10,10 +10,10 @@ export const Home = () => {
 	return (
 		<div className="text-center mt-5">
 			<h1>Solicitud</h1>
-			<Link to='/Rack'>
+			<Link to='/rack'>
 				<button>Agregar Rack</button>
 			</Link>
-			<Link to='/Rack'>
+			<Link to='/equipment'>
 				<button>Agregar Equipo</button>
 			</Link>
 			
