@@ -1,5 +1,6 @@
 import React from "react";
 import Details from "../component/Details.jsx";
+import Observations from "../component/Observations.jsx";
 
 function Equipment() {
   return (
@@ -91,7 +92,7 @@ function Equipment() {
           </div>
         </div>
         <div className="m-auto col-4">
-          <label for="maxWeigth" className="form-label">
+          <label htmlFor="maxWeigth" className="form-label">
             Peso Maximo del equipo
           </label>
           <input
@@ -102,7 +103,7 @@ function Equipment() {
           />
         </div>
         <div className="m-auto col-4">
-          <label for="anchor" className="form-label">
+          <label htmlFor="anchor" className="form-label">
             Tipo de anclaje al rack
           </label>
           <input
@@ -147,7 +148,7 @@ function Equipment() {
                 value=""
                 id="flexCheckFrontal"
               />
-              <label className="form-check-label" for="flexCheckFrontal">
+              <label className="form-check-label" htmlFor="flexCheckFrontal">
                 Frontal
               </label>
             </div>
@@ -158,7 +159,7 @@ function Equipment() {
                 value=""
                 id="flexCheckPosterior"
               />
-              <label className="form-check-label" for="flexCheckPosterior">
+              <label className="form-check-label" htmlFor="flexCheckPosterior">
                 Posterior
               </label>
             </div>
@@ -169,7 +170,7 @@ function Equipment() {
                 value=""
                 id="flexCheckLateral"
               />
-              <label className="form-check-label" for="flexCheckLateral">
+              <label className="form-check-label" htmlFor="flexCheckLateral">
                 Lateral
               </label>
             </div>
@@ -218,7 +219,7 @@ function Equipment() {
         </div>
 
         <div className="m-auto col-4">
-          <label for="numRack" className="form-label">
+          <label htmlFor="numRack" className="form-label">
             Ubicacion, Rack donde estara ubicado
           </label>
           <input
@@ -230,7 +231,7 @@ function Equipment() {
         </div>
 
         <div className="m-auto col-4">
-          <label for="positionRack" className="form-label">
+          <label htmlFor="positionRack" className="form-label">
             Las unidades de rack que ocupara
           </label>
           <input
@@ -242,7 +243,7 @@ function Equipment() {
         </div>
 
         <div className="m-auto col-4">
-          <label for="totalURack" className="form-label">
+          <label htmlFor="totalURack" className="form-label">
             Total de unidades de Rack
           </label>
           <input
@@ -328,7 +329,7 @@ function Equipment() {
       </div>
       <div>
         Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
-        <select class="form-select" aria-label="Default select example">
+        <select className="form-select" aria-label="Default select example">
           <option selected>Open this select menu</option>
           <option value="1">1</option>
           <option value="2">n+1</option>
@@ -336,6 +337,7 @@ function Equipment() {
           <option value="4">Descrita en observaciones</option>
         </select>
       </div>
+      <Observations />
     </>
   );
 }

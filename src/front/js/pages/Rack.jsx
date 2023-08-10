@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Details from "../component/Details.jsx";
+import Observations from "../component/Observations.jsx";
 
 function Rack() {
+  const [hasCabinet, setHasCabinet] = useState(false); // Estado para indicar si tiene gabinete
+  const [selectedService, setSelectedService] = useState(""); // Estado para el tipo de servicio seleccionado
+
+  const handleHasCabinetChange = (event) => {
+    setHasCabinet(event.target.value === "siGabinete");
+  };
+
   return (
     <>
-    <Details/>
-      <form className=" container ">
+      <Details />
+      <div className=" container ">
         <div className="p-3 mb-2 bg-info">
           <h2>Caracteristicas del Gabinete</h2>
         </div>
-        <div className="container row">
-          <form className="col-4 m-auto border border-danger">
+
+        <div className="row">
+          <form className="col-4 m-auto ">
             <p>Posee Gabinete ?</p>
             <div className="form-check">
               <input
@@ -18,8 +27,9 @@ function Rack() {
                 type="radio"
                 name="flexRadioOwn"
                 id="siGabinete"
+                onChange={handleHasCabinetChange}
               />
-              <label className="form-check-label" for="siGabinete">
+              <label className="form-check-label" htmlFor="siGabinete">
                 Si
               </label>
             </div>
@@ -29,14 +39,17 @@ function Rack() {
                 type="radio"
                 name="flexRadioOwn"
                 id="noGabinete"
-                checked
+                checked={!hasCabinet}
+                onChange={handleHasCabinetChange}
               />
-              <label className="form-check-label" for="noGabinete">
+              <label className="form-check-label" htmlFor="noGabinete">
                 No
               </label>
             </div>
           </form>
+{hasCabinet && (<>
           <form className="col-4 m-auto">
+            
             <p>Propio o arrendado ?</p>
             <div className="form-check">
               <input
@@ -45,7 +58,7 @@ function Rack() {
                 name="flexRadioLease"
                 id="noLeased"
               />
-              <label className="form-check-label" for="noLeased">
+              <label className="form-check-label" htmlFor="noLeased">
                 Propio
               </label>
             </div>
@@ -57,13 +70,13 @@ function Rack() {
                 id="leased"
                 checked
               />
-              <label className="form-check-label" for="leased">
+              <label className="form-check-label" htmlFor="leased">
                 Arrendado
               </label>
             </div>
           </form>
           <div className="m-auto col-4">
-            <label for="totalGabinetes" className="form-label">
+            <label htmlFor="totalGabinetes" className="form-label">
               Numero Total de Gabinetes
             </label>
             <input
@@ -74,7 +87,7 @@ function Rack() {
             />
           </div>
           <div className="m-auto col-4">
-            <label for="tipoSeguridad" className="form-label">
+            <label htmlFor="tipoSeguridad" className="form-label">
               Qué tipo de seguridad y Cuántos:
             </label>
             <input
@@ -93,7 +106,7 @@ function Rack() {
                 name="flexRadioExtractor"
                 id="yesExtractor"
               />
-              <label className="form-check-label" for="yesExtractor">
+              <label className="form-check-label" htmlFor="yesExtractor">
                 Si
               </label>
             </div>
@@ -105,13 +118,13 @@ function Rack() {
                 id="noExtractor"
                 checked
               />
-              <label className="form-check-label" for="noExtractor">
+              <label className="form-check-label" htmlFor="noExtractor">
                 No
               </label>
             </div>
           </form>
           <div className="m-auto col-4">
-            <label for="extractores" className="form-label">
+            <label htmlFor="extractores" className="form-label">
               Si la respuesta es SI, Dónde:
             </label>
             <input
@@ -130,7 +143,7 @@ function Rack() {
                 name="flexRadioModular"
                 id="yesModular"
               />
-              <label className="form-check-label" for="yesModular">
+              <label className="form-check-label" htmlFor="yesModular">
                 Si
               </label>
             </div>
@@ -142,7 +155,7 @@ function Rack() {
                 id="noModular"
                 checked
               />
-              <label className="form-check-label" for="noModular">
+              <label className="form-check-label" htmlFor="noModular">
                 No
               </label>
             </div>
@@ -156,7 +169,7 @@ function Rack() {
                 name="flexRadioDoors"
                 id="yesDoors"
               />
-              <label className="form-check-label" for="yesDoors">
+              <label className="form-check-label" htmlFor="yesDoors">
                 Si
               </label>
             </div>
@@ -168,13 +181,13 @@ function Rack() {
                 id="noDoors"
                 checked
               />
-              <label className="form-check-label" for="noDoors">
+              <label className="form-check-label" htmlFor="noDoors">
                 No
               </label>
             </div>{" "}
           </form>
           <div className="m-auto col-4">
-            <label for="lateralDoors" className="form-label">
+            <label htmlFor="lateralDoors" className="form-label">
               Si la respuesta es SI, Dónde:
             </label>
             <input
@@ -184,9 +197,8 @@ function Rack() {
               placeholder="Introduzca la ubicacion de las Puertas de Servicio"
             />
           </div>
-
           <div className="m-auto col-4">
-            <label for="RURack" className="form-label">
+            <label htmlFor="RURack" className="form-label">
               Total de unidades de Rack
             </label>
             <input
@@ -196,9 +208,8 @@ function Rack() {
               placeholder="Introduzca la cantidad total de Unidades de Rack"
             />
           </div>
-
           <div className="m-auto col-4">
-            <label for="rackPosition" className="form-label">
+            <label htmlFor="rackPosition" className="form-label">
               De ser varios Racks, que posición ocupa u ocupará en la fila
             </label>
             <input
@@ -245,48 +256,50 @@ function Rack() {
               placeholder="Descripción de los accesorios adicionales"
             />
           </div>
-        </div>
-        <div className="container row">
-          <h4 className="col-3">Dimensiones del Rack</h4>
-          <div className="col-6">
-            <div className="m-auto">
-              <label htmlFor="rackWidth" className="form-label">
-                Ancho (en cm):
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="rackWidth"
-                placeholder="Introduzca el ancho del rack"
-              />
-            </div>
 
-            <div className="m-auto">
-              <label htmlFor="rackLength" className="form-label">
-                Largo (en cm):
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="rackLength"
-                placeholder="Introduzca el largo del rack"
-              />
-            </div>
+          <div className="row">
+            <h4 className="col-3">Dimensiones del Rack</h4>
+            <div className="col-6">
+              <div className="m-auto">
+                <label htmlFor="rackWidth" className="form-label">
+                  Ancho (en cm):
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="rackWidth"
+                  placeholder="Introduzca el ancho del rack"
+                />
+              </div>
 
-            <div className="m-auto">
-              <label htmlFor="rackHeight" className="form-label">
-                Alto (en cm):
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="rackHeight"
-                placeholder="Introduzca el alto del rack"
-              />
+              <div className="m-auto">
+                <label htmlFor="rackLength" className="form-label">
+                  Largo (en cm):
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="rackLength"
+                  placeholder="Introduzca el largo del rack"
+                />
+              </div>
+
+              <div className="m-auto">
+                <label htmlFor="rackHeight" className="form-label">
+                  Alto (en cm):
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="rackHeight"
+                  placeholder="Introduzca el alto del rack"
+                />
+              </div>
             </div>
           </div>
-        </div>
+          </>)}
 
+        </div>
         <h2 className="mt-4">Requerimiento de energia para el rack</h2>
         <div className="mb-3 col-4">
           <label htmlFor="internalPdu" className="form-label">
@@ -332,7 +345,7 @@ function Rack() {
             name="flexRadioNeutro"
             id="yesNeutro"
           />
-          <label className="form-check-label" for="yesNeutro">
+          <label className="form-check-label" htmlFor="yesNeutro">
             Si
           </label>
         </div>
@@ -344,11 +357,13 @@ function Rack() {
             id="noNeutro"
             checked
           />
-          <label className="form-check-label" for="noDoors">
+          <label className="form-check-label" htmlFor="noDoors">
             No
           </label>
         </div>
-      </form>
+      
+
+      <Observations /></div>
     </>
   );
 }
