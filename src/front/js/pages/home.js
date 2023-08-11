@@ -13,8 +13,9 @@ export const Home = () => {
   };
 
   return (
-    <div className="text-center mt-5">
+    <div className="container text-center mt-5">
       <h1>Solicitud</h1>
+
       <div className="container">
         Tipo de servicio
         <select
@@ -27,6 +28,21 @@ export const Home = () => {
           <option value="equipment">Colocacion Catalogado</option>
         </select>
       </div>
+      <div>Tipo de actividad
+	  <select
+          className="form-select"
+          aria-label="Default select example"
+          
+        >
+          <option value="">Seleccionar servicio</option>
+          <option value="instalacion">Instalacion</option>
+          <option value="retiro">Retiro</option>
+		  <option value="desincorporacion">Desincorporacion</option>
+		  <option value="mudanza">Mudanza</option>
+        </select>
+
+	  </div>
+
 
       {selectedService === "rack" && (
         <Link to="/rack">

@@ -30,6 +30,18 @@ class User(db.Model):
             "updated_at":self.updated_at
             # do not serialize the password, its a security breach
         }
+class finalClient(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    name=db.Column(db.String(255), nullable=False, unique=True)
+    
+    def __repr__(self):
+        return f'<Client {self.name}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name
+            }
 
 class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -51,7 +63,8 @@ class Description(db.Model):
             "model": self.model,
             "serial": self.serial,
             "number_part": self.number_part,
-            "service": self.service
+            "service": self.service,
+            "five_years_prevition":self.five_years_prevition
         }
 
 class Rack(db.Model):
