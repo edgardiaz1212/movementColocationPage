@@ -18,7 +18,7 @@ function Details() {
               type="text"
               className="form-control"
               id="brand"
-              placeholder="Introduzca el ancho del embalaje"
+              placeholder="Introduzca la marca"
             />
           </div>
 
@@ -30,7 +30,7 @@ function Details() {
               type="text"
               className="form-control"
               id="model"
-              placeholder="Introduzca el largo del embalaje"
+              placeholder="Introduzca el modelo"
             />
           </div>
 
@@ -42,7 +42,7 @@ function Details() {
               type="text"
               className="form-control"
               id="serial"
-              placeholder="Introduzca el alto del embalaje"
+              placeholder="Introduzca el serial"
             />
           </div>
           <div className="m-auto">
@@ -53,18 +53,18 @@ function Details() {
               type="text"
               className="form-control"
               id="numberpart"
-              placeholder="Introduzca el alto del embalaje"
+              placeholder="Introduzca el número de parte"
             />
           </div>
           <div className="m-auto">
             <label htmlFor="componentType" className="form-label">
-              Tipod de componente:
+              Tipo de componente:
             </label>
             <input
               type="text"
               className="form-control"
               id="componentType"
-              placeholder="Introduzca el alto del embalaje"
+              placeholder="Introduzca el tipo de componente"
             />
           </div>
         </div>

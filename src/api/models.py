@@ -24,7 +24,8 @@ class User(db.Model):
             "coordination": self.coordination,
             "name": self.name,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+            "admin":self.admin
             # do not serialize the password, its a security breach
         }
 
