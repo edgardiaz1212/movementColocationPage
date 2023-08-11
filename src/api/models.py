@@ -13,7 +13,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(), default=db.func.current_timestamp())
     owners = db.relationship('Client', back_populates='owner', lazy=True)  # Cambiar 'backref' a 'back_populates'
-
+    admin = db.Column(db.Boolean())
     def __repr__(self):
         return f'<User {self.email}>'
 
