@@ -47,7 +47,8 @@ def add_rack():
             'input_connector':data_form.get('input_connector') ,
             'fases':data_form.get('fases') ,
             'output_connector':data_form.get('output_connector'),
-            'neutro':data_form.get('neutro')
+            'neutro':data_form.get('neutro'),
+            'client':data_form.get('cliente')
         }
         if data.get("brand") is None:
             return jsonify ({"msg": "Missing brand parameter"}), 400
@@ -55,64 +56,7 @@ def add_rack():
             return jsonify ({"msg": "Missing model parameter"}), 400
         if data.get("serial") is None:
             return jsonify ({"msg": "Missing serial parameter"}), 400
-        if data.get("number_part") is None:
-            pass
-        if data.get("service") is None:
-           pass
-        if data.get("five_years_prevition") is None:
-           pass
-        if data.get("contract") is None:
-           pass
-        if data.get("observations") is None:
-           pass
-        if data.get("activity") is None:
-           pass
-        if data.get("has_cabinet") is None:
-           pass
-        if data.get('leased') is None:
-           pass
-        if data.get('total_cabinets') is None:
-           pass
-        if data.get('open_closed') is None:
-           pass
-        if data.get('security') is None:
-           pass
-        if data.get('type_security') is None:
-           pass
-        if data.get('has_extractors') is None:
-           pass
-        if data.get('extractors_ubication') is None:
-           pass
-        if data.get('modular') is None:
-           pass
-        if data.get('lateral_doors') is None:
-           pass
-        if data.get('lateral_ubication') is None:
-           pass
-        if data.get('rack_unit') is None:
-           pass
-        if data.get('rack_position') is None:
-           pass
-        if data.get('has_accessory') is None:
-           pass
-        if data.get('accessory_description') is None:
-           pass
-        if data.get('rack_width') is None:
-           pass
-        if data.get('rack_length') is None:
-           pass
-        if data.get('rack_height') is None:
-           pass
-        if data.get('internal_pdu') is None:
-           pass
-        if data.get('input_connector') is None:
-           pass
-        if data.get('fases') is None:
-           pass
-        if data.get('output_connector') is None:
-           pass
-        if data.get('neutro')is None:
-            pass
+        
 
         new_description = Description(
             brand=data.get("brand"),
