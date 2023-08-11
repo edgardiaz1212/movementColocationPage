@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Equipment, Description
+from api.models import db, User, Equipment, Description, Rack, Client
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -12,18 +12,118 @@ api = Blueprint('api', __name__)
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
-        data = request.json
+        data_form = request.form
+        
+        data={ 
+            "brand":data_form.get("brand"),
+            "model":data_form.get("model"),
+            "serial":data_form.get("serial"),
+            "number_part":data_form.get("number_part"),
+            "service":data_form.get("service"),
+            "five_years_prevition":data_form.get("five_years_prevition"),
+            "contract":data_form.get("contract"),
+            "observations":data_form.get("observations"),
+            "activity":data_form.get("activity"),
+            "has_cabinet":data_form.get("has_cabinet"),
+            'leased':data_form.get ('leased'),
+            'total_cabinets':data_form.get ('total_cabinets'),
+            'open_closed':data_form.get ('open_closed'),
+            'security':data_form.get ,
+            'security':data_form.get('security') ,
+            'type_security':data_form.get('type_security') ,
+            'has_extractors':data_form.get ('has_extractors'),
+            'extractors_ubication':data_form.get('extractors_ubication') ,
+            'modular':data_form.get ('modular'),
+            'lateral_doors':data_form.get('lateral_doors') ,
+            'lateral_ubication':data_form.get('lateral_ubication') ,
+            'rack_unit':data_form.get('rack_unit') ,
+            'rack_position':data_form.get('rack_position') ,
+            'has_accessory':data_form.get('has_accessory') ,
+            'accessory_description':data_form.get('accessory_description') ,
+            'rack_width':data_form.get('rack_width') ,
+            'rack_length':data_form.get('rack_length') ,
+            'rack_height':data_form.get('rack_height') ,
+            'internal_pdu':data_form.get('internal_pdu') ,
+            'input_connector':data_form.get('input_connector') ,
+            'fases':data_form.get('fases') ,
+            'output_connector':data_form.get('output_connector'),
+            'neutro':data_form.get('neutro')
+        }
+        if data.get("brand") is None:
+            return jsonify ({"msg": "Missing brand parameter"}), 400
+        if data.get("model") is None:
+            return jsonify ({"msg": "Missing model parameter"}), 400
+        if data.get("serial") is None:
+            return jsonify ({"msg": "Missing serial parameter"}), 400
+        if data.get("number_part") is None:
+            pass
+        if data.get("service") is None:
+           pass
+        if data.get("five_years_prevition") is None:
+           pass
+        if data.get("contract") is None:
+           pass
+        if data.get("observations") is None:
+           pass
+        if data.get("activity") is None:
+           pass
+        if data.get("has_cabinet") is None:
+           pass
+        if data.get('leased') is None:
+           pass
+        if data.get('total_cabinets') is None:
+           pass
+        if data.get('open_closed') is None:
+           pass
+        if data.get('security') is None:
+           pass
+        if data.get('type_security') is None:
+           pass
+        if data.get('has_extractors') is None:
+           pass
+        if data.get('extractors_ubication') is None:
+           pass
+        if data.get('modular') is None:
+           pass
+        if data.get('lateral_doors') is None:
+           pass
+        if data.get('lateral_ubication') is None:
+           pass
+        if data.get('rack_unit') is None:
+           pass
+        if data.get('rack_position') is None:
+           pass
+        if data.get('has_accessory') is None:
+           pass
+        if data.get('accessory_description') is None:
+           pass
+        if data.get('rack_width') is None:
+           pass
+        if data.get('rack_length') is None:
+           pass
+        if data.get('rack_height') is None:
+           pass
+        if data.get('internal_pdu') is None:
+           pass
+        if data.get('input_connector') is None:
+           pass
+        if data.get('fases') is None:
+           pass
+        if data.get('output_connector') is None:
+           pass
+        if data.get('neutro')is None:
+            pass
 
         new_description = Description(
-            brand=data['brand'],
-            model=data['model'],
-            serial=data['serial'],
-            number_part=data['number_part'],
-            service=data['service'],
-            five_years_prevition=data['five_years_prevition'],
-            observations=data['observations'],
-            activity=data['activity'],
-            contract=data['contract']
+            brand=data.get("brand"),
+            model=data.get('model'),
+            serial=data.get('serial'),
+            number_part=data.get('number_part'),
+            service=data.get('service'),
+            five_years_prevition=data.get('five_years_prevition'),
+            observations=data.get('observations'),
+            activity=data.get('activity'),
+            contract=data.get('contract')
         )
         db.session.add(new_description)
         db.session.commit()
@@ -42,7 +142,7 @@ def add_rack():
             lateral_ubication=data['lateral_ubication'],
             rack_unit=data['rack_unit'],
             rack_position=data['rack_position'],
-            has_accessory=data['has_accessory'],
+            has_accessory=data.get('has_accessory'),
             accessory_description=data['accessory_description'],
             rack_width=data['rack_width'],
             rack_length=data['rack_length'],
