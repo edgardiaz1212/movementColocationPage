@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 function Rack() {
   const [hasCabinet, setHasCabinet] = useState(true); 
   const [hasExtractors, setHasExtractors] = useState(false);
   const [hasLateralDoors, setHasLateralDoors] = useState(false);
   const [hasAccesories, setHasAccesories] = useState(false);
+  const { actions } = useContext(Context)
 
   const handleHasCabinetChange = (event) => {
     setHasCabinet(event.target.id === "siGabinete");
@@ -24,6 +26,11 @@ function Rack() {
   const handleHasAccesoriesChange = (event) => {
     setHasAccesories(event.target.id === "yesAccessories");
   };
+
+  const HandleAddRack=()=>  {
+    actions.addNewRack()
+    
+  }
 
   return (
     <>
