@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
+import { Link } from "react-router-dom";
 
 function Equipment() {
 const [hasService, setHasService]= useState(false)
@@ -347,6 +348,10 @@ const handleHasServiceChange = (event)=>{
         </select>
       </div>
       <Observations />
+      <Link to="/">
+      <button>Agregar</button>
+      </Link>
+
     </>
   );
 }

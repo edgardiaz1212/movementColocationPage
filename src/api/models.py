@@ -52,6 +52,8 @@ class Description(db.Model):
     service=db.Column(db.String(120),nullable=False)
     five_years_prevition=db.Column(db.String(255))
     observations=db.Column(db.String(255))
+    activity=db.Column(db.String(100))
+    contract=db.Column(db.String(100))
     
     def __repr__(self):
         return f'<Equipment {self.id}>'

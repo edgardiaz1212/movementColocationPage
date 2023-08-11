@@ -6,10 +6,10 @@ import "../../styles/home.css";
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
-  const [selectedService, setSelectedService] = useState(""); // Estado para el tipo de servicio seleccionado
+  const [selectedContract, setSelectedContract] = useState(""); // Estado para el tipo de servicio seleccionado
 
-  const handleServiceChange = (event) => {
-    setSelectedService(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
+  const handleContractChange = (event) => {
+    setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
   };
 
   return (
@@ -17,13 +17,13 @@ export const Home = () => {
       <h1>Solicitud</h1>
 
       <div className="container">
-        Tipo de servicio
+        Tipo de Contrato
         <select
           className="form-select"
           aria-label="Default select example"
-          onChange={handleServiceChange}
+          onChange={handleContractChange}
         >
-          <option value="">Seleccionar servicio</option>
+          <option value="">Seleccionar Contrato</option>
           <option value="rack">Colocacion en Rack</option>
           <option value="equipment">Colocacion Catalogado</option>
         </select>
@@ -44,13 +44,13 @@ export const Home = () => {
 	  </div>
 
 
-      {selectedService === "rack" && (
+      {selectedContract === "rack" && (
         <Link to="/rack">
           <button>Agregar Rack</button>
         </Link>
       )}
 
-      {selectedService === "equipment" && (
+      {selectedContract === "equipment" && (
         <>
           <Link to="/rack">
             <button>Agregar Rack</button>
@@ -61,7 +61,7 @@ export const Home = () => {
         </>
       )}
 
-      {selectedService && (
+      {selectedContract && (
         <div className="m-auto col-4">
           <label htmlFor="finalClient" className="form-label">
             Nombre del Cliente Final
