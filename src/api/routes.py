@@ -12,18 +12,62 @@ api = Blueprint('api', __name__)
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
-        data = request.json
+        data_form = request.form
+        
+        data={ 
+            "brand":data_form.get("brand"),
+            "model":data_form.get("model"),
+            "serial":data_form.get("serial"),
+            "number_part":data_form.get("number_part"),
+            "service":data_form.get("service"),
+            "five_years_prevition":data_form.get("five_years_prevition"),
+            "contract":data_form.get("contract"),
+            "observations":data_form.get("observations"),
+            "activity":data_form.get("activity"),
+            "has_cabinet":data_form.get("has_cabinet"),
+            'leased':data_form.get ('leased'),
+            'total_cabinets':data_form.get ('total_cabinets'),
+            'open_closed':data_form.get ('open_closed'),
+            'security':data_form.get ,
+            'security':data_form.get('security') ,
+            'type_security':data_form.get('type_security') ,
+            'has_extractors':data_form.get ('has_extractors'),
+            'extractors_ubication':data_form.get('extractors_ubication') ,
+            'modular':data_form.get ('modular'),
+            'lateral_doors':data_form.get('lateral_doors') ,
+            'lateral_ubication':data_form.get('lateral_ubication') ,
+            'rack_unit':data_form.get('rack_unit') ,
+            'rack_position':data_form.get('rack_position') ,
+            'has_accessory':data_form.get('has_accessory') ,
+            'accessory_description':data_form.get('accessory_description') ,
+            'rack_width':data_form.get('rack_width') ,
+            'rack_length':data_form.get('rack_length') ,
+            'rack_height':data_form.get('rack_height') ,
+            'internal_pdu':data_form.get('internal_pdu') ,
+            'input_connector':data_form.get('input_connector') ,
+            'fases':data_form.get('fases') ,
+            'output_connector':data_form.get('output_connector'),
+            'neutro':data_form.get('neutro'),
+            'client':data_form.get('cliente')
+        }
+        if data.get("brand") is None:
+            return jsonify ({"msg": "Missing brand parameter"}), 400
+        if data.get("model") is None:
+            return jsonify ({"msg": "Missing model parameter"}), 400
+        if data.get("serial") is None:
+            return jsonify ({"msg": "Missing serial parameter"}), 400
+        
 
         new_description = Description(
-            brand=data['brand'],
-            model=data['model'],
-            serial=data['serial'],
-            number_part=data['number_part'],
-            service=data['service'],
-            five_years_prevition=data['five_years_prevition'],
-            observations=data['observations'],
-            activity=data['activity'],
-            contract=data['contract']
+            brand=data.get("brand"),
+            model=data.get('model'),
+            serial=data.get('serial'),
+            number_part=data.get('number_part'),
+            service=data.get('service'),
+            five_years_prevition=data.get('five_years_prevition'),
+            observations=data.get('observations'),
+            activity=data.get('activity'),
+            contract=data.get('contract')
         )
         db.session.add(new_description)
         db.session.commit()
@@ -42,7 +86,7 @@ def add_rack():
             lateral_ubication=data['lateral_ubication'],
             rack_unit=data['rack_unit'],
             rack_position=data['rack_position'],
-            has_accessory=data['has_accessory'],
+            has_accessory=data.get('has_accessory'),
             accessory_description=data['accessory_description'],
             rack_width=data['rack_width'],
             rack_length=data['rack_length'],

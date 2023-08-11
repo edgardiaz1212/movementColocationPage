@@ -52,7 +52,7 @@ class Description(db.Model):
     brand = db.Column(db.String(120),  nullable=False)
     model = db.Column(db.String(120),  nullable=False)
     serial = db.Column(db.String(120), unique=False, nullable=False)
-    number_part = db.Column(db.String(120), nullable=False)
+    number_part = db.Column(db.String(120) )
     service=db.Column(db.String(120),nullable=False)
     five_years_prevition=db.Column(db.String(255))
     observations=db.Column(db.String(255))
@@ -73,7 +73,9 @@ class Description(db.Model):
             "number_part": self.number_part,
             "service": self.service,
             "five_years_prevition":self.five_years_prevition,
-            "contract":self.contract
+            "contract":self.contract, 
+            "observations":self.observations,
+            "activity":self.activity
         }
 
 class Rack(db.Model):
