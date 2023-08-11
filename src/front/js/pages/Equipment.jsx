@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
 
 function Equipment() {
+const [hasService, setHasService]= useState(false)
+
+const handleHasServiceChange = (event)=>{
+  setHasService(event.target.id === 'serviceAreaYes')
+}
+
   return (
     <>
       <Details />
@@ -121,6 +127,7 @@ function Equipment() {
               type="radio"
               name="flexRadioService"
               id="serviceAreaYes"
+              onChange={handleHasServiceChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaYes">
               Sí
@@ -132,13 +139,14 @@ function Equipment() {
               type="radio"
               name="flexRadioService"
               id="serviceAreaNo"
-              checked
+              checked={!hasService}
+              onChange={handleHasServiceChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaNo">
               No
             </label>
           </div>
-
+{hasService && (
           <div className="container">
             Ubicacion area de servivio
             <div className="form-check">
@@ -175,6 +183,7 @@ function Equipment() {
               </label>
             </div>
           </div>
+)}
         </form>
 
         <div className="container row">
