@@ -8,14 +8,11 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
-    coordination =db.Column(db.String(120), nullable=False)
-    salt=db.Column(db.String(100), unique=False, nullable=False)
-    create_at = db.Column(db.DateTime, nullable=False,
-                          default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(
-    ), default=db.func.current_timestamp())
-    user_owned_racks = db.relationship('Rack', back_populates='user_owner', lazy=True)
-    equipments = db.relationship('Equipment', back_populates='equipment_owner', lazy=True)
+    coordination = db.Column(db.String(120), nullable=False)
+    salt = db.Column(db.String(100), unique=False, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
+    updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(), default=db.func.current_timestamp())
+    owners = db.relationship('Client', back_populates='owner', lazy=True)  # Cambiar 'backref' a 'back_populates'
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -24,16 +21,22 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
-            "coordination":self.coordination,
-            "name":self.name,
-            "created_at":self.created_at,
-            "updated_at":self.updated_at
+            "coordination": self.coordination,
+            "name": self.name,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
             # do not serialize the password, its a security breach
         }
-class finalClient(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(255), nullable=False, unique=True)
-    
+
+
+class Client(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False, unique=True)
+    racks = db.relationship('Rack', backref='client', lazy=True)
+    equipments = db.relationship('Equipment', backref='client', lazy=True)
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Cambiar 'user_id' a 'owner_id'
+    owner = db.relationship('User', back_populates='owners')  # Cambiar 'backref' a 'back_populates'
+
     def __repr__(self):
         return f'<Client {self.name}>'
 
@@ -41,7 +44,7 @@ class finalClient(db.Model):
         return {
             "id": self.id,
             "name": self.name
-            }
+        }
 
 class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -54,6 +57,8 @@ class Description(db.Model):
     observations=db.Column(db.String(255))
     activity=db.Column(db.String(100))
     contract=db.Column(db.String(100))
+    rack = db.relationship('Rack', uselist=False, back_populates='description')
+    equipment = db.relationship('Equipment', uselist=False, back_populates='description')
     
     def __repr__(self):
         return f'<Equipment {self.id}>'
@@ -66,7 +71,8 @@ class Description(db.Model):
             "serial": self.serial,
             "number_part": self.number_part,
             "service": self.service,
-            "five_years_prevition":self.five_years_prevition
+            "five_years_prevition":self.five_years_prevition,
+            "contract":self.contract
         }
 
 class Rack(db.Model):
@@ -94,10 +100,11 @@ class Rack(db.Model):
     fases=db.Column(db.String(10))
     output_connector=db.Column(db.String(100))
     neutro=db.Column(db.Boolean())
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user_owner = db.relationship('User', back_populates='user_owned_racks', foreign_keys=[owner_id])
+    equipments = db.relationship('Equipment', back_populates='rack')
+    description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
+    description = db.relationship('Description', uselist=False, back_populates='rack')
 
-
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
     
     def __repr__(self):
         return f'<Rack {self.id}>'
@@ -154,11 +161,12 @@ class Equipment(db.Model):
     operation_temp=db.Column(db.String(20))
     thermal_disipation=db.Column(db.String(20))
     power_config=db.Column(db.String(20))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    equipment_owner = db.relationship('User', back_populates='equipments', foreign_keys=[user_id])
+    description = db.relationship('Description', uselist=False, back_populates='equipment')
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
-    description = db.relationship('Description', backref=db.backref('equipments', lazy=True))
-
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
+    rack_id = db.Column(db.Integer, db.ForeignKey('rack.id'), nullable=False)
+    rack = db.relationship('Rack', back_populates='equipments')
+    
     def __repr__(self):
         return f'<Equipment {self.id}>'
     
