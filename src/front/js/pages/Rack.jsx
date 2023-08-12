@@ -27,13 +27,14 @@ function Rack() {
     setHasAccesories(event.target.id === "yesAccessories");
   };
 
-  const HandleAddRack=()=>  {
-    actions.addNewRack()
-    
-  }
+const HandleAddRack = () => {
+  const formData = new FormData(document.getElementById("rackForm"));
+  actions.addNewRack(formData);
+};
 
   return (
     <>
+    <form id="rackForm">
       <Details />
       <div className=" container ">
         <div className="p-3 mb-2 bg-info">
@@ -41,7 +42,7 @@ function Rack() {
         </div>
 
         <div className="row">
-          <form className="col-4 m-auto ">
+          <div className="col-4 m-auto ">
             <p>Posee Gabinete ?</p>
             <div className="form-check">
               <input
@@ -58,7 +59,7 @@ function Rack() {
             </div>
             <div className="form-check">
               <input
-                className="form-check-input"
+                className="div-check-input"
                 type="radio"
                 name="flexRadioOwn"
                 id="noGabinete"
@@ -70,10 +71,10 @@ function Rack() {
                 No
               </label>
             </div>
-          </form>
+          </div>
           {hasCabinet && (
             <>
-              <form className="col-4 m-auto">
+              <div className="col-4 m-auto">
                 <p>Propio o arrendado ?</p>
                 <div className="form-check">
                   <input
@@ -98,7 +99,7 @@ function Rack() {
                     Arrendado
                   </label>
                 </div>
-              </form>
+              </div>
               <div className="m-auto col-4">
                 <label htmlFor="totalGabinetes" className="form-label">
                   Numero Total de Gabinetes
@@ -121,7 +122,7 @@ function Rack() {
                   placeholder="tipo de seguridad y cantidad"
                 />
               </div>
-              <form className="col-4">
+              <div className="col-4">
                 <p>Posee Extractores ?</p>
                 <div className="form-check">
                   <input
@@ -148,7 +149,7 @@ function Rack() {
                     No
                   </label>
                 </div>
-              </form>
+              </div>
               {hasExtractors && (
                 <div className="m-auto col-4">
                   <label htmlFor="extractores" className="form-label">
@@ -156,13 +157,13 @@ function Rack() {
                   </label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="div-control"
                     id="extractores"
                     placeholder="Introduzca la ubicacion de los extractores"
                   />
                 </div>
               )}
-              <form className="col-4 m-auto">
+              <div className="col-4 m-auto">
                 <p>Es Modular ?</p>
                 <div className="form-check">
                   <input
@@ -187,8 +188,8 @@ function Rack() {
                     No
                   </label>
                 </div>
-              </form>
-              <form className="col-4 m-auto">
+              </div>
+              <div className="col-4 m-auto">
                 <p>Posee Puertas de servicio lateral: ?</p>
                 <div className="form-check">
                   <input
@@ -202,7 +203,7 @@ function Rack() {
                     Si
                   </label>
                 </div>
-                <div className="form-check">
+                <div className="div-check">
                   <input
                     className="form-check-input"
                     type="radio"
@@ -215,7 +216,7 @@ function Rack() {
                     No
                   </label>
                 </div>
-              </form>
+              </div>
               {hasLateralDoors && (
                 <div className="m-auto col-4">
                   <label htmlFor="lateralDoors" className="form-label">
@@ -251,7 +252,7 @@ function Rack() {
                   placeholder="Introduzca la posicion del rack respecto a los demas"
                 />
               </div>
-              <form className="m-auto col-4">
+              <div className="m-auto col-4">
                 <p>¿Tiene Accesorios Adicionales?</p>
                 <div className="form-check">
                   <input
@@ -267,7 +268,7 @@ function Rack() {
                 </div>
                 <div className="form-check">
                   <input
-                    className="form-check-input"
+                    className="div-check-input"
                     type="radio"
                     name="flexRadioAccessories"
                     id="noAccessories"
@@ -278,7 +279,7 @@ function Rack() {
                     No
                   </label>
                 </div>
-              </form>
+              </div>
 
               {hasAccesories && (
                 <div className="m-auto col-4">
@@ -372,7 +373,7 @@ function Rack() {
             placeholder="Introduzca la cantidad de Tomas de la PDU"
           />
         </div>
-        <form className="col-3 "></form>
+        <div className="col-3 "></div>
         <p>Tiene conexión al neutro?</p>
         <div className="form-check">
           <input
@@ -401,8 +402,11 @@ function Rack() {
         <Observations />
       </div>
       <Link to="/">
-      <button>Agregar</button>
+      <button
+      onClick={HandleAddRack}
+      type="button">Agregar</button>
       </Link>
+      </form>
     </>
   );
 }
