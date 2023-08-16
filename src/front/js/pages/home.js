@@ -5,9 +5,9 @@ import { Context } from '../store/appContext'
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-	const [selectedContract, setSelectedContract] = useState(store.contractservice);
-    const [selectedService, setSelectedService] = useState(store.servicetype);
-    const [clientName, setClientName] = useState(store.finalclient);
+	const [selectedContract, setSelectedContract] = useState("");
+	const [selectedService, setSelectedService] = useState("");
+	const [clientName, setClientName] = useState("");
 
 	const handleContractChange = (event) => {
 		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
@@ -16,13 +16,14 @@ export const Home = () => {
 	const handleServiceChange = (event) => {
 		setSelectedService(event.target.value);
 	};
-	const handleAddRequest = () => {
-		// Dispara la acción para guardar los datos en el store
-		actions.saveFormData(selectedContract, selectedService, clientName);
-	};
+
 	const handleClientNameChange = (event) => {
 		setClientName(event.target.value);
-	  };
+		};
+
+	console.log(selectedContract)
+	console.log(selectedService)
+	console.log(clientName)
 	return (
 		<div className="container text-center mt-5">
 			<h1>Solicitud</h1>
@@ -55,13 +56,13 @@ export const Home = () => {
 						<option value="mudanza">Mudanza</option>
 					</select>
 					<div className="m-auto col-4">
-						<label htmlFor="finalClient" className="form-label">
+						<label htmlFor="clientName" className="form-label">
 							Nombre del Cliente Final
 						</label>
 						<input
 							type="text"
 							className="form-control"
-							id="finalClient"
+							id="clientName"
 							placeholder="Ingrese el nombre del cliente final"
 							value={clientName}
 							onChange={handleClientNameChange}
@@ -71,13 +72,20 @@ export const Home = () => {
 						<div>
 							{selectedContract === "colRack" && (
 								<Link to="/rack">
-									<button onClick={handleAddRequest}>Agregar Rack</button>
+									<button
+										onClick={() => actions.addNewRack(selectedContract, selectedService, clientName)}
+									>
+										Agregar Rack
+									</button>
 								</Link>
 							)}
 							{selectedContract === "colCatalogado" && (
 								<>
 									<Link to="/rack">
-										<button onClick={handleAddRequest}>Agregar Rack</button>
+										<button
+											onClick={() => actions.addNewRack(selectedContract, selectedService, clientName)}
+										>
+											Agregar Rack</button>
 									</Link>
 									<Link to="/equipment">
 										<button onClick={handleAddRequest}>Agregar Equipo</button>
