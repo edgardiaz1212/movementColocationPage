@@ -9,28 +9,28 @@ function Rack() {
   const { actions } = useContext(Context)
 
   const [formData, setFormData] = useState({
-    hasCabinet: true,
+    has_cabinet: true,
     leased: true,
     hasExtractors: false,
     has_accessory: false,
     total_cabinets: "",
     security: "",
-    has_extractors:true,
-    extractors_ubication:"",
-    modular:"",
-    lateral_doors:true,
-    lateral_ubication:"",
-    rack_unit:"",
-    rack_position:"",
-    accessory_description:"",
-    rack_width:"",
-    rack_length:"",
-    rack_height:"",
-    internal_pdu:"",
-    input_connector:"",
-    fases:"",
-    output_connector:"",
-    neutro:true
+    has_extractors: true,
+    extractors_ubication: "",
+    modular: "",
+    lateral_doors: true,
+    lateral_ubication: "",
+    rack_unit: "",
+    rack_position: "",
+    accessory_description: "",
+    rack_width: "",
+    rack_length: "",
+    rack_height: "",
+    internal_pdu: "",
+    input_connector: "",
+    fases: "",
+    output_connector: "",
+    neutro: true
   });
 
   const handleFieldChange = (event) => {
@@ -96,15 +96,16 @@ function Rack() {
           </div>
 
           <div className="row">
-            <div className="col-4 m-auto border border-danger ">
+            <div className="col-4 ">
               <p>Posee Gabinete ?</p>
-              <div className="form-check ">
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="radio"
-                  name="hasCabinet"
+                  name="has_cabinet"
                   id="siGabinete"
-                  value="siGabinete"
+                  value={true}
+                  checked={formData.has_cabinet === true}
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="siGabinete">
@@ -113,12 +114,12 @@ function Rack() {
               </div>
               <div className="form-check">
                 <input
-                  className="div-check-input"
+                  className="form-check-input"
                   type="radio"
-                  name="hasCabinet"
+                  name="has_cabinet"
                   id="noGabinete"
-                  value="noGabinete"
-                  checked={!formData.hasCabinet}
+                  value={false}
+                  checked={formData.has_cabinet === false}
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="noGabinete">
@@ -126,7 +127,7 @@ function Rack() {
                 </label>
               </div>
             </div>
-            {formData.hasCabinet && (
+            {formData.has_cabinet=== true && (
               <>
                 <div className="col-4 m-auto">
                   <p>Propio o arrendado ?</p>
