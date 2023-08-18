@@ -235,6 +235,7 @@ function Rack() {
                       type="radio"
                       name="modular"
                       id="yesModular"
+                      value="true"
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="yesModular">
@@ -247,6 +248,7 @@ function Rack() {
                       type="radio"
                       name="modular"
                       id="noModular"
+                      value="false"
                       checked
                       onChange={handleFieldChange}
                     />
@@ -262,7 +264,9 @@ function Rack() {
                       className="form-check-input"
                       type="radio"
                       name="lateral_doors"
+                      value="true"
                       id="yesLateralDoors"
+                      checked={formData.lateral_doors==="true"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="yesLateralDoors">
@@ -274,8 +278,9 @@ function Rack() {
                       className="form-check-input"
                       type="radio"
                       name="lateral_doors"
+                      value="false"
                       id="noLateralDoors"
-                      checked={!formData.lateral_doors}
+                      checked={formData.lateral_doors==="false"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="noLateralDoors">
@@ -283,7 +288,7 @@ function Rack() {
                     </label>
                   </div>
                 </div>
-                {formData.lateral_doors && (
+                
                   <div className="m-auto col-4">
                     <label htmlFor="lateral_ubication" className="form-label">
                       Si la respuesta es SI, Dónde:
@@ -295,9 +300,10 @@ function Rack() {
                       id="lateral_ubication"
                       placeholder="Introduzca la ubicacion de las Puertas de Servicio"
                       onChange={handleFieldChange}
+                      disabled={formData.lateral_doors==="false"}
                     />
                   </div>
-                )}
+                
                 <div className="m-auto col-4">
                   <label htmlFor="rack_unit" className="form-label">
                     Total de unidades de Rack
@@ -486,6 +492,7 @@ function Rack() {
               type="radio"
               name="neutro"
               id="yesNeutro"
+              value="true"
               onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="yesNeutro">
@@ -498,6 +505,7 @@ function Rack() {
               type="radio"
               name="neutro"
               id="noNeutro"
+              value="false"
               checked
               onChange={handleFieldChange}
             />
