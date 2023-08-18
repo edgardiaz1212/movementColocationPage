@@ -13,6 +13,9 @@ function Rack() {
     model:"",
     serial:"",
     number_part:"",
+    componentType:"",
+    observations:"",
+    five_years_prevition:"",
     has_cabinet: "true",
     leased: "true",
     has_extractors: "true",
@@ -57,7 +60,7 @@ function Rack() {
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
       formData.append("number_part", formData.number_part),
-      
+      formData.append("componentType",formData.componentType)
       formData.append("five_years_prevition", formData.five_years_prevition),
       formData.append("observations", formData.observations),
       formData.append("activity", formData.activity),
@@ -527,7 +530,7 @@ function Rack() {
             </label>
           </div>
 
-          <Observations />
+          <Observations handleFieldChange={handleFieldChange} formData={formData}/>
         </div>
         <Link to="/">
           <button

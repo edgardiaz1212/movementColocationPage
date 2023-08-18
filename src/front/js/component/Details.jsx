@@ -77,7 +77,9 @@ function Details({handleFieldChange, formData}) {
               className="form-control"
               id="componentType"
               name="componentType"
+              value={formData.componentType}
               placeholder="Introduzca el tipo de componente"
+              onChange={handleFieldChange}
             />
           </div>
         </div>
