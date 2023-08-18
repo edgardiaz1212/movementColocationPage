@@ -169,7 +169,9 @@ def add_equipment():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             activity=data.get('activity'),
-            contract=data.get('contract')
+            contract=data.get('contract'),
+            clientName=data.get('clientName'),
+            componentType=data.get('componentType')
             
         )
 

@@ -62,9 +62,9 @@ function Equipment() {
       formData.append('output_connector', formData.output_connector),
       formData.append('neutro', formData.neutro)
   
-      const response = await actions.addRack(formData)
+      const response = await actions.addEquipment(formData)
     } catch (error) {
-      console.log("newrack: ", error)
+      console.log("newEquipment ", error)
 
     }
   };
