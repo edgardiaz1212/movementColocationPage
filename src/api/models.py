@@ -95,7 +95,7 @@ class Rack(db.Model):
     lateral_ubication=db.Column(db.String(120))
     rack_unit=db.Column(db.Integer)
     rack_position=db.Column(db.String(120))
-    has_accessory = db.Column(db.Boolean)
+    has_accessory = db.Column(db.Boolean())
     accessory_description = db.Column(db.String(255))
     rack_width = db.Column(db.String(120))
     rack_length = db.Column(db.String(120))
@@ -152,10 +152,14 @@ class Equipment(db.Model):
     packaging_heigth=db.Column(db.String(120))
     weight=db.Column(db.String(120))
     anchor=db.Column(db.String(120))
-    service_area=db.Column(JSON, nullable=True)
+    service_area=db.Column(db.Boolean())
+    service_frontal=db.Column(db.Boolean())
+    service_back=db.Column(db.Boolean())
+    service_lateral=db.Column(db.Boolean())  
     access_width=db.Column(db.String(120))
     access_inclination=db.Column(db.String(120))
     access_length=db.Column(db.String(120))
+    rack_number=db.Column(db.String(10))
     rack_unit_position=db.Column(db.String(120))
     total_rack_units=db.Column(db.Integer)
     ac_dc=db.Column(db.String(10))
@@ -186,6 +190,9 @@ class Equipment(db.Model):
             'weight':self.weight,
             "anchor":self.anchor,
             'service_area':self.service_area,
+            'service_frontal': self.service_frontal,
+            'service_back': self.service_back,
+            'service_lateral': self.service_lateral,
             'access_width':self.access_width,
             'access_inclination':self.access_inclination,
             'access_length':self.access_length,

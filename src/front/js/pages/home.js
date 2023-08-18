@@ -19,9 +19,9 @@ export const Home = () => {
 
 	const handleClientNameChange = (event) => {
 		setClientName(event.target.value);
-		};
+	};
 
-	
+
 	return (
 		<div className="container text-center mt-5">
 			<h1>Solicitud</h1>
@@ -70,11 +70,11 @@ export const Home = () => {
 					{selectedService && (
 						<div>
 							{selectedContract === "colRack" && (
-								<Link to="/rack">
+								<Link to="/equipment">
 									<button
-										onClick={() => actions.addNewRack(selectedContract, selectedService, clientName)}
+										onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
 									>
-										Agregar Rack
+										Agregar Equipo
 									</button>
 								</Link>
 							)}
@@ -87,7 +87,10 @@ export const Home = () => {
 											Agregar Rack</button>
 									</Link>
 									<Link to="/equipment">
-									onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
+										<button
+											onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
+										>
+											Agregar Equipo</button>
 									</Link>
 								</>
 							)}

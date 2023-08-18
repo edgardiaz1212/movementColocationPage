@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 function Equipment() {
+  const { actions } = useContext(Context)
+
   const [formData, setFormData] = useState({
-    brand:"",
-    model:"",
-    serial:"",
-    number_part:"",
-    componentType:"",
-    observations:"",
-    five_years_prevition:"",
+    brand: "",
+    model: "",
+    serial: "",
+    number_part: "",
+    componentType: "",
+    observations: "",
+    five_years_prevition: "",
   })
   const handleFieldChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -25,43 +28,45 @@ function Equipment() {
   const handleAddEquipment = async (selectedContract, selectedService, clientName) => {
     try {
       const formData = new FormData();
-      
+
       formData.append("clientName", clientName);
       formData.append("contract", selectedContract);
       formData.append("service", selectedService);
       formData.append("model", formData.model)
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
-      formData.append("number_part", formData.number_part),
-      formData.append("componentType",formData.componentType)
-      formData.append("five_years_prevition", formData.five_years_prevition),
-      formData.append("observations", formData.observations),
-      formData.append("activity", formData.activity),
-      
-      formData.append("has_cabinet", formData.hascabinet),
-      formData.append('leased', formData.leased),
-      formData.append('total_cabinets', formData.total_cabinets),
-      formData.append('open_closed', formData.open_closed),
-      formData.append('security', formData.security),
-      formData.append('type_security', formData.type_security),
-      formData.append('has_extractors', formData.has_extractors),
-      formData.append('extractors_ubication', formData.extractors_ubication),
-      formData.append('modular', formData.modular),
-      formData.append('lateral_doors', formData.lateral_doors),
-      formData.append('lateral_ubication', formData.lateral_ubication),
-      formData.append('rack_unit', formData.rack_unit),
-      formData.append('rack_position', formData.rack_position),
-      formData.append('has_accessory', formData.has_accessory),
-      formData.append('accessory_description', formData.accessory_description),
-      formData.append('rack_width', formData.rack_width),
-      formData.append('rack_length', formData.rack_length),
-      formData.append('rack_height', formData.rack_height),
-      formData.append('internal_pdu', formData.internal_pdu),
-      formData.append('input_connector', formData.input_connector),
-      formData.append('fases', formData.fases),
-      formData.append('output_connector', formData.output_connector),
-      formData.append('neutro', formData.neutro)
-  
+      formData.append("number_part", formData.number_part)
+      formData.append("componentType", formData.componentType)
+      formData.append("five_years_prevition", formData.five_years_prevition)
+      formData.append("observations", formData.observations)
+      formData.append("activity", formData.activity)
+      formData.append("equipment_width", formData.equipment_width)
+      formData.append('equipment_height', formData.equipment_height)
+      formData.append('equipment_length', formData.equipment_length)
+      formData.append('packaging_width', formData.packaging_width)
+      formData.append('packaging_length', formData.packaging_length)
+      formData.append('packaging_height', formData.packaging_height)
+      formData.append('weight', formData.weight)
+      formData.append('anchor', formData.anchor)
+      formData.append('service_area', formData.service_area)
+      formData.append('service_frontal', formData.service_frontal)
+      formData.append('service_back', formData.service_back)
+      formData.append('service_lateral', formData.service_lateral)
+      formData.append('access_width', formData.access_width)
+      formData.append('access_inclination', formData.access_inclination)
+      formData.append('access_length', formData.access_length)
+      formData.append('rack_number', formData.rack_number)
+      formData.append('rack_unit_position', formData.rack_unit_position)
+      formData.append('total_rack_units', formData.total_rack_units)
+      formData.append('ac_dc', formData.ac_dc)
+      formData.append('input_current', formData.input_current)
+      formData.append('power', formData.power)
+      formData.append('power_supply', formData.power_supply)
+      formData.append('operation_temp', formData.operation_temp)
+      formData.append('thermal_disipation', formData.thermal_disipation)
+      formData.append('power_config', formData.power_config)
+
+
       const response = await actions.addEquipment(formData)
     } catch (error) {
       console.log("newEquipment ", error)
@@ -70,7 +75,7 @@ function Equipment() {
   };
   return (
     <>
-      <Details />
+      <Details handleFieldChange={handleFieldChange} formData={formData} />
       <div className="container">
         <div className="p-3 mb-2 bg-info">
           <h2>ESPECIFICACIONES FÍSICAS DEL EQUIPO</h2>
@@ -79,38 +84,47 @@ function Equipment() {
           <h4 className="col-3">Dimensiones del Equipo</h4>
           <div className="col-6">
             <div className="m-auto">
-              <label htmlFor="equipWidth" className="form-label">
+              <label htmlFor="equipment_width" className="form-label">
                 Ancho (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="equipWidth"
+                id="equipment_width"
+                name="equipment_width"
+                value={formData.equipment_width}
                 placeholder="Introduzca el ancho del equipo"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="equipLength" className="form-label">
+              <label htmlFor="equipment_length" className="form-label">
                 Largo (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="equipLength"
+                id="equipment_length"
+                name="equipment_length"
+                value={formData.equipment_length}
                 placeholder="Introduzca el largo del equipo"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="equipHeight" className="form-label">
+              <label htmlFor="equipment_height" className="form-label">
                 Alto (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="equipHeight"
+                id="equipment_height"
+                name="equipment_height"
+                value={formData.equipment_height}
                 placeholder="Introduzca el alto del equipo"
+                onChange={handleFieldChange}
               />
             </div>
           </div>
@@ -120,51 +134,63 @@ function Equipment() {
           <h4 className="col-3">Dimensiones de la caja del equipo</h4>
           <div className="col-6">
             <div className="m-auto">
-              <label htmlFor="boxWidth" className="form-label">
+              <label htmlFor="packaging_width" className="form-label">
                 Ancho (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="boxWidth"
+                id="packaging_width"
+                name="packaging_width"
+                value={formData.packaging_width}
                 placeholder="Introduzca el ancho del embalaje"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="boxLength" className="form-label">
+              <label htmlFor="packaging_length" className="form-label">
                 Largo (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="boxLength"
+                id="packaging_length"
+                name="packaging_length"
+                value={formData.packaging_length}
                 placeholder="Introduzca el largo del embalaje"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="boxHeight" className="form-label">
+              <label htmlFor="packaging_height" className="form-label">
                 Alto (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="boxHeight"
+                id="packaging_height"
+                name="packaging_height"
+                value={formData.packaging_height}
                 placeholder="Introduzca el alto del embalaje"
+                onChange={handleFieldChange}
               />
             </div>
           </div>
         </div>
         <div className="m-auto col-4">
-          <label htmlFor="maxWeigth" className="form-label">
+          <label htmlFor="weight" className="form-label">
             Peso Maximo del equipo
           </label>
           <input
             type="text"
             className="form-control"
-            id="maxWeigth"
+            id="weight"
+            name="weight"
+            value={formData.weight}
             placeholder="Introduzca el peso maximo que puede tener"
+            onChange={handleFieldChange}
           />
         </div>
         <div className="m-auto col-4">
@@ -175,7 +201,10 @@ function Equipment() {
             type="text"
             className="form-control"
             id="anchor"
+            name="anchor"
+            value={formData.anchor}
             placeholder="Introduzca el peso maximo que puede tener"
+            onChange={handleFieldChange}
           />
         </div>
         <form className="m-auto col-4">
@@ -184,9 +213,11 @@ function Equipment() {
             <input
               className="form-check-input"
               type="radio"
-              name="flexRadioService"
               id="serviceAreaYes"
-              onChange={handleHasServiceChange}
+              name="service_area"
+              value="Si"
+              checked={formData.service_area === "Si"}
+              onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaYes">
               Sí
@@ -196,27 +227,29 @@ function Equipment() {
             <input
               className="form-check-input"
               type="radio"
-              name="flexRadioService"
+              name="service_area"
               id="serviceAreaNo"
-              checked={!hasService}
-              onChange={handleHasServiceChange}
+              value="No"
+              checked={formData.service_area === "No"}
+              onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaNo">
               No
             </label>
           </div>
-{hasService && (
+
           <div className="container">
             Ubicacion area de servivio
             <div className="form-check">
               <input
                 className="form-check-input"
                 type="checkbox"
-                value=""
-                name="service_area"
-                id="flexCheckFrontal"
+                name="service_frontal"
+                id="service_frontal"
+                value={formData.service_frontal}
+                disabled={formData.service_area === "No"}
               />
-              <label className="form-check-label" htmlFor="flexCheckFrontal">
+              <label className="form-check-label" htmlFor="service_frontal">
                 Frontal
               </label>
             </div>
@@ -224,11 +257,12 @@ function Equipment() {
               <input
                 className="form-check-input"
                 type="checkbox"
-                value=""
-                name="service_area"
-                id="flexCheckPosterior"
+                name="service_back"
+                id="service_back"
+                value={formData.service_back}
+                disabled={formData.service_area === "No"}
               />
-              <label className="form-check-label" htmlFor="flexCheckPosterior">
+              <label className="form-check-label" htmlFor="service_back">
                 Posterior
               </label>
             </div>
@@ -236,171 +270,213 @@ function Equipment() {
               <input
                 className="form-check-input"
                 type="checkbox"
-                value=""
-                name="service_area"
-                id="flexCheckLateral"
+                name="service_lateral"
+                id="service_lateral"
+                value={formData.service_lateral}
+                disabled={formData.service_area === "No"}
               />
-              <label className="form-check-label" htmlFor="flexCheckLateral">
+              <label className="form-check-label" htmlFor="service_lateral">
                 Lateral
               </label>
             </div>
           </div>
-)}
+
         </form>
 
         <div className="container row">
           <h4 className="col-3">Dimensiones Requeridas ruta de acceso</h4>
           <div className="col-6">
             <div className="m-auto">
-              <label htmlFor="heigthAccess" className="form-label">
+              <label htmlFor="access_length" className="form-label">
                 Altura minima puerta (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="heigthAccess"
+                id="access_length"
+                name="access_length"
+                value={formData.access_length}
                 placeholder="Introduzca altura minima para el acceso"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="widthAccess" className="form-label">
+              <label htmlFor="access_width" className="form-label">
                 Ancho (en cm):
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="widthAccess"
+                id="access_width"
+                name="access_width"
+                value={formData.access_width}
                 placeholder="Introduzca el ancho para el acceso"
+                onChange={handleFieldChange}
               />
             </div>
 
             <div className="m-auto">
-              <label htmlFor="inclinationAccess" className="form-label">
+              <label htmlFor="access_inclination" className="form-label">
                 Inclinacion :
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="inclinationAccess"
+                id="access_inclination"
+                name="access_inclination"
+                value={formData.access_inclination}
                 placeholder="Introduzca la inclinacion permitida"
+                onChange={handleFieldChange}
               />
             </div>
           </div>
         </div>
 
         <div className="m-auto col-4">
-          <label htmlFor="numRack" className="form-label">
+          <label htmlFor="rack_number" className="form-label">
             Ubicacion, Rack donde estara ubicado
           </label>
           <input
             type="text"
             className="form-control"
-            id="numRack"
+            id="rack_number"
+            value={formData.rack_number}
             placeholder="Introduzca en que rack se colocara"
+            onChange={handleFieldChange}
           />
         </div>
 
         <div className="m-auto col-4">
-          <label htmlFor="positionRack" className="form-label">
+          <label htmlFor="rack_unit_position" className="form-label">
             Las unidades de rack que ocupara
           </label>
           <input
             type="text"
             className="form-control"
-            id="positionRack"
+            id="rack_unit_position"
+            name="rack_unit_position"
+            value={formData.rack_unit_position}
             placeholder="Introduzca las unidade de rack"
+            onChange={handleFieldChange}
           />
         </div>
 
         <div className="m-auto col-4">
-          <label htmlFor="totalURack" className="form-label">
+          <label htmlFor="total_rack_units" className="form-label">
             Total de unidades de Rack
           </label>
           <input
             type="text"
             className="form-control"
-            id="totalURack"
+            id="total_rack_units"
+            name="total_rack_units"
+            value={formData.total_rack_units}
             placeholder="Introduzca unidades de rack del equipo"
+            onChange={handleFieldChange}
           />
         </div>
       </div>
 
       <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
       <div className="mb-3 col-4">
-        <label htmlFor="acdc" className="form-label">
+        <label htmlFor="ac_dc" className="form-label">
           Tipo de Alimentación (AC/DC)
         </label>
         <input
           type="text"
           className="form-control"
-          id="acdc"
+          id="ac_dc"
+          name="ac_dc"
+          value={formData.ac_dc}
           placeholder="Introduzca el valor"
+          onChange={handleFieldChange}
         />
       </div>
 
       <div className="mb-3 col-4">
-        <label htmlFor="current" className="form-label">
+        <label htmlFor="input_current" className="form-label">
           Tensión de Alimentación (Voltios)
         </label>
         <input
           type="text"
           className="form-control"
-          id="current"
+          id="input_current"
+          name="input_current"
+          value={formData.input_current}
           placeholder="Introduzca el valor"
+          onChange={handleFieldChange}
         />
       </div>
 
       <div className="mb-3 col-4">
-        <label htmlFor="watts" className="form-label">
+        <label htmlFor="power" className="form-label">
           Potencia consumida por fuente de poder (w):
         </label>
         <input
           type="text"
           className="form-control"
-          id="watts"
-          placeholder="Introduzca el valor"
+          id="power"
+          name="power"
+          value={formData.power}
+          placeholder="Introduzca el valor en watts"
+          onChange={handleFieldChange}
         />
       </div>
 
       <div className="mb-3 col-4">
-        <label htmlFor="powersupply" className="form-label">
+        <label htmlFor="power_supply" className="form-label">
           Cantidad de Fuentes de Alimentación por equipo
         </label>
         <input
           type="text"
           className="form-control"
-          id="powersupply"
-          placeholder="Introduzca el valor"
+          id="power_supply"
+          name="power_supply"
+          value={formData.power_supply}
+          placeholder="Introduzca la cantidad de alimentacion"
+          onChange={handleFieldChange}
         />
       </div>
 
       <div className="mb-3 col-4">
-        <label htmlFor="temp" className="form-label">
+        <label htmlFor="operation_temp" className="form-label">
           Rango de Temperatura de Operación del Equipo (°C)
         </label>
         <input
           type="text"
           className="form-control"
-          id="temp"
-          placeholder="Introduzca el valor"
+          id="operation_temp"
+          name="operation_temp"
+          value={formData.operation_temp}
+          placeholder="Introduzca el rango de Temp"
+          onChange={handleFieldChange}
         />
       </div>
 
       <div className="mb-3 col-4">
-        <label htmlFor="btu" className="form-label">
+        <label htmlFor="thermal_disipation" className="form-label">
           Disipación Térmica (BTU-Hr)
         </label>
         <input
           type="text"
           className="form-control"
-          id="btu"
-          placeholder="Introduzca el valor"
+          id="thermal_disipation"
+          name="thermal_disipation"
+          value={formData.thermal_disipation}
+          placeholder="Introduzca el valor en BTU-hr"
+          onChange={handleFieldChange}
         />
       </div>
       <div>
         Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
-        <select className="form-select" aria-label="Default select example">
+        <select
+          className="form-select"
+          aria-label="Default select example"
+          name="power_config"
+          onChange={handleFieldChange}
+          value={formData.power_config}
+        >
           <option selected>Open this select menu</option>
           <option value="1">1</option>
           <option value="2">n+1</option>
@@ -408,9 +484,11 @@ function Equipment() {
           <option value="4">Descrita en observaciones</option>
         </select>
       </div>
-      <Observations />
+      <Observations handleFieldChange={handleFieldChange} formData={formData} />
       <Link to="/">
-      <button>Agregar</button>
+        <button
+          onClick={handleAddEquipment}
+        >Agregar</button>
       </Link>
 
     </>
