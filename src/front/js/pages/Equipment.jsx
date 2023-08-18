@@ -246,7 +246,7 @@ function Equipment() {
                 type="checkbox"
                 name="service_frontal"
                 id="service_frontal"
-                value={formData.service_frontal}
+                checked={formData.service_frontal}
                 disabled={formData.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_frontal">
