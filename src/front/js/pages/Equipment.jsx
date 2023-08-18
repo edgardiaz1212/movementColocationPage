@@ -247,6 +247,7 @@ function Equipment() {
                 name="service_frontal"
                 id="service_frontal"
                 checked={formData.service_frontal}
+                onChange={handleFieldChange}
                 disabled={formData.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_frontal">
@@ -260,6 +261,7 @@ function Equipment() {
                 name="service_back"
                 id="service_back"
                 value={formData.service_back}
+                onChange={handleFieldChange}
                 disabled={formData.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_back">
@@ -273,6 +275,7 @@ function Equipment() {
                 name="service_lateral"
                 id="service_lateral"
                 value={formData.service_lateral}
+                onChange={handleFieldChange}
                 disabled={formData.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_lateral">
