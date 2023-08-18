@@ -32,7 +32,7 @@ class User(db.Model):
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    clientName = db.Column(db.String(255), nullable=False, unique=True)
+    clientName = db.Column(db.String(255), nullable=False)
     racks = db.relationship('Rack', backref='client', lazy=True)
     equipments = db.relationship('Equipment', backref='client', lazy=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Cambiar 'user_id' a 'owner_id'
@@ -108,7 +108,6 @@ class Rack(db.Model):
     equipments = db.relationship('Equipment', back_populates='rack')
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
     description = db.relationship('Description', uselist=False, back_populates='rack')
-
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
     
     def __repr__(self):

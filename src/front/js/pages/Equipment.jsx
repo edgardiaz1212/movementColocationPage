@@ -4,12 +4,70 @@ import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
 
 function Equipment() {
-const [hasService, setHasService]= useState(false)
+  const [formData, setFormData] = useState({
+    brand:"",
+    model:"",
+    serial:"",
+    number_part:"",
+    componentType:"",
+    observations:"",
+    five_years_prevition:"",
+  })
+  const handleFieldChange = (event) => {
+    const { name, value, type, checked } = event.target;
 
-const handleHasServiceChange = (event)=>{
-  setHasService(event.target.id === 'serviceAreaYes')
-}
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
+  const handleAddEquipment = async (selectedContract, selectedService, clientName) => {
+    try {
+      const formData = new FormData();
+      
+      formData.append("clientName", clientName);
+      formData.append("contract", selectedContract);
+      formData.append("service", selectedService);
+      formData.append("model", formData.model)
+      formData.append("brand", formData.brand)
+      formData.append("serial", formData.serial)
+      formData.append("number_part", formData.number_part),
+      formData.append("componentType",formData.componentType)
+      formData.append("five_years_prevition", formData.five_years_prevition),
+      formData.append("observations", formData.observations),
+      formData.append("activity", formData.activity),
+      
+      formData.append("has_cabinet", formData.hascabinet),
+      formData.append('leased', formData.leased),
+      formData.append('total_cabinets', formData.total_cabinets),
+      formData.append('open_closed', formData.open_closed),
+      formData.append('security', formData.security),
+      formData.append('type_security', formData.type_security),
+      formData.append('has_extractors', formData.has_extractors),
+      formData.append('extractors_ubication', formData.extractors_ubication),
+      formData.append('modular', formData.modular),
+      formData.append('lateral_doors', formData.lateral_doors),
+      formData.append('lateral_ubication', formData.lateral_ubication),
+      formData.append('rack_unit', formData.rack_unit),
+      formData.append('rack_position', formData.rack_position),
+      formData.append('has_accessory', formData.has_accessory),
+      formData.append('accessory_description', formData.accessory_description),
+      formData.append('rack_width', formData.rack_width),
+      formData.append('rack_length', formData.rack_length),
+      formData.append('rack_height', formData.rack_height),
+      formData.append('internal_pdu', formData.internal_pdu),
+      formData.append('input_connector', formData.input_connector),
+      formData.append('fases', formData.fases),
+      formData.append('output_connector', formData.output_connector),
+      formData.append('neutro', formData.neutro)
+  
+      const response = await actions.addRack(formData)
+    } catch (error) {
+      console.log("newrack: ", error)
+
+    }
+  };
   return (
     <>
       <Details />
@@ -155,6 +213,7 @@ const handleHasServiceChange = (event)=>{
                 className="form-check-input"
                 type="checkbox"
                 value=""
+                name="service_area"
                 id="flexCheckFrontal"
               />
               <label className="form-check-label" htmlFor="flexCheckFrontal">
@@ -166,6 +225,7 @@ const handleHasServiceChange = (event)=>{
                 className="form-check-input"
                 type="checkbox"
                 value=""
+                name="service_area"
                 id="flexCheckPosterior"
               />
               <label className="form-check-label" htmlFor="flexCheckPosterior">
@@ -177,6 +237,7 @@ const handleHasServiceChange = (event)=>{
                 className="form-check-input"
                 type="checkbox"
                 value=""
+                name="service_area"
                 id="flexCheckLateral"
               />
               <label className="form-check-label" htmlFor="flexCheckLateral">

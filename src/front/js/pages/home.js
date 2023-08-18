@@ -87,7 +87,7 @@ export const Home = () => {
 											Agregar Rack</button>
 									</Link>
 									<Link to="/equipment">
-										<button onClick={handleAddRequest}>Agregar Equipo</button>
+									onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
 									</Link>
 								</>
 							)}
