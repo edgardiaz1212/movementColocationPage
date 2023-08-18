@@ -11,8 +11,8 @@ function Rack() {
   const [formData, setFormData] = useState({
     has_cabinet: true,
     leased: true,
-    hasExtractors: false,
-    has_accessory: false,
+    hasExtractors: true,
+    has_accessory: true,
     total_cabinets: "",
     security: "",
     has_extractors: true,
@@ -44,7 +44,8 @@ function Rack() {
 
   const handleAddRack = async (selectedContract, selectedService, clientName) => {
     try {
-      const formData = new FormData(document.getElementById("rackForm"));
+      const formData = new FormData();
+      
       formData.append("client", clientName);
       formData.append("contract", selectedContract);
       formData.append("service", selectedService);
@@ -52,33 +53,33 @@ function Rack() {
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
       formData.append("number_part", formData.number_part),
-        formData.append("five_years_prevition", formData.five_years_prevition),
-        formData.append("observations", formData.observations),
-        formData.append("activity", formData.activity),
-        formData.append("has_cabinet", formData.hascabinet),
-        formData.append('leased', formData.leased),
-        formData.append('total_cabinets', formData.total_cabinets),
-        formData.append('open_closed', formData.open_closed),
-        formData.append('security', formData.security),
-        formData.append('type_security', formData.type_security),
-        formData.append('has_extractors', formData.has_extractors),
-        formData.append('extractors_ubication', formData.extractors_ubication),
-        formData.append('modular', formData.modular),
-        formData.append('lateral_doors', formData.lateral_doors),
-        formData.append('lateral_ubication', formData.lateral_ubication),
-        formData.append('rack_unit', formData.rack_unit),
-        formData.append('rack_position', formData.rack_position),
-        formData.append('has_accessory', formData.has_accessory),
-        formData.append('accessory_description', formData.accessory_description),
-        formData.append('rack_width', formData.rack_width),
-        formData.append('rack_length', formData.rack_length),
-        formData.append('rack_height', formData.rack_height),
-        formData.append('internal_pdu', formData.internal_pdu),
-        formData.append('input_connector', formData.input_connector),
-        formData.append('fases', formData.fases),
-        formData.append('output_connector', formData.output_connector),
-        formData.append('neutro', formData.neutro)
-
+      formData.append("five_years_prevition", formData.five_years_prevition),
+      formData.append("observations", formData.observations),
+      formData.append("activity", formData.activity),
+      formData.append("has_cabinet", formData.hascabinet),
+      formData.append('leased', formData.leased),
+      formData.append('total_cabinets', formData.total_cabinets),
+      formData.append('open_closed', formData.open_closed),
+      formData.append('security', formData.security),
+      formData.append('type_security', formData.type_security),
+      formData.append('has_extractors', formData.has_extractors),
+      formData.append('extractors_ubication', formData.extractors_ubication),
+      formData.append('modular', formData.modular),
+      formData.append('lateral_doors', formData.lateral_doors),
+      formData.append('lateral_ubication', formData.lateral_ubication),
+      formData.append('rack_unit', formData.rack_unit),
+      formData.append('rack_position', formData.rack_position),
+      formData.append('has_accessory', formData.has_accessory),
+      formData.append('accessory_description', formData.accessory_description),
+      formData.append('rack_width', formData.rack_width),
+      formData.append('rack_length', formData.rack_length),
+      formData.append('rack_height', formData.rack_height),
+      formData.append('internal_pdu', formData.internal_pdu),
+      formData.append('input_connector', formData.input_connector),
+      formData.append('fases', formData.fases),
+      formData.append('output_connector', formData.output_connector),
+      formData.append('neutro', formData.neutro)
+  
       const response = await actions.addRack(formData)
     } catch (error) {
       console.log("newrack: ", error)
@@ -105,7 +106,7 @@ function Rack() {
                   name="has_cabinet"
                   id="siGabinete"
                   value={true}
-                  checked={formData.has_cabinet === true}
+
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="siGabinete">
@@ -119,7 +120,7 @@ function Rack() {
                   name="has_cabinet"
                   id="noGabinete"
                   value={false}
-                  checked={formData.has_cabinet === false}
+                  checked
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="noGabinete">
@@ -127,7 +128,7 @@ function Rack() {
                 </label>
               </div>
             </div>
-            {formData.has_cabinet=== true && (
+            {formData.has_cabinet === true && (
               <>
                 <div className="col-4 m-auto">
                   <p>Propio o arrendado ?</p>
@@ -330,8 +331,10 @@ function Rack() {
                       className="form-check-input"
                       type="radio"
                       name="has_accessory"
+                      value="true"
                       id="yesAccessories"
                       onChange={handleFieldChange}
+                      checked={formData.has_accessory === "true"}
                     />
                     <label className="form-check-label" htmlFor="yesAccessories">
                       Sí
@@ -339,11 +342,13 @@ function Rack() {
                   </div>
                   <div className="form-check">
                     <input
-                      className="div-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="has_accessory"
                       id="noAccessories"
-                      checked={!formData.has_accessory}
+                     
+                      value="false"
+                      checked={formData.has_accessory === "false"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="noAccessories">
@@ -352,21 +357,23 @@ function Rack() {
                   </div>
                 </div>
 
-                {formData.has_accessory && (
-                  <div className="m-auto col-4">
-                    <label htmlFor="accessory_description" className="form-label">
-                      Describa los accesorios adicionales:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="accessory_description"
-                      id="accessory_description"
-                      placeholder="Descripción de los accesorios adicionales"
-                      onChange={handleFieldChange}
-                    />
-                  </div>
-                )}
+
+                <div className="m-auto col-4">
+                  <label htmlFor="accessory_description" className="form-label">
+                    Describa los accesorios adicionales:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="accessory_description"
+                    id="accessory_description"
+                    
+                    placeholder="Descripción de los accesorios adicionales"
+                    onChange={handleFieldChange}
+                    disabled={formData.has_accessory === "false"}
+                  />
+                </div>
+
                 <div className="row">
                   <h4 className="col-3">Dimensiones del Rack</h4>
                   <div className="col-6">
@@ -494,7 +501,7 @@ function Rack() {
               checked
               onChange={handleFieldChange}
             />
-            <label className="form-check-label" htmlFor="noDoors">
+            <label className="form-check-label" htmlFor="noNeutro">
               No
             </label>
           </div>

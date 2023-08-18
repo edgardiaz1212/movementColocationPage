@@ -21,9 +21,7 @@ export const Home = () => {
 		setClientName(event.target.value);
 		};
 
-	console.log(selectedContract)
-	console.log(selectedService)
-	console.log(clientName)
+	
 	return (
 		<div className="container text-center mt-5">
 			<h1>Solicitud</h1>
