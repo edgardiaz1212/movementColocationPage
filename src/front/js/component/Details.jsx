@@ -1,6 +1,6 @@
 import React from "react";
 
-function Details() {
+function Details({handleFieldChange, formData}) {
   return (
     <>
       <div className="p-3 mb-2 bg-info">
@@ -18,7 +18,10 @@ function Details() {
               type="text"
               className="form-control"
               id="brand"
+              name="brand"
               placeholder="Introduzca la marca"
+              value={formData.brand}
+              onChange={handleFieldChange}
             />
           </div>
 
@@ -30,7 +33,10 @@ function Details() {
               type="text"
               className="form-control"
               id="model"
+              name="model"
+              value={formData.model}
               placeholder="Introduzca el modelo"
+              onChange={handleFieldChange}
             />
           </div>
 
@@ -42,7 +48,10 @@ function Details() {
               type="text"
               className="form-control"
               id="serial"
+              name="serial"
+              value={formData.serial}
               placeholder="Introduzca el serial"
+              onChange={handleFieldChange}
             />
           </div>
           <div className="m-auto">
@@ -52,8 +61,11 @@ function Details() {
             <input
               type="text"
               className="form-control"
-              id="numberpart"
+              id="number_part"
+              name="number_part"
+              value={formData.number_part}
               placeholder="Introduzca el número de parte"
+              onChange={handleFieldChange}
             />
           </div>
           <div className="m-auto">
@@ -64,6 +76,7 @@ function Details() {
               type="text"
               className="form-control"
               id="componentType"
+              name="componentType"
               placeholder="Introduzca el tipo de componente"
             />
           </div>

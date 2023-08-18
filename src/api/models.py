@@ -32,19 +32,19 @@ class User(db.Model):
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False, unique=True)
+    clientName = db.Column(db.String(255), nullable=False, unique=True)
     racks = db.relationship('Rack', backref='client', lazy=True)
     equipments = db.relationship('Equipment', backref='client', lazy=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Cambiar 'user_id' a 'owner_id'
     owner = db.relationship('User', back_populates='owners')  # Cambiar 'backref' a 'back_populates'
 
     def __repr__(self):
-        return f'<Client {self.name}>'
+        return f'<Client {self.clientName}>'
 
     def serialize(self):
         return {
             "id": self.id,
-            "name": self.name
+            "name": self.clientName
         }
 
 class Description(db.Model):
@@ -58,6 +58,7 @@ class Description(db.Model):
     observations=db.Column(db.String(255))
     activity=db.Column(db.String(100))
     contract=db.Column(db.String(100))
+    componentType=db.Column(db.String(100))
     rack = db.relationship('Rack', uselist=False, back_populates='description')
     equipment = db.relationship('Equipment', uselist=False, back_populates='description')
     
@@ -75,7 +76,8 @@ class Description(db.Model):
             "five_years_prevition":self.five_years_prevition,
             "contract":self.contract, 
             "observations":self.observations,
-            "activity":self.activity
+            "activity":self.activity,
+            "componentType":self.componentType
         }
 
 class Rack(db.Model):

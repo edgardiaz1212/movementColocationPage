@@ -61,6 +61,7 @@ export const Home = () => {
 							type="text"
 							className="form-control"
 							id="clientName"
+							name="clientName"
 							placeholder="Ingrese el nombre del cliente final"
 							value={clientName}
 							onChange={handleClientNameChange}

@@ -9,6 +9,10 @@ function Rack() {
   const { actions } = useContext(Context)
 
   const [formData, setFormData] = useState({
+    brand:"",
+    model:"",
+    serial:"",
+    number_part:"",
     has_cabinet: "true",
     leased: "true",
     has_extractors: "true",
@@ -17,7 +21,7 @@ function Rack() {
     security: "",
     has_extractors: "true",
     extractors_ubication: "",
-    modular: "",
+    modular: "true",
     lateral_doors: "true",
     lateral_ubication: "",
     rack_unit: "",
@@ -46,13 +50,14 @@ function Rack() {
     try {
       const formData = new FormData();
       
-      formData.append("client", clientName);
+      formData.append("clientName", clientName);
       formData.append("contract", selectedContract);
       formData.append("service", selectedService);
       formData.append("model", formData.model)
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
       formData.append("number_part", formData.number_part),
+      
       formData.append("five_years_prevition", formData.five_years_prevition),
       formData.append("observations", formData.observations),
       formData.append("activity", formData.activity),
@@ -90,7 +95,7 @@ function Rack() {
   return (
     <>
       <form id="rackForm">
-        <Details />
+        <Details handleFieldChange={handleFieldChange} formData={formData}/>
         <div className=" container ">
           <div className="p-3 mb-2 bg-info">
             <h2>Caracteristicas del Gabinete</h2>
