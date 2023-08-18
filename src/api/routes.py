@@ -19,6 +19,7 @@ def add_rack():
             "model": data_form.get("model"),
             "serial": data_form.get("serial"),
             "number_part": data_form.get("number_part"),
+            "componentType":data_form.get("componentType"),
             "service": data_form.get("service"),
             "five_years_prevition": data_form.get("five_years_prevition"),
             "contract": data_form.get("contract"),
@@ -67,7 +68,8 @@ def add_rack():
             observations=data.get('observations'),
             activity=data.get('activity'),
             contract=data.get('contract'),
-            clientName=data.get('clientName')
+            clientName=data.get('clientName'),
+            componentType=data.get('componentType')
         )
         db.session.add(new_description)
         db.session.commit()
