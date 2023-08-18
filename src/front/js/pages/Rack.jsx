@@ -11,7 +11,7 @@ function Rack() {
   const [formData, setFormData] = useState({
     has_cabinet: true,
     leased: true,
-    hasExtractors: true,
+    has_extractors: true,
     has_accessory: true,
     total_cabinets: "",
     security: "",
@@ -192,6 +192,8 @@ function Rack() {
                       type="radio"
                       name="has_extractors"
                       id="yesExtractor"
+                      value="true"
+                      checked={formData.has_extractors==="true"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="yesExtractor">
@@ -204,7 +206,8 @@ function Rack() {
                       type="radio"
                       name="has_extractors"
                       id="noExtractor"
-                      checked={!formData.hasExtractors}
+                      value="false"
+                      checked={formData.has_extractors==="false"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="noExtractor">
@@ -212,21 +215,22 @@ function Rack() {
                     </label>
                   </div>
                 </div>
-                {formData.hasExtractors && (
+                
                   <div className="m-auto col-4">
                     <label htmlFor="extractors_ubication" className="form-label">
                       Si la respuesta es SI, Dónde:
                     </label>
                     <input
                       type="text"
-                      className="div-control"
+                      className="form-control"
                       name="extractors_ubication"
                       id="extractors_ubication"
                       placeholder="Introduzca la ubicacion de los extractores"
                       onChange={handleFieldChange}
+                      disabled={formData.has_extractors==="false"}
                     />
                   </div>
-                )}
+                
                 <div className="col-4 m-auto">
                   <p>Es Modular ?</p>
                   <div className="form-check">
@@ -352,7 +356,6 @@ function Rack() {
                       type="radio"
                       name="has_accessory"
                       id="noAccessories"
-                     
                       value="false"
                       checked={formData.has_accessory === "false"}
                       onChange={handleFieldChange}
