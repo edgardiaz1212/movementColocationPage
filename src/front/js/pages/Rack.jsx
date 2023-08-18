@@ -9,16 +9,16 @@ function Rack() {
   const { actions } = useContext(Context)
 
   const [formData, setFormData] = useState({
-    has_cabinet: true,
-    leased: true,
-    has_extractors: true,
-    has_accessory: true,
+    has_cabinet: "true",
+    leased: "true",
+    has_extractors: "true",
+    has_accessory: "true",
     total_cabinets: "",
     security: "",
-    has_extractors: true,
+    has_extractors: "true",
     extractors_ubication: "",
     modular: "",
-    lateral_doors: true,
+    lateral_doors: "true",
     lateral_ubication: "",
     rack_unit: "",
     rack_position: "",
@@ -30,7 +30,7 @@ function Rack() {
     input_connector: "",
     fases: "",
     output_connector: "",
-    neutro: true
+    neutro: "true"
   });
 
   const handleFieldChange = (event) => {
@@ -105,8 +105,8 @@ function Rack() {
                   type="radio"
                   name="has_cabinet"
                   id="siGabinete"
-                  value={true}
-
+                  value="true"
+                  checked={formData.has_cabinet==="true"}
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="siGabinete">
@@ -119,8 +119,8 @@ function Rack() {
                   type="radio"
                   name="has_cabinet"
                   id="noGabinete"
-                  value={false}
-                  checked
+                  value="false"
+                  checked={formData.has_cabinet==="false"}
                   onChange={handleFieldChange}
                 />
                 <label className="form-check-label" htmlFor="noGabinete">
@@ -128,7 +128,7 @@ function Rack() {
                 </label>
               </div>
             </div>
-            {formData.has_cabinet === true && (
+            {formData.has_cabinet === "true" && (
               <>
                 <div className="col-4 m-auto">
                   <p>Propio o arrendado ?</p>
@@ -138,6 +138,8 @@ function Rack() {
                       type="radio"
                       name="leased"
                       id="noLeased"
+                      value="false"
+                      checked={formData.leased==="false"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="noLeased">
@@ -150,7 +152,8 @@ function Rack() {
                       type="radio"
                       name="leased"
                       id="leased"
-                      checked
+                      value="true"
+                      checked={formData.leased==="true"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="leased">
