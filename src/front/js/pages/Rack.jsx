@@ -243,6 +243,7 @@ function Rack() {
                       name="modular"
                       id="yesModular"
                       value="true"
+                      checked={formData.modular==="true"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="yesModular">
@@ -256,7 +257,7 @@ function Rack() {
                       name="modular"
                       id="noModular"
                       value="false"
-                      checked
+                      checked={formData.modular==="false"}
                       onChange={handleFieldChange}
                     />
                     <label className="form-check-label" htmlFor="noModular">
@@ -499,6 +500,7 @@ function Rack() {
               name="neutro"
               id="yesNeutro"
               value="true"
+              checked={formData.neutro==="true"}
               onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="yesNeutro">
@@ -512,7 +514,7 @@ function Rack() {
               name="neutro"
               id="noNeutro"
               value="false"
-              checked
+              checked={formData.neutro==="false"}
               onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="noNeutro">
