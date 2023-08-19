@@ -24,7 +24,6 @@ def add_rack():
             "five_years_prevition": data_form.get("five_years_prevition"),
             "contract": data_form.get("contract"),
             "observations": data_form.get("observations"),
-            "activity": data_form.get("activity"),
             "has_cabinet": data_form.get("has_cabinet").lower() == "si", 
             "leased": data_form.get("leased").lower() == "si",
             "total_cabinets": data_form.get("total_cabinets"),
@@ -66,7 +65,6 @@ def add_rack():
             service=data.get('service'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            activity=data.get('activity'),
             contract=data.get('contract'),
             clientName=data.get('clientName'),
             componentType=data.get('componentType')
@@ -134,7 +132,6 @@ def add_equipment():
             "five_years_prevition":data_form.get("five_years_prevition"),
             "contract":data_form.get("contract"),
             "observations":data_form.get("observations"),
-            "activity":data_form.get("activity"),
             'equipment_width':data_form.get('equipment_width'),
             'equipment_height':data_form.get('equipment_height'),
             'equipment_length':data_form.get('equipment_length'),
@@ -169,7 +166,6 @@ def add_equipment():
             service=data.get('service'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            activity=data.get('activity'),
             contract=data.get('contract'),
             clientName=data.get('clientName'),
             componentType=data.get('componentType')

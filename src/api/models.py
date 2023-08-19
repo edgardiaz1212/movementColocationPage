@@ -56,7 +56,6 @@ class Description(db.Model):
     service=db.Column(db.String(120),nullable=False)
     five_years_prevition=db.Column(db.String(255))
     observations=db.Column(db.String(255))
-    activity=db.Column(db.String(100))
     contract=db.Column(db.String(100))
     componentType=db.Column(db.String(100))
     rack = db.relationship('Rack', uselist=False, back_populates='description')
@@ -76,7 +75,6 @@ class Description(db.Model):
             "five_years_prevition":self.five_years_prevition,
             "contract":self.contract, 
             "observations":self.observations,
-            "activity":self.activity,
             "componentType":self.componentType
         }
 

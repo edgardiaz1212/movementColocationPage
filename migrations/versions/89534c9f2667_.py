@@ -27,7 +27,6 @@ def upgrade():
     sa.Column('service', sa.String(length=120), nullable=False),
     sa.Column('five_years_prevition', sa.String(length=255), nullable=True),
     sa.Column('observations', sa.String(length=255), nullable=True),
-    sa.Column('activity', sa.String(length=100), nullable=True),
     sa.Column('contract', sa.String(length=100), nullable=True),
     sa.Column('componentType', sa.String(length=100), nullable=True),
     sa.PrimaryKeyConstraint('id')

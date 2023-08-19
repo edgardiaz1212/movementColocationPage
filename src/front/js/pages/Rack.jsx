@@ -63,7 +63,6 @@ function Rack() {
       formData.append("componentType",formData.componentType)
       formData.append("five_years_prevition", formData.five_years_prevition),
       formData.append("observations", formData.observations),
-      formData.append("activity", formData.activity),
       formData.append("has_cabinet", formData.hascabinet),
       formData.append('leased', formData.leased),
       formData.append('total_cabinets', formData.total_cabinets),

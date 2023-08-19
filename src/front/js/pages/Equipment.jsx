@@ -7,7 +7,29 @@ import { Context } from "../store/appContext";
 function Equipment() {
   const { actions, store } = useContext(Context)
 
-  const [formData, setFormData] = useState("")
+  const [formData, setFormData] = useState({
+    clientName:store.clientName,
+    contract: store.contract,
+    service: store.service,
+    model:"",
+    brand:"",
+    serial:"",
+    number_part:"",
+    componentType:"",
+    five_years_prevition:"",
+    observations:"",
+
+    equipment_width: "",
+    equipment_length: "",
+    equipment_height: "",
+    packaging_width: "",
+    packaging_length: "",
+    packaging_height: "",
+    weight: "",
+    anchor_type: "",
+    service_area: "",
+    // ... other fields ...
+  })
   const handleFieldChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -31,7 +53,6 @@ function Equipment() {
       formData.append("componentType", formData.componentType)
       formData.append("five_years_prevition", formData.five_years_prevition)
       formData.append("observations", formData.observations)
-      formData.append("activity", formData.activity)
       formData.append("equipment_width", formData.equipment_width)
       formData.append('equipment_height', formData.equipment_height)
       formData.append('equipment_length', formData.equipment_length)
