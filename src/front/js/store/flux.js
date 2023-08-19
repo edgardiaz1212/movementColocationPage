@@ -1,9 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			selectedContract: null,
-			selectedService: null,
-			clientName: null,
+			selectedContract: localStorage.getItem("selectedContract") || [],
+			selectedService:localStorage.getItem("selectedService") || [],
+			clientName: localStorage.getItem("clientName") || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 			token: localStorage.getItem("token") || null,
 			name: "",
@@ -67,7 +67,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  selectedService,
 				  clientName,
 				  // Other store properties...
-				});
+				})
+				localStorage.setItem("selectedContract", selectedContract)
+				localStorage.setItem("selectedService", selectedService)
+				localStorage.setItem("clientName", clientName)
 			},
 		
 	  

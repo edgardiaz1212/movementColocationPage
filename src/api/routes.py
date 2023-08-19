@@ -189,7 +189,7 @@ def add_equipment():
             packaging_length=data.get('packaging_length'),
             packaging_height=data.get('packaging_height'),
             weight=data.get('weight'),
-            anchor=data.get('anchor'),
+            anchor_type=data.get('anchor_type'),
             service_area=data.get('service_area'),
             service_frontal=data.get('service_frontal'),
             service_back=data.get('service_back'),

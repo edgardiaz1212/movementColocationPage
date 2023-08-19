@@ -106,12 +106,7 @@ export const Home = () => {
 
 			<p className="alert alert-info">Tu solicitud</p>
 
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://start.4geeksacademy.com/starters/react-flask">
-					Read documentation
-				</a>
-			</p>
+			
 		</div>
 	);
 };

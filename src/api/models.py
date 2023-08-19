@@ -151,7 +151,7 @@ class Equipment(db.Model):
     packaging_length=db.Column(db.String(120))
     packaging_heigth=db.Column(db.String(120))
     weight=db.Column(db.String(120))
-    anchor=db.Column(db.String(120))
+    anchor_type=db.Column(db.String(120))
     service_area=db.Column(db.Boolean())
     service_frontal=db.Column(db.Boolean())
     service_back=db.Column(db.Boolean())

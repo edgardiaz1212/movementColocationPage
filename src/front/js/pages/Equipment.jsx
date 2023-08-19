@@ -60,6 +60,7 @@ function Equipment() {
 
 
       const response = await actions.addEquipment(formData)
+      console.log("equipment added ")
     } catch (error) {
       console.log("newEquipment ", error)
 
@@ -69,7 +70,9 @@ function Equipment() {
   
   return (
     <>
-aca {store.clientName}
+Para el solicitante {store.clientName}
+Requiere un servicio de {store.selectedService}
+En el tipo de colocacion {store.selectedContract}
       <Details handleFieldChange={handleFieldChange} formData={formData} />
       <div className="container">
         <div className="p-3 mb-2 bg-info">
@@ -189,16 +192,16 @@ aca {store.clientName}
           />
         </div>
         <div className="m-auto col-4">
-          <label htmlFor="anchor" className="form-label">
+          <label htmlFor="anchor_type" className="form-label">
             Tipo de anclaje al rack
           </label>
           <input
             type="text"
             className="form-control"
-            id="anchor"
-            name="anchor"
-            value={formData.anchor}
-            placeholder="Introduzca el peso maximo que puede tener"
+            id="anchor_type"
+            name="anchor_type"
+            value={formData.anchor_type}
+            placeholder="Introduzca elemntos fijantes"
             onChange={handleFieldChange}
           />
         </div>
