@@ -139,7 +139,7 @@ def add_equipment():
             'packaging_length':data_form.get('packaging_length'),
             'packaging_height':data_form.get('packaging_height'),
             'weight':data_form.get('weight'),
-            'anchor':data_form.get('anchor'),
+            'anchor_type':data_form.get('anchor_type'),
             'service_area':data_form.get('service_area'),
             'access_width':data_form.get('access_width'),
             'access_inclination':data_form.get('access_inclination'),

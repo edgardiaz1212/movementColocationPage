@@ -18,7 +18,6 @@ function Equipment() {
     componentType:"",
     five_years_prevition:"",
     observations:"",
-
     equipment_width: "",
     equipment_length: "",
     equipment_height: "",
@@ -28,7 +27,22 @@ function Equipment() {
     weight: "",
     anchor_type: "",
     service_area: "",
-    // ... other fields ...
+    service_frontal: "",
+    service_back: "",
+    service_lateral: "",
+    access_width: "",
+    access_inclination: "",
+    access_length: "",
+    rack_number: "",
+    rack_unit_position: "",
+    total_rack_units: "",
+    ac_dc: "",
+    input_current: "",
+    power: "",
+    power_supply: "",
+    operation_temp: "",
+    thermal_disipation: "",
+    power_config: "",
   })
   const handleFieldChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -60,7 +74,7 @@ function Equipment() {
       formData.append('packaging_length', formData.packaging_length)
       formData.append('packaging_height', formData.packaging_height)
       formData.append('weight', formData.weight)
-      formData.append('anchor', formData.anchor)
+      formData.append('anchor_type', formData.anchor_type)
       formData.append('service_area', formData.service_area)
       formData.append('service_frontal', formData.service_frontal)
       formData.append('service_back', formData.service_back)

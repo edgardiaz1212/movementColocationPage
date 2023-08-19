@@ -186,7 +186,7 @@ class Equipment(db.Model):
             'packaging_length':self.packaging_length,
             'packaging_heigth':self.packaging_heigth,
             'weight':self.weight,
-            "anchor":self.anchor,
+            "anchor_type":self.anchor_type,
             'service_area':self.service_area,
             'service_frontal': self.service_frontal,
             'service_back': self.service_back,
