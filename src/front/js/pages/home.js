@@ -21,7 +21,9 @@ export const Home = () => {
 		setClientName(event.target.value);
 	};
 
-
+	const handleAddAll = () => {
+		actions.SelectedComponents(selectedContract, selectedService, clientName);
+	};
 	return (
 		<div className="container text-center mt-5">
 			<h1>Solicitud</h1>
@@ -72,7 +74,8 @@ export const Home = () => {
 							{selectedContract === "colRack" && (
 								<Link to="/equipment">
 									<button
-										onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
+										className="btn btn-primary"
+										onClick={handleAddAll}
 									>
 										Agregar Equipo
 									</button>
@@ -82,13 +85,15 @@ export const Home = () => {
 								<>
 									<Link to="/rack">
 										<button
-											onClick={() => actions.addNewRack(selectedContract, selectedService, clientName)}
+											className="btn btn-primary"
+											onClick={handleAddAll}
 										>
 											Agregar Rack</button>
 									</Link>
 									<Link to="/equipment">
 										<button
-											onClick={() => actions.addNewEquipment(selectedContract, selectedService, clientName)}
+											className="btn btn-primary"
+											onClick={handleAddAll}
 										>
 											Agregar Equipo</button>
 									</Link>

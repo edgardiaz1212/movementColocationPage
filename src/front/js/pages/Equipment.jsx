@@ -5,17 +5,9 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 function Equipment() {
-  const { actions } = useContext(Context)
+  const { actions, store } = useContext(Context)
 
-  const [formData, setFormData] = useState({
-    brand: "",
-    model: "",
-    serial: "",
-    number_part: "",
-    componentType: "",
-    observations: "",
-    five_years_prevition: "",
-  })
+  const [formData, setFormData] = useState("")
   const handleFieldChange = (event) => {
     const { name, value, type, checked } = event.target;
 
@@ -25,13 +17,13 @@ function Equipment() {
     }));
   };
 
-  const handleAddEquipment = async (selectedContract, selectedService, clientName) => {
+  const handleAddEquipment = async () => {
     try {
       const formData = new FormData();
 
-      formData.append("clientName", clientName);
-      formData.append("contract", selectedContract);
-      formData.append("service", selectedService);
+      formData.append("clientName", store.clientName);
+      formData.append("contract", store.selectedContract);
+      formData.append("service", store.selectedService);
       formData.append("model", formData.model)
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
@@ -73,8 +65,11 @@ function Equipment() {
 
     }
   };
+
+  
   return (
     <>
+aca {store.clientName}
       <Details handleFieldChange={handleFieldChange} formData={formData} />
       <div className="container">
         <div className="p-3 mb-2 bg-info">
@@ -283,7 +278,6 @@ function Equipment() {
               </label>
             </div>
           </div>
-
         </form>
 
         <div className="container row">
@@ -379,7 +373,7 @@ function Equipment() {
             onChange={handleFieldChange}
           />
         </div>
-      </div>
+      
 
       <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
       <div className="mb-3 col-4">
@@ -480,7 +474,7 @@ function Equipment() {
           onChange={handleFieldChange}
           value={formData.power_config}
         >
-          <option selected>Open this select menu</option>
+          <option >Seleccione la Correcta</option>
           <option value="1">1</option>
           <option value="2">n+1</option>
           <option value="3">2n+1</option>
@@ -489,11 +483,11 @@ function Equipment() {
       </div>
       <Observations handleFieldChange={handleFieldChange} formData={formData} />
       <Link to="/">
-        <button
+        <button className="btn btn-primary"
           onClick={handleAddEquipment}
         >Agregar</button>
       </Link>
-
+      </div>
     </>
   );
 }

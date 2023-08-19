@@ -1,10 +1,76 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-
+			selectedContract: null,
+			selectedService: null,
+			clientName: null,
+			userData: JSON.parse(localStorage.getItem("userData")) || [],
+			token: localStorage.getItem("token") || null,
+			name: "",
 
 		},
 		actions: {
+			
+			login:async(body)=>{
+				const store = getStore();
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/user`, {
+					method: 'POST',
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(body),
+				})
+				let data =await response.json()
+				if (response.ok) {
+					setStore({
+						token: data.token,
+						name: data.name,
+						
+					});
+					localStorage.setItem("token", data.token)
+					localStorage.setItem("alias", data.alias)
+					getActions().getUserData()
+				}
+				} catch (error) {
+					console.log("login",error)
+				}
+				
+			},
+			getUserData: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/user/by-alias`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "aplication/json",
+							"Authorization": `Bearer ${store.token}`
+						}
+					});
+					if (response.ok) {
+						const responseData = await response.json();
+						console.log("User data:", responseData);
+						setStore({ userData: responseData });
+						localStorage.setItem("userData", JSON.stringify(responseData));
+					} else {
+						console.log("Error fetching user data:", response.status);
+					}
+				} catch (error) {
+					console.log("Error fetching user data:", error);
+				}
+			},
+			
+			SelectedComponents: (selectedContract, selectedService, clientName) => {
+				const store = getStore();
+				setStore({
+				  selectedContract,
+				  selectedService,
+				  clientName,
+				  // Other store properties...
+				});
+			},
+		
+	  
 
 			addRack: async (rack) => {
 				const store = getStore()
