@@ -10,7 +10,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 		},
 		actions: {
+			registerUser: async (user) => {
 
+				const store = getStore()
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/user`, {
+						method: "POST",
+						body: user
+					})
+
+					let data = await response.json()
+					return response.status
+
+				} catch (error) {
+					console.log("Error registering user:", error);
+					return 500;
+				}
+			},
 			login: async (body) => {
 				const store = getStore();
 				try {

@@ -18,6 +18,54 @@ def set_password(password, salt):
 def check_password(hash_password, password, salt):
     return check_password_hash(hash_password, f"{password}{salt}")
 
+@api.route('/user', methods=['POST'])
+def register_user():
+    if request.method == "POST":
+        data_files = request.files
+        
+
+        data = {
+            "name": data_form.get("name"),
+            "email": data_form.get("email"),
+            "password": data_form.get("password"),
+            "coordination": data_form.get("coordination"),
+            "admin": data_form.get("admin")
+        }
+
+        if data is None:
+            return jsonify({"msg": "Missing JSON in request"}), 400
+        if data.get("name") is None:
+            return jsonify({"msg": "Missing name parameter"}), 400
+        if data.get("email") is None:
+            return jsonify({"msg": "Missing email parameter"}), 400
+        if data.get("password") is None:
+            return jsonify({"msg": "Missing password parameter"}), 400
+        if data.get("coordination") is None:
+            return jsonify({"msg": "Missing alias parameter "}), 400
+
+        user = User.query.filter_by(email=data.get("email")).first()
+        if user is not None:
+            return jsonify({"msg": "Email already registered"}), 400
+
+        password_salt = b64encode(os.urandom(32)).decode('utf-8')
+        password_hash = set_password(data.get("password"), password_salt)
+
+        new_user = User(
+            name=data.get("name"),
+            email=data.get("email"),
+            password=password_hash,
+            coordination=data.get("coordination"),
+            admin=data.get("admin"),
+            salt=password_salt,
+        )
+        db.session.add(new_user)
+        try:
+            db.session.commit()
+            return jsonify({"msg": "User successfully registered"}), 201
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error registering user", "error": str(error)}), 500
+        return jsonify([]), 200
 
 @api.route('/login', methods=['POST'])
 def login():
