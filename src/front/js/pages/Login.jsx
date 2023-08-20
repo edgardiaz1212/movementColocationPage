@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { Context } from "../store/appContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,10 +24,15 @@ function Login() {
       toast.error("Please fill all fields")
     }
   };
- 
+  const handleChange = ({ target }) => {
+    setUser({
+      ...user,
+      [target.name]: target.value,
+    });
+  };
   return (
     <>
-    caracas
+      <div className="container">
     <div className="mb-3" >
                       <label
                         htmlFor="exampleDropdownFormEmail2"
@@ -81,6 +87,7 @@ function Login() {
                     >
                       Sign in
                     </button>
+                    </div>
     </>
 
   )
