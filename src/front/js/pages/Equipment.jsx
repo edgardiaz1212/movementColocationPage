@@ -9,8 +9,8 @@ function Equipment() {
 
   const [formData, setFormData] = useState({
     clientName:store.clientName,
-    contract: store.contract,
-    service: store.service,
+    contract: store.selectedContract,
+    service: store.selectedService,
     model:"",
     brand:"",
     serial:"",
@@ -26,7 +26,7 @@ function Equipment() {
     packaging_height: "",
     weight: "",
     anchor_type: "",
-    service_area: "",
+    service_area: "Si",
     service_frontal: "",
     service_back: "",
     service_lateral: "",
@@ -98,10 +98,10 @@ function Equipment() {
       console.log("equipment added ")
     } catch (error) {
       console.log("newEquipment ", error)
-
+console.log(FormData)
     }
   };
-
+console.log(store.clientName)
   
   return (
     <>
@@ -376,6 +376,7 @@ En el tipo de colocacion {store.selectedContract}
             type="text"
             className="form-control"
             id="rack_number"
+            name="rack_number"
             value={formData.rack_number}
             placeholder="Introduzca en que rack se colocara"
             onChange={handleFieldChange}

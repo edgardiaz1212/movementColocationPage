@@ -2,7 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			selectedContract: localStorage.getItem("selectedContract") || [],
-			selectedService:localStorage.getItem("selectedService") || [],
+			selectedService: localStorage.getItem("selectedService") || [],
 			clientName: localStorage.getItem("clientName") || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 			token: localStorage.getItem("token") || null,
@@ -10,37 +10,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 		},
 		actions: {
-			
-			login:async(body)=>{
+
+			login: async (body) => {
 				const store = getStore();
 				try {
-					let response = await fetch(`${process.env.BACKEND_URL}/user`, {
-					method: 'POST',
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(body),
-				})
-				let data =await response.json()
-				if (response.ok) {
-					setStore({
-						token: data.token,
-						name: data.name,
-						
-					});
-					localStorage.setItem("token", data.token)
-					localStorage.setItem("alias", data.alias)
-					getActions().getUserData()
-				}
+					let response = await fetch(`${process.env.BACKEND_URL}/login`, {
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(body),
+					})
+					let data = await response.json()
+					if (response.ok) {
+						setStore({
+							token: data.token,
+							name: data.name,
+
+						});
+						localStorage.setItem("token", data.token)
+						localStorage.setItem("name", data.name)
+						getActions().getUserData()
+					}
 				} catch (error) {
-					console.log("login",error)
+					console.log("login", error)
 				}
-				
+
 			},
 			getUserData: async () => {
 				const store = getStore();
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/user/by-alias`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/user`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "aplication/json",
@@ -59,21 +59,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error fetching user data:", error);
 				}
 			},
-			
+
 			SelectedComponents: (selectedContract, selectedService, clientName) => {
 				const store = getStore();
 				setStore({
-				  selectedContract,
-				  selectedService,
-				  clientName,
-				  // Other store properties...
+					selectedContract,
+					selectedService,
+					clientName,
+					// Other store properties...
 				})
 				localStorage.setItem("selectedContract", selectedContract)
 				localStorage.setItem("selectedService", selectedService)
 				localStorage.setItem("clientName", clientName)
 			},
-		
-	  
+
+
 
 			addRack: async (rack) => {
 				const store = getStore()
@@ -95,7 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			addEquipment: async (rack) => {
+			addEquipment: async (equipment) => {
 				const store = getStore()
 				try {
 					// fetching data from the backend
@@ -104,13 +104,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(rack),
+						body: JSON.stringify(equipment),
 					});
 
-					const data = await response.json()
+					if (response.ok) {
+						const data = await response.json(); // Parse the response body
+						return data; // Return the parsed data
+					} else {
+						const errorData = await response.json(); // Parse the error response
+						throw new Error(errorData.message); // Throw the error message from the backend
+					}
 
-					// don't forget to return something, that is how the async resolves
-					return data;
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}

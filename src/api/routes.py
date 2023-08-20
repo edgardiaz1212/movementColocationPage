@@ -7,8 +7,39 @@ from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
 
+@api.route('/login', methods=['POST'])
+def login():
+    if request.method == "POST":
+        data = request.json
+        email = data.get("email", None)
+        password = data.get("password", None)
 
-@api.route('/addRack', methods=['POST'])
+        if email is None:
+            return jsonify({"msg": "Missing email parameter"}), 400
+        if password is None:
+            return jsonify({"msg": "Missing password parameter"}), 400
+
+        user = User.query.filter_by(email=email).one_or_none()
+        if user is not None:
+            if check_password(user.password, password, user.salt):
+                token = create_access_token(identity=user.id)
+                return jsonify({"token": token, "name": user.name}), 200
+            else:
+                return jsonify({"msg": "Bad credentials"}), 400
+        return jsonify({"msg": "Bad credentials"}), 400
+    
+@api.route('/user', methods=['GET'])
+@jwt_required()
+def get_user_info():
+    if request.method == "GET":
+        user = User.query.filter_by(id=get_jwt_identity()).first()
+
+        if user:
+            return jsonify(user.serialize()), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    
+@api.route('/rack', methods=['POST'])
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
@@ -56,7 +87,13 @@ def add_rack():
         if data.get("serial") is None:
             return jsonify ({"msg": "Missing serial parameter"}), 400
         
-
+        # Create a new Client instance
+        new_client = Client(
+            clientName=data_form.get('clientName')
+            )
+        db.session.add(new_client)
+        db.session.commit()
+        
         new_description = Description(
             brand=data.get("brand"),
             model=data.get('model'),
@@ -116,7 +153,7 @@ def add_rack():
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
     
-@api.route('/addEquipment', methods=['POST'])
+@api.route('/equipment', methods=['POST'])
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
@@ -154,21 +191,26 @@ def add_equipment():
             'operation_temp':data_form.get('operation_temp'),
             'thermal_disipation':data_form.get('thermal_disipation'),
             'power_config':data_form.get('power_config')
-            
         }
-
+        # Create a new Client instance
+        new_client = Client(
+            clientName=data_form.get('clientName')
+            )
+        db.session.add(new_client)
+        db.session.commit()
+        
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data.get("brand"),
-            model=data.get('model'),
-            serial=data.get('serial'),
-            number_part=data.get('number_part'),
-            service=data.get('service'),
-            five_years_prevition=data.get('five_years_prevition'),
-            observations=data.get('observations'),
-            contract=data.get('contract'),
-            clientName=data.get('clientName'),
-            componentType=data.get('componentType')
+            brand=data_form.get("brand"),
+            model=data_form.get('model'),
+            serial=data_form.get('serial'),
+            number_part=data_form.get('number_part'),
+            service=data_form.get('service'),
+            five_years_prevition=data_form.get('five_years_prevition'),
+            observations=data_form.get('observations'),
+            contract=data_form.get('contract'),
+            clientName=data_form.get('clientName'),
+            componentType=data_form.get('componentType')
             
         )
 
@@ -205,8 +247,6 @@ def add_equipment():
             power_config=data.get('power_config'),
             description=new_description  # Asociar la descripción al equipo
         )
-        
-
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)
         db.session.commit()

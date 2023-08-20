@@ -13,6 +13,7 @@ import { Footer } from "./component/footer";
 import Rack from "./pages/Rack.jsx";
 import Equipment from "./pages/Equipment.jsx";
 import Consult from "./pages/Consult.jsx";
+import Login from "./pages/Login.jsx";
 
 //create your first component
 const Layout = () => {
@@ -32,6 +33,7 @@ const Layout = () => {
                         <Route element={<Rack/>} path="/rack"/>
                         <Route element={<Equipment/>} path="equipment"/>
                         <Route element={<Consult/>} path="consult"/>
+                        <Route elemen={<Login/>} path="login"/>
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

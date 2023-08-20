@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 89534c9f2667
+Revision ID: 34dd3162f08c
 Revises: 
-Create Date: 2023-08-18 19:13:54.616550
+Create Date: 2023-08-19 21:39:29.980513
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '89534c9f2667'
+revision = '34dd3162f08c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -47,9 +47,9 @@ def upgrade():
     )
     op.create_table('client',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('clientName', sa.String(length=255), nullable=False),
-    sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
+    sa.Column('clientName', sa.String(length=255), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('rack',
@@ -86,13 +86,13 @@ def upgrade():
     op.create_table('equipment',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('equipment_width', sa.String(length=120), nullable=True),
-    sa.Column('equipment_heigth', sa.String(length=120), nullable=True),
+    sa.Column('equipment_height', sa.String(length=120), nullable=True),
     sa.Column('equipment_length', sa.String(length=120), nullable=True),
     sa.Column('packaging_width', sa.String(length=120), nullable=True),
     sa.Column('packaging_length', sa.String(length=120), nullable=True),
-    sa.Column('packaging_heigth', sa.String(length=120), nullable=True),
+    sa.Column('packaging_height', sa.String(length=120), nullable=True),
     sa.Column('weight', sa.String(length=120), nullable=True),
-    sa.Column('anchor', sa.String(length=120), nullable=True),
+    sa.Column('anchor_type', sa.String(length=120), nullable=True),
     sa.Column('service_area', sa.Boolean(), nullable=True),
     sa.Column('service_frontal', sa.Boolean(), nullable=True),
     sa.Column('service_back', sa.Boolean(), nullable=True),
@@ -112,7 +112,7 @@ def upgrade():
     sa.Column('power_config', sa.String(length=20), nullable=True),
     sa.Column('description_id', sa.Integer(), nullable=False),
     sa.Column('client_id', sa.Integer(), nullable=False),
-    sa.Column('rack_id', sa.Integer(), nullable=False),
+    sa.Column('rack_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['client_id'], ['client.id'], ),
     sa.ForeignKeyConstraint(['description_id'], ['description.id'], ),
     sa.ForeignKeyConstraint(['rack_id'], ['rack.id'], ),
