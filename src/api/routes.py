@@ -21,7 +21,7 @@ def check_password(hash_password, password, salt):
 @api.route('/user', methods=['POST'])
 def register_user():
     if request.method == "POST":
-        data_files = request.files
+        data_form = request.form
         
 
         data = {

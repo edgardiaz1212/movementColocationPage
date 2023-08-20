@@ -61,7 +61,7 @@ const Register = () => {
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-      <div className="container-fluid text-white w-25 my-4 ">
+      <div className="container-fluid  w-25 my-4 ">
         <h1>Register</h1>
         <form>
           <div className="form-group  ">
