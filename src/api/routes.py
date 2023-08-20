@@ -4,8 +4,20 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Equipment, Description, Rack, Client
 from api.utils import generate_sitemap, APIException
+from base64 import b64encode
+import os
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 api = Blueprint('api', __name__)
+
+def set_password(password, salt):
+    return generate_password_hash(f"{password}{salt}")
+
+
+def check_password(hash_password, password, salt):
+    return check_password_hash(hash_password, f"{password}{salt}")
+
 
 @api.route('/login', methods=['POST'])
 def login():
@@ -40,6 +52,7 @@ def get_user_info():
             return jsonify({'error': 'User not found'}), 404
     
 @api.route('/rack', methods=['POST'])
+@jwt_required()
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
@@ -154,6 +167,7 @@ def add_rack():
         return jsonify({"message": str(e)}), 500
     
 @api.route('/equipment', methods=['POST'])
+@jwt_required()
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
