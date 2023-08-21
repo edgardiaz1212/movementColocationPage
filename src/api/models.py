@@ -36,10 +36,10 @@ class User(db.Model):
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     clientName = db.Column(db.String(255), nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
     
     # Relación con el usuario propietario (un cliente pertenece a un usuario)
-    # owner = db.relationship('User', back_populates='clients')
+    owner = db.relationship('User', back_populates='client')
     
     # Relación con Racks (un cliente puede tener muchos racks)
     racks = db.relationship('Rack', backref='client', lazy=True)

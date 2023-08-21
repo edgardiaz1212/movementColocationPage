@@ -98,6 +98,25 @@ def get_user_info():
             return jsonify(user.serialize()), 200
         else:
             return jsonify({'error': 'User not found'}), 404
+
+@api.route('/add-client', methods=['POST'])
+@jwt_required()
+def add_client():
+    try:
+        data = request.json
+        client_name = data.get("clientName")
+
+        if client_name is None:
+            return jsonify({"msg": "Missing clientName parameter"}), 400
+
+        new_client = Client(clientName=client_name)
+        db.session.add(new_client)
+        db.session.commit()
+
+        return jsonify({"msg": "Client added successfully"}), 201
+
+    except Exception as e:
+        return jsonify({"msg": "Error adding client", "error": str(e)}), 500
     
 @api.route('/rack', methods=['POST'])
 @jwt_required()

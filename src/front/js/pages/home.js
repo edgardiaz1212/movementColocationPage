@@ -8,6 +8,7 @@ export const Home = () => {
 	const [selectedContract, setSelectedContract] = useState("");
 	const [selectedService, setSelectedService] = useState("");
 	const [clientName, setClientName] = useState("");
+	const [clientAdded, setClientAdded] = useState(false); // Estado para controlar si el cliente ha sido añadido
 
 	const handleContractChange = (event) => {
 		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
@@ -20,14 +21,47 @@ export const Home = () => {
 	const handleClientNameChange = (event) => {
 		setClientName(event.target.value);
 	};
-
+	const handleAddClient = async () => {
+		try {
+			// Realiza una llamada a la acción para agregar el cliente
+			await actions.addClient(clientName);
+	
+			// Marca el cliente como agregado
+			setClientAdded(true);
+	
+			// También podrías mostrar un mensaje de éxito o hacer otras acciones necesarias
+			// por ejemplo, mostrar una notificación o redirigir al usuario a la siguiente página.
+		} catch (error) {
+			// Manejo de errores en caso de que la llamada falle
+			console.error("Error al agregar el cliente:", error);
+			// Aquí podrías mostrar un mensaje de error o tomar otras medidas apropiadas
+		}
+	};
 	const handleAddAll = () => {
 		actions.SelectedComponents(selectedContract, selectedService, clientName);
 	};
 	return (
 		<div className="container text-center mt-5">
 			<h1>Solicitud</h1>
-
+			{!clientAdded && (<>
+			<h3>Verificar Cliente</h3>
+			<div className="m-auto col-4">
+						<label htmlFor="clientName" className="form-label">
+							Nombre del Cliente Final
+						</label>
+						<input
+							type="text"
+							className="form-control"
+							id="clientName"
+							name="clientName"
+							placeholder="Ingrese el nombre del cliente final"
+							value={clientName}
+							onChange={handleClientNameChange}
+						/>
+					</div>
+					<button className="btn btn-primary m-4" onClick={handleAddClient}>Anadir</button>
+			</>)}
+			{clientAdded && (<>
 			<div className="container">
 				Tipo de Contrato
 				<select
@@ -55,20 +89,7 @@ export const Home = () => {
 						<option value="desincorporacion">Desincorporacion</option>
 						<option value="mudanza">Mudanza</option>
 					</select>
-					<div className="m-auto col-4">
-						<label htmlFor="clientName" className="form-label">
-							Nombre del Cliente Final
-						</label>
-						<input
-							type="text"
-							className="form-control"
-							id="clientName"
-							name="clientName"
-							placeholder="Ingrese el nombre del cliente final"
-							value={clientName}
-							onChange={handleClientNameChange}
-						/>
-					</div>
+					
 					{selectedService && (
 						<div>
 							{selectedContract === "colRack" && (
@@ -97,12 +118,14 @@ export const Home = () => {
 										>
 											Agregar Equipo</button>
 									</Link>
+									
 								</>
 							)}
 						</div>
 					)}
 				</div>
 			)}
+			</>)}
 
 			<p className="alert alert-info">Tu solicitud</p>
 

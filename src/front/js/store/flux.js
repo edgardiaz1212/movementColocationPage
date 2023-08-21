@@ -89,7 +89,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("clientName", clientName)
 			},
 
-
+			addClient: async (clientName) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/add-client`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ clientName }), // Envía el nombre del cliente al backend
+					});
+			
+					if (response.ok) {
+						// Puedes manejar la respuesta exitosa como desees
+						console.log("Client added successfully");
+						const data = await response.json();
+						// Por ejemplo, podrías actualizar el estado con el nuevo cliente
+						setStore({
+							clients: [...store.clients, data.clientName]
+						});
+					} else {
+						// Manejo de errores en caso de respuesta no exitosa
+						console.log("Error adding client:", response.statusText);
+					}
+				} catch (error) {
+					// Manejo de errores en caso de fallo en la llamada
+					console.log("Error adding client:", error.message);
+				}
+			},
 
 			addRack: async (rack) => {
 				const store = getStore()
