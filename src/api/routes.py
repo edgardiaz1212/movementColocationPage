@@ -145,6 +145,7 @@ def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
+        current_user = get_jwt_identity()
         
         data = {
             "brand": data_form.get("brand"),
@@ -190,7 +191,8 @@ def add_rack():
         
         # Create a new Client instance
         new_client = Client(
-            clientName=data_form.get('clientName')
+            clientName=data.get('clientName'),
+            user_id=current_user
             )
         db.session.add(new_client)
         db.session.commit()
@@ -204,7 +206,6 @@ def add_rack():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             contract=data.get('contract'),
-            clientName=data.get('clientName'),
             componentType=data.get('componentType')
         )
         db.session.add(new_description)
@@ -235,6 +236,7 @@ def add_rack():
             output_connector=data.get('output_connector'),
             neutro=data.get('neutro'),
             description=new_description
+            cient_id=new_client
             
         )
 
@@ -260,6 +262,7 @@ def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
+        current_user = get_jwt_identity()
 
         data={
             'brand': data_form.get('brand'),
@@ -296,23 +299,24 @@ def add_equipment():
         }
         # Create a new Client instance
         new_client = Client(
-            clientName=data_form.get('clientName')
+            clientName=data.get('clientName'),
+            user_id=current_user
             )
         db.session.add(new_client)
         db.session.commit()
         
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data_form.get("brand"),
-            model=data_form.get('model'),
-            serial=data_form.get('serial'),
-            number_part=data_form.get('number_part'),
-            service=data_form.get('service'),
-            five_years_prevition=data_form.get('five_years_prevition'),
-            observations=data_form.get('observations'),
-            contract=data_form.get('contract'),
-            clientName=data_form.get('clientName'),
-            componentType=data_form.get('componentType')
+            brand=data.get("brand"),
+            model=data.get('model'),
+            serial=data.get('serial'),
+            number_part=data.get('number_part'),
+            service=data.get('service'),
+            five_years_prevition=data.get('five_years_prevition'),
+            observations=data.get('observations'),
+            contract=data.get('contract'),
+            clientName=data.get('clientName'),
+            componentType=data.get('componentType')
             
         )
 
@@ -347,7 +351,8 @@ def add_equipment():
             operation_temp=data.get('operation_temp'),
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
-            description=new_description  # Asociar la descripción al equipo
+            description=new_description,  # Asociar la descripción al equipo
+            cient_id=new_client
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)
