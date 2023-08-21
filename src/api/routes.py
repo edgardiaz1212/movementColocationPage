@@ -89,34 +89,55 @@ def login():
         return jsonify({"msg": "Bad credentials"}), 400
     
 @api.route('/user', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_user_info():
     if request.method == "GET":
-        user = User.query.filter_by(id=get_jwt_identity()).first()
+        #user = User.query.filter_by(id=get_jwt_identity()).first()
+        users = User.query.all()
+        users_data = list(map(lambda user: user.serialize(), users))
+        return jsonify(users_data), 200
 
-        if user:
-            return jsonify(user.serialize()), 200
-        else:
-            return jsonify({'error': 'User not found'}), 404
+        # if user:
+        #     return jsonify(user.serialize()), 200
+        # else:
+        #     return jsonify({'error': 'User not found'}), 404
+
+@api.route('/add-client', methods=['GET'])
+def get_all_client():
+    clients = Client.query.all()
+    clients_data = list(map(lambda client: client.serialize(), clients))
+    return jsonify(clients_data), 200
 
 @api.route('/add-client', methods=['POST'])
-@jwt_required()
+#@jwt_required()
 def add_client():
-    try:
-        data = request.json
-        client_name = data.get("clientName")
-
-        if client_name is None:
+    if request.method == "POST":
+   
+        data_form = request.form
+        current= 1
+        
+        data={
+            "clientName" : data_form.get("clientName"),
+               }  
+        
+        if data is None:
+            return jsonify({"msg": "no data"}),400
+        if data.get("clientName") is None:
             return jsonify({"msg": "Missing clientName parameter"}), 400
 
-        new_client = Client(clientName=client_name)
+        new_client = Client(clientName=data.get("clientName"), 
+                            user_id=current)
+        
         db.session.add(new_client)
-        db.session.commit()
+        try:
+            db.session.commit()
+            return jsonify({"msg": "Upload successfully"}), 201
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload image", "error": str(error)}), 500
+        return jsonify([]), 200
 
-        return jsonify({"msg": "Client added successfully"}), 201
-
-    except Exception as e:
-        return jsonify({"msg": "Error adding client", "error": str(e)}), 500
+   
     
 @api.route('/rack', methods=['POST'])
 @jwt_required()

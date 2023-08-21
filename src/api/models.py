@@ -7,7 +7,7 @@ class User(db.Model):
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False)
+    #is_active = db.Column(db.Boolean(), unique=False)
     coordination = db.Column(db.String(120), nullable=False)
     salt = db.Column(db.String(100), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
@@ -15,7 +15,7 @@ class User(db.Model):
     admin = db.Column(db.Boolean())
     
     # Relación con Clientes (un usuario puede tener varios clientes)
-    clients= db.relationship('Client', back_populates='user', uselist=True, lazy=False)
+    clients= db.relationship('Client', backref='user', uselist=True, lazy=False)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -35,11 +35,11 @@ class User(db.Model):
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    clientName = db.Column(db.String(255), nullable=True)
+    clientName = db.Column(db.String(255), nullable=False)
     user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
     
     # Relación con el usuario propietario (un cliente pertenece a un usuario)
-    user = db.relationship('User', back_populates='clients', lazy=False)
+    #user = db.relationship('User', back_populates='clients', lazy=False)
     
     # Relación con Racks (un cliente puede tener muchos racks)
     racks = db.relationship('Rack', backref='client', lazy=True)
