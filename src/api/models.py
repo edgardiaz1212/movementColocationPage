@@ -15,7 +15,7 @@ class User(db.Model):
     admin = db.Column(db.Boolean())
     
     # Relación con Clientes (un usuario puede tener varios clientes)
-    client= db.relationship('Client', backref='user', uselist=True)
+    clients= db.relationship('Client', back_populates='user', uselist=True, lazy=False)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -39,7 +39,7 @@ class Client(db.Model):
     user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
     
     # Relación con el usuario propietario (un cliente pertenece a un usuario)
-    owner = db.relationship('User', back_populates='client')
+    user = db.relationship('User', back_populates='clients', lazy=False)
     
     # Relación con Racks (un cliente puede tener muchos racks)
     racks = db.relationship('Rack', backref='client', lazy=True)
