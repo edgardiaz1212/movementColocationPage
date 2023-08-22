@@ -235,7 +235,7 @@ def add_rack():
             fases=data.get('fases'),
             output_connector=data.get('output_connector'),
             neutro=data.get('neutro'),
-            description=new_description
+            description=new_description,
             cient_id=new_client
             
         )
@@ -257,12 +257,12 @@ def add_rack():
         return jsonify({"message": str(e)}), 500
     
 @api.route('/equipment', methods=['POST'])
-@jwt_required()
+#@jwt_required()
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
-        current_user = get_jwt_identity()
+        current_user = 1
 
         data={
             'brand': data_form.get('brand'),
@@ -307,7 +307,7 @@ def add_equipment():
         
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data.get("brand"),
+            brand=data.get('data'),
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
@@ -315,7 +315,7 @@ def add_equipment():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             contract=data.get('contract'),
-            clientName=data.get('clientName'),
+            
             componentType=data.get('componentType')
             
         )
