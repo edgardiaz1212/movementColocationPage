@@ -13,8 +13,8 @@ import { Footer } from "./component/footer";
 import Rack from "./pages/Rack.jsx";
 import Equipment from "./pages/Equipment.jsx";
 import Consult from "./pages/Consult.jsx";
-import Login from "./pages/Login.jsx";
-import Register from "./pages/Register.jsx";
+
+
 
 //create your first component
 const Layout = () => {
@@ -30,12 +30,11 @@ const Layout = () => {
                 <ScrollToTop>
                     <Navbar />
                     <Routes>
-                        <Route element={<Home />} path="/newtask" />
+                        <Route element={<Home />} path="/" />
                         <Route element={<Rack/>} path="/rack"/>
                         <Route element={<Equipment/>} path="/equipment"/>
                         <Route element={<Consult/>} path="/consult"/>
-                        <Route element={<Login/>} path="/"/>
-                        <Route element={<Register/>} path="/register"/>
+
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
