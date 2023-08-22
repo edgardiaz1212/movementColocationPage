@@ -18,112 +18,65 @@ def set_password(password, salt):
 def check_password(hash_password, password, salt):
     return check_password_hash(hash_password, f"{password}{salt}")
 
-@api.route('/user', methods=['POST'])
-def register_user():
-    if request.method == "POST":
-        data_form = request.form
-        
 
-        data = {
-            "name": data_form.get("name"),
-            "email": data_form.get("email"),
-            "password": data_form.get("password"),
-            "coordination": data_form.get("coordination"),
-            "admin": data_form.get("admin")
-        }
-
-        if data is None:
-            return jsonify({"msg": "Missing JSON in request"}), 400
-        if data.get("name") is None:
-            return jsonify({"msg": "Missing name parameter"}), 400
-        if data.get("email") is None:
-            return jsonify({"msg": "Missing email parameter"}), 400
-        if data.get("password") is None:
-            return jsonify({"msg": "Missing password parameter"}), 400
-        if data.get("coordination") is None:
-            return jsonify({"msg": "Missing alias parameter "}), 400
-
-        user = User.query.filter_by(email=data.get("email")).first()
-        if user is not None:
-            return jsonify({"msg": "Email already registered"}), 400
-
-        password_salt = b64encode(os.urandom(32)).decode('utf-8')
-        password_hash = set_password(data.get("password"), password_salt)
-
-        new_user = User(
-            name=data.get("name"),
-            email=data.get("email"),
-            password=password_hash,
-            coordination=data.get("coordination"),
-            admin=data.get("admin"),
-            salt=password_salt,
-        )
-        db.session.add(new_user)
-        try:
-            db.session.commit()
-            return jsonify({"msg": "User successfully registered"}), 201
-        except Exception as error:
-            db.session.rollback()
-            return jsonify({"msg": "Error registering user", "error": str(error)}), 500
-        return jsonify([]), 200
-
-@api.route('/login', methods=['POST'])
-def login():
-    if request.method == "POST":
-        data = request.json
-        email = data.get("email", None)
-        password = data.get("password", None)
-
-        if email is None:
-            return jsonify({"msg": "Missing email parameter"}), 400
-        if password is None:
-            return jsonify({"msg": "Missing password parameter"}), 400
-
-        user = User.query.filter_by(email=email).one_or_none()
-        if user is not None:
-            if check_password(user.password, password, user.salt):
-                token = create_access_token(identity=user.id)
-                return jsonify({"token": token, "name": user.name}), 200
-            else:
-                return jsonify({"msg": "Bad credentials"}), 400
-        return jsonify({"msg": "Bad credentials"}), 400
-    
 @api.route('/user', methods=['GET'])
-@jwt_required()
+#@jwt_required()
 def get_user_info():
     if request.method == "GET":
-        user = User.query.filter_by(id=get_jwt_identity()).first()
+        #user = User.query.filter_by(id=get_jwt_identity()).first()
+        users = User.query.all()
+        users_data = list(map(lambda user: user.serialize(), users))
+        return jsonify(users_data), 200
 
-        if user:
-            return jsonify(user.serialize()), 200
-        else:
-            return jsonify({'error': 'User not found'}), 404
+        # if user:
+        #     return jsonify(user.serialize()), 200
+        # else:
+        #     return jsonify({'error': 'User not found'}), 404
+
+@api.route('/add-client', methods=['GET'])
+def get_all_client():
+    clients = Client.query.all()
+    clients_data = list(map(lambda client: client.serialize(), clients))
+    return jsonify(clients_data), 200
 
 @api.route('/add-client', methods=['POST'])
-@jwt_required()
-def add_client():
-    try:
-        data = request.json
-        client_name = data.get("clientName")
 
-        if client_name is None:
+def add_client():
+    if request.method == "POST":
+   
+        data_form = request.form
+        current= 1
+        
+        data={
+            "clientName" : data_form.get("clientName"),
+               }  
+        
+        if data is None:
+            return jsonify({"msg": "no data"}),400
+        if data.get("clientName") is None:
             return jsonify({"msg": "Missing clientName parameter"}), 400
 
-        new_client = Client(clientName=client_name)
+        new_client = Client(clientName=data.get("clientName"), 
+                            user_id=current)
+        
         db.session.add(new_client)
-        db.session.commit()
+        try:
+            db.session.commit()
+            return jsonify({"msg": "Upload successfully"}), 201
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload image", "error": str(error)}), 500
+        return jsonify([]), 200
 
-        return jsonify({"msg": "Client added successfully"}), 201
-
-    except Exception as e:
-        return jsonify({"msg": "Error adding client", "error": str(e)}), 500
+   
     
 @api.route('/rack', methods=['POST'])
-@jwt_required()
+
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
+        current_user = 1
         
         data = {
             "brand": data_form.get("brand"),
@@ -158,8 +111,9 @@ def add_rack():
             "fases": data_form.get("fases"),
             "output_connector": data_form.get("output_connector"),
             "neutro": data_form.get("neutro"),
-            "client": data_form.get("client")
+            "clientName": current_user
         }
+
         if data.get("brand") is None:
             return jsonify ({"msg": "Missing brand parameter"}), 400
         if data.get("model") is None:
@@ -167,9 +121,10 @@ def add_rack():
         if data.get("serial") is None:
             return jsonify ({"msg": "Missing serial parameter"}), 400
         
-        # Create a new Client instance
+       # Create a new Client instance
         new_client = Client(
-            clientName=data_form.get('clientName')
+            clientName=data.get('clientName'),
+            user_id=current_user
             )
         db.session.add(new_client)
         db.session.commit()
@@ -183,12 +138,11 @@ def add_rack():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             contract=data.get('contract'),
-            clientName=data.get('clientName'),
-            componentType=data.get('componentType')
+           componentType=data.get('componentType')
         )
         db.session.add(new_description)
         db.session.commit()
-        # Crear una instancia de Rack con los datos recibidos
+        # # Crear una instancia de Rack con los datos recibidos
         new_rack = Rack(
             has_cabinet=data.get('has_cabinet'),
             leased=data.get('leased'),
@@ -213,11 +167,12 @@ def add_rack():
             fases=data.get('fases'),
             output_connector=data.get('output_connector'),
             neutro=data.get('neutro'),
-            description=new_description
+          description=new_description,
+           client=new_client
             
         )
 
-        # Agregar el nuevo rack a la sesión de la base de datos
+        # # Agregar el nuevo rack a la sesión de la base de datos
         db.session.add(new_rack)
         db.session.commit()
 
@@ -234,11 +189,12 @@ def add_rack():
         return jsonify({"message": str(e)}), 500
     
 @api.route('/equipment', methods=['POST'])
-@jwt_required()
+
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
+        current_user = 1
 
         data={
             'brand': data_form.get('brand'),
@@ -275,23 +231,24 @@ def add_equipment():
         }
         # Create a new Client instance
         new_client = Client(
-            clientName=data_form.get('clientName')
+            clientName=data.get('clientName'),
+            user_id=current_user
             )
         db.session.add(new_client)
         db.session.commit()
         
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data_form.get("brand"),
-            model=data_form.get('model'),
-            serial=data_form.get('serial'),
-            number_part=data_form.get('number_part'),
-            service=data_form.get('service'),
-            five_years_prevition=data_form.get('five_years_prevition'),
-            observations=data_form.get('observations'),
-            contract=data_form.get('contract'),
-            clientName=data_form.get('clientName'),
-            componentType=data_form.get('componentType')
+            brand=data.get('data'),
+            model=data.get('model'),
+            serial=data.get('serial'),
+            number_part=data.get('number_part'),
+            service=data.get('service'),
+            five_years_prevition=data.get('five_years_prevition'),
+            observations=data.get('observations'),
+            contract=data.get('contract'),
+            clientName=data.get('clientName'),
+            componentType=data.get('componentType')
             
         )
 
@@ -326,7 +283,8 @@ def add_equipment():
             operation_temp=data.get('operation_temp'),
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
-            description=new_description  # Asociar la descripción al equipo
+            description=new_description,  # Asociar la descripción al equipo
+            client_id=current_user
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)
@@ -343,3 +301,9 @@ def add_equipment():
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
+    
+@api.route('/rack', methods=['GET'])
+def all_rack():
+    racks = Rack.query.all()
+    racks_data = list(map(lambda rack: rack.serialize(), racks))
+    return jsonify(racks_data), 200

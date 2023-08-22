@@ -7,7 +7,7 @@ class User(db.Model):
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False)
+    #is_active = db.Column(db.Boolean(), unique=False)
     coordination = db.Column(db.String(120), nullable=False)
     salt = db.Column(db.String(100), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
@@ -15,7 +15,7 @@ class User(db.Model):
     admin = db.Column(db.Boolean())
     
     # Relación con Clientes (un usuario puede tener varios clientes)
-    clients= db.relationship('Client', back_populates='user', uselist=True, lazy=False)
+    clients= db.relationship('Client', backref='user', uselist=True, lazy=False)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -35,11 +35,11 @@ class User(db.Model):
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    clientName = db.Column(db.String(255), nullable=True)
+    clientName = db.Column(db.String(255), nullable=False)
     user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
     
     # Relación con el usuario propietario (un cliente pertenece a un usuario)
-    user = db.relationship('User', back_populates='clients', lazy=False)
+    #user = db.relationship('User', back_populates='clients', lazy=False)
     
     # Relación con Racks (un cliente puede tener muchos racks)
     racks = db.relationship('Rack', backref='client', lazy=True)
@@ -87,12 +87,13 @@ class Description(db.Model):
             'five_years_prevition': self.five_years_prevition,
             'contract': self.contract,
             'observations': self.observations,
-            'componentType': self.componentType
+            'componentType': self.componentType,
+            
         }
 
 class Rack(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    has_cabinet = db.Column(db.Boolean())
+    has_cabinet = db.Column(db.String(10))
     leased = db.Column(db.Boolean())
     total_cabinets = db.Column(db.String(10))
     open_closed = db.Column(db.Boolean())
@@ -130,7 +131,7 @@ class Rack(db.Model):
     def serialize(self):
         return{
             'id':self.id,
-            'has_cabinets':self.has_cabinets,
+            'has_cabinets':self.has_cabinet,
             'leased':self.leased,
             'total_cabinets':self.total_cabinets,
             'open_closed':self.open_closed,
@@ -153,7 +154,8 @@ class Rack(db.Model):
             'fases':self.fases,
             'output_connector':self.output_connector,
             'neutro':self.neutro,
-            'description':self.description.serialize()
+            'description':self.description.serialize(),
+            'client': self.client.serialize() if self.client else None 
         }
         
 class Equipment(db.Model):

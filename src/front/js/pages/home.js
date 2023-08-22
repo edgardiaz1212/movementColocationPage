@@ -42,7 +42,8 @@ export const Home = () => {
 	};
 	return (
 		<div className="container text-center mt-5">
-			<h1>Solicitud</h1>
+			
+			<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
 			{!clientAdded && (<>
 			<h3>Verificar Cliente</h3>
 			<div className="m-auto col-4">
