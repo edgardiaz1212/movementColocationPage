@@ -9,6 +9,8 @@ export const Home = () => {
 	const [selectedService, setSelectedService] = useState("");
 	const [clientName, setClientName] = useState("");
 	const [clientAdded, setClientAdded] = useState(false); // Estado para controlar si el cliente ha sido añadido
+	const [username, setUsername] = useState(""); 
+    const [coordination, setCoordination] = useState(""); 
 
 	const handleContractChange = (event) => {
 		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
@@ -21,6 +23,14 @@ export const Home = () => {
 	const handleClientNameChange = (event) => {
 		setClientName(event.target.value);
 	};
+
+	const handleUsernameChange = (event) => { 
+        setUsername(event.target.value);
+    };
+
+    const handleCoordinationChange = (event) => { 
+        setCoordination(event.target.value)}
+
 	const handleAddClient = async () => {
 		try {
 			// Realiza una llamada a la acción para agregar el cliente
@@ -40,10 +50,41 @@ export const Home = () => {
 	const handleAddAll = () => {
 		actions.SelectedComponents(selectedContract, selectedService, clientName);
 	};
+
 	return (
 		<div className="container text-center mt-5">
 			
 			<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
+			<div className="m-auto col-4">
+						<label htmlFor="username" className="form-label">
+							Solicitante Cantv
+						</label>
+						<input
+							type="text"
+							className="form-control"
+							id="username"
+							name="username"
+							placeholder="Ingrese su Nombre y Apellido"
+							value={username}
+							onChange={handleUsernameChange}
+						/>
+					</div>
+					<div className="m-auto col-4">
+						<label htmlFor="coordination" className="form-label">
+							Unidad Cantv
+						</label>
+						<input
+							type="text"
+							className="form-control"
+							id="coordination"
+							name="coordination"
+							placeholder="Ingrese la unidad enla que labora"
+							value={coordination}
+							onChange={handleCoordinationChange}
+						/>
+					</div>
+			
+			
 			{!clientAdded && (<>
 			<h3>Verificar Cliente</h3>
 			<div className="m-auto col-4">
@@ -133,4 +174,4 @@ export const Home = () => {
 			
 		</div>
 	);
-};
+							}
