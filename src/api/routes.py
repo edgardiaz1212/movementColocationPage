@@ -372,6 +372,6 @@ def add_equipment():
     
 @api.route('/rack', methods=['GET'])
 def all_rack():
-    racks = Description.query.all()
-    racks_data = list(map(lambda description: description.serialize(), racks))
+    racks = Rack.query.all()
+    racks_data = list(map(lambda rack: rack.serialize(), racks))
     return jsonify(racks_data), 200

@@ -88,12 +88,12 @@ class Description(db.Model):
             'contract': self.contract,
             'observations': self.observations,
             'componentType': self.componentType,
-            'rack':self.rack.serialize()
+            
         }
 
 class Rack(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    has_cabinet = db.Column(db.Boolean())
+    has_cabinet = db.Column(db.String(10))
     leased = db.Column(db.Boolean())
     total_cabinets = db.Column(db.String(10))
     open_closed = db.Column(db.Boolean())
