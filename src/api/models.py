@@ -87,7 +87,8 @@ class Description(db.Model):
             'five_years_prevition': self.five_years_prevition,
             'contract': self.contract,
             'observations': self.observations,
-            'componentType': self.componentType
+            'componentType': self.componentType,
+            'rack':self.rack.serialize()
         }
 
 class Rack(db.Model):

@@ -140,54 +140,55 @@ def add_client():
    
     
 @api.route('/rack', methods=['POST'])
-@jwt_required()
+
 def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
-        current_user = get_jwt_identity()
+        current_user = 1
         
         data = {
             "brand": data_form.get("brand"),
             "model": data_form.get("model"),
             "serial": data_form.get("serial"),
-            "number_part": data_form.get("number_part"),
-            "componentType":data_form.get("componentType"),
+            # "number_part": data_form.get("number_part"),
+            # "componentType":data_form.get("componentType"),
             "service": data_form.get("service"),
-            "five_years_prevition": data_form.get("five_years_prevition"),
-            "contract": data_form.get("contract"),
-            "observations": data_form.get("observations"),
-            "has_cabinet": data_form.get("has_cabinet").lower() == "si", 
-            "leased": data_form.get("leased").lower() == "si",
+            # "five_years_prevition": data_form.get("five_years_prevition"),
+            # "contract": data_form.get("contract"),
+            # "observations": data_form.get("observations"),
+            # "has_cabinet": data_form.get("has_cabinet").lower() == "si", 
+            # "leased": data_form.get("leased").lower() == "si",
             "total_cabinets": data_form.get("total_cabinets"),
-            "open_closed": data_form.get("open_closed").lower() == "abierto",
-            "security": data_form.get("security").lower() == "si",
-            "type_security": data_form.get("type_security"),
-            "has_extractors": data_form.get("has_extractors").lower() == "si",
-            "extractors_ubication": data_form.get("extractors_ubication"),
-            "modular": data_form.get("modular").lower() == "si",
-            "lateral_doors": data_form.get("lateral_doors").lower() == "si",
-            "lateral_ubication": data_form.get("lateral_ubication"),
-            "rack_unit": data_form.get("rack_unit"),
-            "rack_position": data_form.get("rack_position"),
-            "has_accessory": data_form.get("has_accessory").lower() == "si",
-            "accessory_description": data_form.get("accessory_description"),
-            "rack_width": data_form.get("rack_width"),
-            "rack_length": data_form.get("rack_length"),
-            "rack_height": data_form.get("rack_height"),
-            "internal_pdu": data_form.get("internal_pdu"),
-            "input_connector": data_form.get("input_connector"),
-            "fases": data_form.get("fases"),
-            "output_connector": data_form.get("output_connector"),
-            "neutro": data_form.get("neutro"),
-            "client": data_form.get("client")
+            # "open_closed": data_form.get("open_closed").lower() == "abierto",
+            # "security": data_form.get("security").lower() == "si",
+            # "type_security": data_form.get("type_security"),
+            # "has_extractors": data_form.get("has_extractors").lower() == "si",
+            # "extractors_ubication": data_form.get("extractors_ubication"),
+            # "modular": data_form.get("modular").lower() == "si",
+            # "lateral_doors": data_form.get("lateral_doors").lower() == "si",
+            # "lateral_ubication": data_form.get("lateral_ubication"),
+            # "rack_unit": data_form.get("rack_unit"),
+            # "rack_position": data_form.get("rack_position"),
+            # "has_accessory": data_form.get("has_accessory").lower() == "si",
+            # "accessory_description": data_form.get("accessory_description"),
+            # "rack_width": data_form.get("rack_width"),
+            # "rack_length": data_form.get("rack_length"),
+            # "rack_height": data_form.get("rack_height"),
+            # "internal_pdu": data_form.get("internal_pdu"),
+            # "input_connector": data_form.get("input_connector"),
+            # "fases": data_form.get("fases"),
+            # "output_connector": data_form.get("output_connector"),
+            # "neutro": data_form.get("neutro"),
+            "clientName": data_form.get("clientName")
         }
-        if data.get("brand") is None:
-            return jsonify ({"msg": "Missing brand parameter"}), 400
-        if data.get("model") is None:
-            return jsonify ({"msg": "Missing model parameter"}), 400
-        if data.get("serial") is None:
-            return jsonify ({"msg": "Missing serial parameter"}), 400
+
+        # if data.get("brand") is None:
+        #     return jsonify ({"msg": "Missing brand parameter"}), 400
+        # if data.get("model") is None:
+        #     return jsonify ({"msg": "Missing model parameter"}), 400
+        # if data.get("serial") is None:
+        #     return jsonify ({"msg": "Missing serial parameter"}), 400
         
         # Create a new Client instance
         new_client = Client(
@@ -201,53 +202,53 @@ def add_rack():
             brand=data.get("brand"),
             model=data.get('model'),
             serial=data.get('serial'),
-            number_part=data.get('number_part'),
+            #number_part=data.get('number_part'),
             service=data.get('service'),
-            five_years_prevition=data.get('five_years_prevition'),
-            observations=data.get('observations'),
-            contract=data.get('contract'),
-            componentType=data.get('componentType')
+            #five_years_prevition=data.get('five_years_prevition'),
+            #observations=data.get('observations'),
+            #contract=data.get('contract'),
+           # componentType=data.get('componentType')
         )
         db.session.add(new_description)
         db.session.commit()
-        # Crear una instancia de Rack con los datos recibidos
+        # # Crear una instancia de Rack con los datos recibidos
         new_rack = Rack(
-            has_cabinet=data.get('has_cabinet'),
-            leased=data.get('leased'),
+        #     has_cabinet=data.get('has_cabinet'),
+        #     leased=data.get('leased'),
             total_cabinets=data.get('total_cabinets'),
-            open_closed=data.get('open_closed'),
-            security=data.get('security'),
-            type_security=data.get('type_security'),
-            has_extractors=data.get('has_extractors'),
-            extractors_ubication=data.get('extractors_ubication'),
-            modular=data.get('modular'),
-            lateral_doors=data.get('lateral_doors'),
-            lateral_ubication=data.get('lateral_ubication'),
-            rack_unit=data.get('rack_unit'),
-            rack_position=data.get('rack_position'),
-            has_accessory=data.get('has_accessory'),
-            accessory_description=data.get('accessory_description'),
-            rack_width=data.get('rack_width'),
-            rack_length=data.get('rack_length'),
-            rack_height=data.get('rack_height'),
-            internal_pdu=data.get('internal_pdu'),
-            input_connector=data.get('input_connector'),
-            fases=data.get('fases'),
-            output_connector=data.get('output_connector'),
-            neutro=data.get('neutro'),
-            description=new_description
-            cient_id=new_client
+        #     open_closed=data.get('open_closed'),
+        #     security=data.get('security'),
+        #     type_security=data.get('type_security'),
+        #     has_extractors=data.get('has_extractors'),
+        #     extractors_ubication=data.get('extractors_ubication'),
+        #     modular=data.get('modular'),
+        #     lateral_doors=data.get('lateral_doors'),
+        #     lateral_ubication=data.get('lateral_ubication'),
+        #     rack_unit=data.get('rack_unit'),
+        #     rack_position=data.get('rack_position'),
+        #     has_accessory=data.get('has_accessory'),
+        #     accessory_description=data.get('accessory_description'),
+        #     rack_width=data.get('rack_width'),
+        #     rack_length=data.get('rack_length'),
+        #     rack_height=data.get('rack_height'),
+        #     internal_pdu=data.get('internal_pdu'),
+        #     input_connector=data.get('input_connector'),
+        #     fases=data.get('fases'),
+        #     output_connector=data.get('output_connector'),
+        #     neutro=data.get('neutro'),
+          description=new_description,
+           client=new_client
             
         )
 
-        # Agregar el nuevo rack a la sesión de la base de datos
+        # # Agregar el nuevo rack a la sesión de la base de datos
         db.session.add(new_rack)
         db.session.commit()
 
         # Crear una respuesta exitosa
         response_body = {
             "message": "Rack added successfully",
-            "rack_id": new_rack.id  # Si deseas devolver el ID del rack creado
+            #"rack_id": new_rack.id  # Si deseas devolver el ID del rack creado
         }
 
         return jsonify(response_body), 200
@@ -257,12 +258,12 @@ def add_rack():
         return jsonify({"message": str(e)}), 500
     
 @api.route('/equipment', methods=['POST'])
-@jwt_required()
+
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
-        current_user = get_jwt_identity()
+        current_user = 1
 
         data={
             'brand': data_form.get('brand'),
@@ -315,7 +316,6 @@ def add_equipment():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             contract=data.get('contract'),
-            clientName=data.get('clientName'),
             componentType=data.get('componentType')
             
         )
@@ -352,7 +352,7 @@ def add_equipment():
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
             description=new_description,  # Asociar la descripción al equipo
-            cient_id=new_client
+            client_id=current_user
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)
@@ -369,3 +369,9 @@ def add_equipment():
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
+    
+@api.route('/rack', methods=['GET'])
+def all_rack():
+    racks = Description.query.all()
+    racks_data = list(map(lambda description: description.serialize(), racks))
+    return jsonify(racks_data), 200

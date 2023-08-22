@@ -130,7 +130,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(rack),
 					});
 
-					const data = await response.json()
+					//const data = await response.json()
 
 					// don't forget to return something, that is how the async resolves
 					return data;
