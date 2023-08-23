@@ -6,13 +6,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(255), unique=False, nullable=False)
-    #is_active = db.Column(db.Boolean(), unique=False)
     coordination = db.Column(db.String(120), nullable=False)
-    salt = db.Column(db.String(100), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
-    updated_at = db.Column(db.DateTime, nullable=False, onupdate=db.func.current_timestamp(), default=db.func.current_timestamp())
-    admin = db.Column(db.Boolean())
     
     # Relación con Clientes (un usuario puede tener varios clientes)
     clients= db.relationship('Client', backref='user', uselist=True, lazy=False)
@@ -27,11 +22,7 @@ class User(db.Model):
             "coordination": self.coordination,
             "username": self.username,
             "created_at": self.created_at,
-            "updated_at": self.updated_at,
-            "admin": self.admin
-            # do not serialize the password, its a security breach
         }
-
 
 class Client(db.Model):
     id = db.Column(db.Integer, primary_key=True)

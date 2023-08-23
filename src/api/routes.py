@@ -6,21 +6,12 @@ from api.models import db, User, Equipment, Description, Rack, Client
 from api.utils import generate_sitemap, APIException
 from base64 import b64encode
 import os
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+
 
 api = Blueprint('api', __name__)
 
-def set_password(password, salt):
-    return generate_password_hash(f"{password}{salt}")
-
-
-def check_password(hash_password, password, salt):
-    return check_password_hash(hash_password, f"{password}{salt}")
-
-
 @api.route('/user', methods=['GET'])
-#@jwt_required()
+
 def get_user_info():
     if request.method == "GET":
         #user = User.query.filter_by(id=get_jwt_identity()).first()
@@ -111,7 +102,9 @@ def add_rack():
             "fases": data_form.get("fases"),
             "output_connector": data_form.get("output_connector"),
             "neutro": data_form.get("neutro"),
-            "clientName": current_user
+            "clientName": data_form.get("clientName"),
+            "username":data_form.get("username"),
+            "coordination": data_form.get("coordination")
         }
 
         if data.get("brand") is None:
@@ -122,6 +115,14 @@ def add_rack():
             return jsonify ({"msg": "Missing serial parameter"}), 400
         
        # Create a new Client instance
+        new_user =User(
+            username=data.get('username'),
+            coordination=data.get('coordination'),
+            email=data.get('email')
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        
         new_client = Client(
             clientName=data.get('clientName'),
             user_id=current_user
@@ -139,6 +140,7 @@ def add_rack():
             observations=data.get('observations'),
             contract=data.get('contract'),
            componentType=data.get('componentType')
+           
         )
         db.session.add(new_description)
         db.session.commit()

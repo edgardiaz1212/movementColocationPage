@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 34dd3162f08c
+Revision ID: 1d353a9f193a
 Revises: 
-Create Date: 2023-08-19 21:39:29.980513
+Create Date: 2023-08-22 18:21:37.305631
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '34dd3162f08c'
+revision = '1d353a9f193a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,28 +33,24 @@ def upgrade():
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=120), nullable=False),
+    sa.Column('username', sa.String(length=120), nullable=False),
     sa.Column('email', sa.String(length=120), nullable=False),
-    sa.Column('password', sa.String(length=255), nullable=False),
-    sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('coordination', sa.String(length=120), nullable=False),
     sa.Column('salt', sa.String(length=100), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
-    sa.Column('admin', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
     op.create_table('client',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('clientName', sa.String(length=255), nullable=True),
+    sa.Column('clientName', sa.String(length=255), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('rack',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('has_cabinet', sa.Boolean(), nullable=True),
+    sa.Column('has_cabinet', sa.String(length=10), nullable=True),
     sa.Column('leased', sa.Boolean(), nullable=True),
     sa.Column('total_cabinets', sa.String(length=10), nullable=True),
     sa.Column('open_closed', sa.Boolean(), nullable=True),

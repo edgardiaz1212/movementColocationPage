@@ -4,8 +4,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			selectedContract: localStorage.getItem("selectedContract") || [],
 			selectedService: localStorage.getItem("selectedService") || [],
 			clientName: localStorage.getItem("clientName") || [],
+			clientName: localStorage.getItem("username") || [],
+			clientName: localStorage.getItem("coordination") || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
-			token: localStorage.getItem("token") || null,
+			
 			name: "",
 
 		},
@@ -35,17 +37,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			SelectedComponents: (selectedContract, selectedService, clientName) => {
+			SelectedComponents: (selectedContract, selectedService, clientName, username, coordination) => {
 				const store = getStore();
 				setStore({
 					selectedContract,
 					selectedService,
 					clientName,
+					username, 
+					coordination
 					// Other store properties...
 				})
 				localStorage.setItem("selectedContract", selectedContract)
 				localStorage.setItem("selectedService", selectedService)
 				localStorage.setItem("clientName", clientName)
+				localStorage.setItem("username", username)
+				localStorage.setItem("coordination", coordination)
 			},
 
 			addClient: async (clientName) => {
@@ -92,7 +98,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					//const data = await response.json()
 
 					// don't forget to return something, that is how the async resolves
-					return data;
+					if (response.ok) {
+						const data = await response.json(); // Parse the response body
+						return data; // Return the parsed data
+					} else {
+						const errorData = await response.json(); // Parse the error response
+						throw new Error(errorData.message); // Throw the error message from the backend
+					}
+
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}

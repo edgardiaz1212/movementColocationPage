@@ -48,7 +48,7 @@ export const Home = () => {
 		}
 	};
 	const handleAddAll = () => {
-		actions.SelectedComponents(selectedContract, selectedService, clientName);
+		actions.SelectedComponents(selectedContract, selectedService, clientName, username, coordination);
 	};
 
 	return (
