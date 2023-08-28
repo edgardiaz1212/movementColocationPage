@@ -49,10 +49,12 @@ function Rack() {
     }));
   };
 
-  const handleAddRack = async (selectedContract, selectedService, clientName) => {
+  const handleAddRack = async (selectedContract, selectedService, clientName, username, coordination) => {
     try {
       const formData = new FormData();
       
+      formData.append("username", username);
+      formData.append("coordination", coordination);
       formData.append("clientName", clientName);
       formData.append("contract", selectedContract);
       formData.append("service", selectedService);
