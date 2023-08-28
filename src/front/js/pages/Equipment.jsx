@@ -521,7 +521,7 @@ En el tipo de colocacion {store.selectedContract}
         </select>
       </div>
       <Observations handleFieldChange={handleFieldChange} formData={formData} />
-      <Link to="/">
+      <Link to="/consult">
         <button className="btn btn-primary"
           onClick={handleAddEquipment}
         >Agregar</button>

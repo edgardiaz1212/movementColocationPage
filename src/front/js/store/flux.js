@@ -54,10 +54,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.setItem("coordination", coordination)
 			},
 
-			addClient: async (clientName) => {
+			addUser: async (user) => {
 				const store = getStore();
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/add-client`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/addUser`, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',

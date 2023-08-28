@@ -90,7 +90,6 @@ function Rack() {
       const response = await actions.addRack(formData)
     } catch (error) {
       console.log("newrack: ", error)
-
     }
   };
 
@@ -531,7 +530,7 @@ function Rack() {
 
           <Observations handleFieldChange={handleFieldChange} formData={formData}/>
         </div>
-        <Link to="/">
+        <Link to="/consult">
           <button
             onClick={handleAddRack}
             type="button">Agregar</button>

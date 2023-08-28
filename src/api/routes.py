@@ -10,8 +10,32 @@ import os
 
 api = Blueprint('api', __name__)
 
-@api.route('/user', methods=['GET'])
+@api.route('/adduser', methods=['POST'])
+def addUser():
+    if request.method == "POST":
+        data_form = request.form
+        data={
+            email:data_form.get('email'),
+            coordination:data_form.get('coordination'),
+            username:data_form.get('username')
+        }
+        new_user =User(
+            username=data.get('username'),
+            coordination=data.get('coordination'),
+            email=data.get('email')
+        )
+        db.session.add(new_user)
+        try:
+            db.session.commit()
+            return jsonify({"msg": "User created"}), 201
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload User", "error": str(error)}), 500
+        return jsonify([]), 200
 
+
+
+@api.route('/user', methods=['GET'])
 def get_user_info():
     if request.method == "GET":
         #user = User.query.filter_by(id=get_jwt_identity()).first()
@@ -31,7 +55,6 @@ def get_all_client():
     return jsonify(clients_data), 200
 
 @api.route('/add-client', methods=['POST'])
-
 def add_client():
     if request.method == "POST":
    
