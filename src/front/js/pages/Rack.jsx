@@ -3,12 +3,12 @@ import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Rack() {
 
   const { actions } = useContext(Context)
-
-  const [formData, setFormData] = useState({
+  initialState={
     brand:"",
     model:"",
     serial:"",
@@ -38,13 +38,15 @@ function Rack() {
     fases: "",
     output_connector: "",
     neutro: "true"
-  });
+  }
+
+  const [rackData, setRackData] = useState(initialState);
 
   const handleFieldChange = (event) => {
     const { name, value, type, checked } = event.target;
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+    setRackData((prevRackData) => ({
+      ...prevRackData,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
@@ -58,38 +60,52 @@ function Rack() {
       formData.append("clientName", clientName);
       formData.append("contract", selectedContract);
       formData.append("service", selectedService);
-      formData.append("model", formData.model)
-      formData.append("brand", formData.brand)
-      formData.append("serial", formData.serial)
-      formData.append("number_part", formData.number_part),
-      formData.append("componentType",formData.componentType)
-      formData.append("five_years_prevition", formData.five_years_prevition),
-      formData.append("observations", formData.observations),
-      formData.append("has_cabinet", formData.hascabinet),
-      formData.append('leased', formData.leased),
-      formData.append('total_cabinets', formData.total_cabinets),
-      formData.append('open_closed', formData.open_closed),
-      formData.append('security', formData.security),
-      formData.append('type_security', formData.type_security),
-      formData.append('has_extractors', formData.has_extractors),
-      formData.append('extractors_ubication', formData.extractors_ubication),
-      formData.append('modular', formData.modular),
-      formData.append('lateral_doors', formData.lateral_doors),
-      formData.append('lateral_ubication', formData.lateral_ubication),
-      formData.append('rack_unit', formData.rack_unit),
-      formData.append('rack_position', formData.rack_position),
-      formData.append('has_accessory', formData.has_accessory),
-      formData.append('accessory_description', formData.accessory_description),
-      formData.append('rack_width', formData.rack_width),
-      formData.append('rack_length', formData.rack_length),
-      formData.append('rack_height', formData.rack_height),
-      formData.append('internal_pdu', formData.internal_pdu),
-      formData.append('input_connector', formData.input_connector),
-      formData.append('fases', formData.fases),
-      formData.append('output_connector', formData.output_connector),
-      formData.append('neutro', formData.neutro)
+      formData.append("model", rackData.model)
+      formData.append("brand", rackData.brand)
+      formData.append("serial", rackData.serial)
+      formData.append("number_part", rackData.number_part),
+      formData.append("componentType",rackData.componentType)
+      formData.append("five_years_prevition", rackData.five_years_prevition),
+      formData.append("observations", rackData.observations),
+      formData.append("has_cabinet", rackData.hascabinet),
+      formData.append('leased', rackData.leased),
+      formData.append('total_cabinets', rackData.total_cabinets),
+      formData.append('open_closed', rackData.open_closed),
+      formData.append('security', rackData.security),
+      formData.append('type_security', rackData.type_security),
+      formData.append('has_extractors', rackData.has_extractors),
+      formData.append('extractors_ubication', rackData.extractors_ubication),
+      formData.append('modular', rackData.modular),
+      formData.append('lateral_doors', rackData.lateral_doors),
+      formData.append('lateral_ubication', rackData.lateral_ubication),
+      formData.append('rack_unit', rackData.rack_unit),
+      formData.append('rack_position', rackData.rack_position),
+      formData.append('has_accessory', rackData.has_accessory),
+      formData.append('accessory_description', rackData.accessory_description),
+      formData.append('rack_width', rackData.rack_width),
+      formData.append('rack_length', rackData.rack_length),
+      formData.append('rack_height', rackData.rack_height),
+      formData.append('internal_pdu', rackData.internal_pdu),
+      formData.append('input_connector', rackData.input_connector),
+      formData.append('fases', rackData.fases),
+      formData.append('output_connector', rackData.output_connector),
+      formData.append('neutro', rackData.neutro)
   
       const response = await actions.addRack(formData)
+      if (response === 201 || 200) {
+        toast.success("Successfully Registered")
+        console.log("Registro exitoso")
+        //retrasa el cambio a home por 2 segundos
+        setTimeout(() => {
+          navigate("/consult")
+        }, 2000)
+
+      } else {
+        toast.error("Error User")
+
+        console.log("Error en el registro de usuario")
+      }
+
     } catch (error) {
       console.log("newrack: ", error)
     }

@@ -8,9 +8,9 @@ export const Home = () => {
 	const [selectedContract, setSelectedContract] = useState("");
 	const [selectedService, setSelectedService] = useState("");
 	const [clientName, setClientName] = useState("");
-	const [clientAdded, setClientAdded] = useState(false); // Estado para controlar si el cliente ha sido añadido
 	const [username, setUsername] = useState("");
 	const [coordination, setCoordination] = useState("");
+	const [userAdded, setUserAdded]= useState(false)
 
 	const handleContractChange = (event) => {
 		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
@@ -32,15 +32,19 @@ export const Home = () => {
 		setCoordination(event.target.value)
 	}
 
-
+	const handleAddUser = () => {
+		if (username && coordination && clientName){
+			setUserAdded(true)}
+		actions.SelectedUsers(username, coordination, clientName);
+	};
 	const handleAddAll = () => {
-		actions.SelectedComponents(selectedContract, selectedService, clientName, username, coordination);
+		actions.SelectedComponents(selectedContract, selectedService );
 	};
 
 	return (
 		<div className="container text-center mt-5">
 
-			{!clientAdded && (<>
+			{!userAdded && (<>
 				<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
 				<div className="m-auto col-4">
 					<label htmlFor="username" className="form-label">
@@ -84,9 +88,11 @@ export const Home = () => {
 						onChange={handleClientNameChange}
 					/>
 				</div>
-				<button className="btn btn-primary m-4" onClick={handleAddUser}>Anadir</button>
+				<button className="btn btn-primary m-4" 
+				onClick={handleAddUser}
+				>Anadir</button>
 			</>)}
-			{clientAdded && (<>
+			{userAdded && (<>
 				<h1>Detalles de la solicitud</h1>
 				<div className="container">
 					Tipo de Contrato

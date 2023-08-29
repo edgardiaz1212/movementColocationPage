@@ -37,22 +37,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			SelectedComponents: (selectedContract, selectedService, clientName, username, coordination) => {
+			SelectedComponents: (selectedContract, selectedService) => {
 				const store = getStore();
 				setStore({
 					selectedContract,
 					selectedService,
+					// Other store properties...
+				})
+				localStorage.setItem("selectedContract", selectedContract)
+				localStorage.setItem("selectedService", selectedService)
+
+			},
+			SelectedUsers: ( clientName, username, coordination) => {
+				const store = getStore();
+				setStore({
 					clientName,
 					username, 
 					coordination
 					// Other store properties...
 				})
-				localStorage.setItem("selectedContract", selectedContract)
-				localStorage.setItem("selectedService", selectedService)
 				localStorage.setItem("clientName", clientName)
 				localStorage.setItem("username", username)
 				localStorage.setItem("coordination", coordination)
 			},
+			
+
 
 			addUser: async (user) => {
 				const store = getStore();
