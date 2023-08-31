@@ -11,7 +11,7 @@ export const Home = () => {
 	const [username, setUsername] = useState("");
 	const [coordination, setCoordination] = useState("");
 	const [userAdded, setUserAdded]= useState(false)
-
+	
 	const handleContractChange = (event) => {
 		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
 	};

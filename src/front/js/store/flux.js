@@ -4,8 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			selectedContract: localStorage.getItem("selectedContract") || [],
 			selectedService: localStorage.getItem("selectedService") || [],
 			clientName: localStorage.getItem("clientName") || [],
-			clientName: localStorage.getItem("username") || [],
-			clientName: localStorage.getItem("coordination") || [],
+			username: localStorage.getItem("username") || [],
+			coordination: localStorage.getItem("coordination") || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 			
 			name: "",
@@ -101,7 +101,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(rack),
+						body: rack,
 					});
 
 					//const data = await response.json()
@@ -109,7 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// don't forget to return something, that is how the async resolves
 					if (response.ok) {
 						const data = await response.json(); // Parse the response body
-						return data; // Return the parsed data
+						return response.status; // Return the parsed data
 					} else {
 						const errorData = await response.json(); // Parse the error response
 						throw new Error(errorData.message); // Throw the error message from the backend
@@ -128,12 +128,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(equipment),
+						body: equipment,
 					});
 
 					if (response.ok) {
 						const data = await response.json(); // Parse the response body
-						return data; // Return the parsed data
+						// return data;
+						return response.status; // Return the parsed data
 					} else {
 						const errorData = await response.json(); // Parse the error response
 						throw new Error(errorData.message); // Throw the error message from the backend
@@ -143,6 +144,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
+
+			
 
 		}
 	};

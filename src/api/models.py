@@ -7,10 +7,16 @@ class User(db.Model):
     username = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     coordination = db.Column(db.String(120), nullable=False)
+    clientName = db.Column(db.String(255), nullable=False)
+    contract = db.Column(db.String(100))
+    componentType = db.Column(db.String(100))
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     
-    # Relación con Clientes (un usuario puede tener varios clientes)
-    clients= db.relationship('Client', backref='user', uselist=True, lazy=False)
+    # Relación con Racks (un cliente puede tener muchos racks)
+    racks = db.relationship('Rack', backref='user', lazy=True)
+    
+    # Relación con Equipos (un cliente puede tener muchos equipos)
+    equipments = db.relationship('Equipment', backref='user', lazy=True)
     
     def __repr__(self):
         return f'<User {self.email}>'
@@ -21,31 +27,11 @@ class User(db.Model):
             "email": self.email,
             "coordination": self.coordination,
             "username": self.username,
-            "created_at": self.created_at,
-        }
-
-class Client(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    clientName = db.Column(db.String(255), nullable=False)
-    user_id =db.Column(db.Integer, db.ForeignKey('user.id'))
-    
-    # Relación con el usuario propietario (un cliente pertenece a un usuario)
-    #user = db.relationship('User', back_populates='clients', lazy=False)
-    
-    # Relación con Racks (un cliente puede tener muchos racks)
-    racks = db.relationship('Rack', backref='client', lazy=True)
-    
-    # Relación con Equipos (un cliente puede tener muchos equipos)
-    equipments = db.relationship('Equipment', backref='client', lazy=True)
-    
-    def __repr__(self):
-        return f'<Client {self.user_id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
             "clientName": self.clientName,
-            "user":self.user.serialize()
+            'observations': self.observations,
+            'contract': self.contract,
+            'componentType': self.componentType,
+            "created_at": self.created_at,
         }
 
 class Description(db.Model):
@@ -57,9 +43,6 @@ class Description(db.Model):
     service = db.Column(db.String(120), nullable=False)
     five_years_prevition = db.Column(db.String(255))
     observations = db.Column(db.String(255))
-    contract = db.Column(db.String(100))
-    componentType = db.Column(db.String(100))
-    
     # Relaciones con Rack y Equipment (un equipo y un rack tienen una descripción)
     rack = db.relationship('Rack', uselist=False, back_populates='description')
     equipment = db.relationship('Equipment', uselist=False, back_populates='description')
@@ -76,9 +59,8 @@ class Description(db.Model):
             'number_part': self.number_part,
             'service': self.service,
             'five_years_prevition': self.five_years_prevition,
-            'contract': self.contract,
-            'observations': self.observations,
-            'componentType': self.componentType,
+            
+            
             
         }
 
@@ -111,7 +93,7 @@ class Rack(db.Model):
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
     description = db.relationship('Description', uselist=False, back_populates='rack')
     
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     # Relación con Equipos (un rack puede tener varios equipos)
     equipments = db.relationship('Equipment', backref='rack')
@@ -180,7 +162,7 @@ class Equipment(db.Model):
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
     description = db.relationship('Description', uselist=False, back_populates='equipment')
     
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     # Relación con Rack (un equipo pertenece a un rack)
     rack_id = db.Column(db.Integer, db.ForeignKey('rack.id'), nullable=True)

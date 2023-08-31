@@ -11,6 +11,8 @@ function Equipment() {
     clientName:store.clientName,
     contract: store.selectedContract,
     service: store.selectedService,
+    username:store.username,
+    coordination:store.coordination,
     model:"",
     brand:"",
     serial:"",
@@ -57,6 +59,8 @@ function Equipment() {
     try {
       const formData = new FormData();
 
+      formData.append("username", store.username)
+      formData.append("coordination", store.coordination)
       formData.append("clientName", store.clientName);
       formData.append("contract", store.selectedContract);
       formData.append("service", store.selectedService);
@@ -95,13 +99,20 @@ function Equipment() {
 
 
       const response = await actions.addEquipment(formData)
-      console.log("equipment added ")
+      console.log(formData)
+      console.log(response)
+      if (response === 200) {
+      console.log("Equipment added successfully");
+      // Realiza cualquier acción adicional necesaria
+    } else {
+      console.log("Error adding equipment");
+    }
     } catch (error) {
       console.log("newEquipment ", error)
-console.log(FormData)
+
     }
   };
-console.log(store.clientName)
+
   
   return (
     <>
