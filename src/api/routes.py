@@ -11,19 +11,23 @@ import os
 api = Blueprint('api', __name__)
 
 
-@api.route('/adduser', methods=['POST'])
+@api.route('/addUser', methods=['POST'])
 def addUser():
     if request.method == "POST":
         data_form = request.form
         data = {
-            email: data_form.get('email'),
-            coordination: data_form.get('coordination'),
-            username: data_form.get('username')
+            "email": data_form.get('email'),
+            "coordination": data_form.get('coordination'),
+            "username": data_form.get('username'),
+            "clientName": data_form.get('clientName'),
+            "contract": data_form.get('contract'),
         }
         new_user = User(
             username=data.get('username'),
             coordination=data.get('coordination'),
-            email=data.get('email')
+            email=data.get('email'),
+            clientName=data.get('clientName'),
+            contract=data.get('contract'),
         )
         db.session.add(new_user)
         try:

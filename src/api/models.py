@@ -5,11 +5,11 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    email = db.Column(db.String(120),  nullable=False)
     coordination = db.Column(db.String(120), nullable=False)
     clientName = db.Column(db.String(255), nullable=False)
-    contract = db.Column(db.String(100))
-    componentType = db.Column(db.String(100))
+    contract = db.Column(db.String(100), nullable=False)
+    service= db.Column(db.String(50))
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     
     # Relación con Racks (un cliente puede tener muchos racks)
@@ -30,7 +30,7 @@ class User(db.Model):
             "clientName": self.clientName,
             'observations': self.observations,
             'contract': self.contract,
-            'componentType': self.componentType,
+            'service':self.service,
             "created_at": self.created_at,
         }
 
@@ -40,9 +40,9 @@ class Description(db.Model):
     model = db.Column(db.String(120), nullable=False)
     serial = db.Column(db.String(120), unique=False, nullable=False)
     number_part = db.Column(db.String(120))
-    service = db.Column(db.String(120), nullable=False)
     five_years_prevition = db.Column(db.String(255))
     observations = db.Column(db.String(255))
+    componentType = db.Column(db.String(100))
     # Relaciones con Rack y Equipment (un equipo y un rack tienen una descripción)
     rack = db.relationship('Rack', uselist=False, back_populates='description')
     equipment = db.relationship('Equipment', uselist=False, back_populates='description')
@@ -57,11 +57,8 @@ class Description(db.Model):
             'model': self.model,
             'serial': self.serial,
             'number_part': self.number_part,
-            'service': self.service,
             'five_years_prevition': self.five_years_prevition,
-            
-            
-            
+            'componentType': self.componentType,
         }
 
 class Rack(db.Model):

@@ -1,50 +1,64 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const initialState={
+	username: "",
+	email: "",
+	coordination: "",
+	clientName: "",
+	contract: "",
+	service: "",
+
+}
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-	const [selectedContract, setSelectedContract] = useState("");
-	const [selectedService, setSelectedService] = useState("");
-	const [clientName, setClientName] = useState("");
-	const [username, setUsername] = useState("");
-	const [coordination, setCoordination] = useState("");
-	const [userAdded, setUserAdded]= useState(false)
 	
-	const handleContractChange = (event) => {
-		setSelectedContract(event.target.value); // Actualiza el estado con el tipo de servicio seleccionado
-	};
+	const [newUser, setNewUser]= useState(initialState)
+	
+	const handleChange = ({ target }) => {
+		setNewUser({ ...newUser, [target.name]: target.value })
+	  };
+	
+	const handleAddAll = async () => {
+		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username || !newUser.contract){
+			console.log("faltan datos")
+			toast.error("Llene todos los campos")
+			return
+		}
+		try {
+			const formData =new FormData()
+			formData.append("email",newUser.email)
+			formData.append("coordination", newUser.coordination)
+			formData.append("username", newUser.username)
+			formData.append("clientName",newUser.clientName)
+			formData.append("contract", newUser.contract)
 
-	const handleServiceChange = (event) => {
-		setSelectedService(event.target.value);
-	};
+			const response = await actions.addUser(formData)
 
-	const handleClientNameChange = (event) => {
-		setClientName(event.target.value);
-	};
+			if (response == 200 || 201){
+				toast.success("Perfecto, continua el registro")
+				setTimeout(() => {
+					console.log("siguiente paso");
+				  }, 3000);
+			}else{
+				toast.error("Error registrando")
+			}
+		} catch (error) {
+			console.log("Error en la solicitud de registro:", error)
+		}
 
-	const handleUsernameChange = (event) => {
-		setUsername(event.target.value);
-	};
-
-	const handleCoordinationChange = (event) => {
-		setCoordination(event.target.value)
-	}
-
-	const handleAddUser = () => {
-		if (username && coordination && clientName){
-			setUserAdded(true)}
-		actions.SelectedUsers(username, coordination, clientName);
-	};
-	const handleAddAll = () => {
-		actions.SelectedComponents(selectedContract, selectedService );
+		
 	};
 
 	return (
 		<div className="container text-center mt-5">
 
-			{!userAdded && (<>
+			
+			<>
 				<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
 				<div className="m-auto col-4">
 					<label htmlFor="username" className="form-label">
@@ -56,13 +70,13 @@ export const Home = () => {
 						id="username"
 						name="username"
 						placeholder="Ingrese su Nombre y Apellido"
-						value={username}
-						onChange={handleUsernameChange}
+						value={newUser.username}
+						onChange={handleChange}
 					/>
 				</div>
 				<div className="m-auto col-4">
 					<label htmlFor="coordination" className="form-label">
-						Unidad Cantv
+						Cooredinacion o Unidad a la que pertenece
 					</label>
 					<input
 						type="text"
@@ -70,8 +84,22 @@ export const Home = () => {
 						id="coordination"
 						name="coordination"
 						placeholder="Ingrese la unidad enla que labora"
-						value={coordination}
-						onChange={handleCoordinationChange}
+						value={newUser.coordination}
+						onChange={handleChange}
+					/>
+				</div>
+				<div className="m-auto col-4">
+					<label htmlFor="coordination" className="form-label">
+						email
+					</label>
+					<input
+						type="text"
+						className="form-control"
+						id="email"
+						name="email"
+						placeholder="Ingrese su email"
+						value={newUser.email}
+						onChange={handleChange}
 					/>
 				</div>
 				<div className="m-auto col-4">
@@ -84,36 +112,43 @@ export const Home = () => {
 						id="clientName"
 						name="clientName"
 						placeholder="Ingrese el nombre del cliente final"
-						value={clientName}
-						onChange={handleClientNameChange}
+						value={newUser.clientName}
+						onChange={handleChange}
 					/>
 				</div>
 				<button className="btn btn-primary m-4" 
-				onClick={handleAddUser}
+				
 				>Anadir</button>
-			</>)}
-			{userAdded && (<>
+			</>
+			
+			<>
 				<h1>Detalles de la solicitud</h1>
 				<div className="container">
 					Tipo de Contrato
 					<select
 						className="form-select"
 						aria-label="Default select example"
-						onChange={handleContractChange}
+						id="contract"
+						name="contract"
+						onChange={handleChange}
+						value={newUser.contract}
 					>
 						<option value="">Seleccionar Contrato</option>
-						<option value="colRack">Colocacion en Rack</option>
-						<option value="colCatalogado">Colocacion Catalogado</option>
+						<option value="Rack">Colocacion en Rack</option>
+						<option value="catalogado">Colocacion Catalogado</option>
 					</select>
 				</div>
 
-				{selectedContract && (
+				{newUser.contract && (
 					<div>
 						<div>Tipo de actividad</div>
 						<select
 							className="form-select"
 							aria-label="Default select example"
-							onChange={handleServiceChange}
+							onChange={handleChange}
+							id="service"
+							name="service"
+							value={newUser.service}
 						>
 							<option value="">Seleccionar servicio</option>
 							<option value="instalacion">Instalacion</option>
@@ -122,9 +157,9 @@ export const Home = () => {
 							<option value="mudanza">Mudanza</option>
 						</select>
 
-						{selectedService && (
+						{newUser.service && (
 							<div className="p-3">
-								{selectedContract === "colRack" && (
+								{newUser.contract === "Rack" && (
 									<Link to="/equipment">
 										<button
 											className="btn btn-primary"
@@ -134,7 +169,7 @@ export const Home = () => {
 										</button>
 									</Link>
 								)}
-								{selectedContract === "colCatalogado" && (
+								{newUser.contract === "catalogado" && (
 									<>
 										<Link to="/rack">
 											<button
@@ -153,10 +188,11 @@ export const Home = () => {
 									</>
 								)}
 							</div>
-						)}
+						 )} 
 					</div>
-				)}
-			</>)}
+				 )} 
+			</>
+			
 		</div>
 	);
 }
