@@ -47,7 +47,7 @@ export const Home = () => {
 			formData.append("service",newUser.service)
 
 			const response = await actions.addUser(formData)
-
+			await actions.getUserData()
 			if (response == 200 || 201){
 				toast.success("Datos Guardados con Exito")
 				setTimeout(() => {
@@ -87,7 +87,7 @@ export const Home = () => {
 				</div>
 				<div className="m-auto col-4">
 					<label htmlFor="coordination" className="form-label">
-						Cooredinacion o Unidad a la que pertenece
+						Coordinacion o Unidad a la que pertenece
 					</label>
 					<input
 						type="text"

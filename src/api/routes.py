@@ -189,17 +189,14 @@ def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
-        current_user = 1
-
+        
         data = {
             'brand': data_form.get('brand'),
             'model': data_form.get('model'),
             'serial_number': data_form.get('serial_number'),
             "number_part": data_form.get("number_part"),
             "componentType": data_form.get("componentType"),
-            "service": data_form.get("service"),
             "five_years_prevition": data_form.get("five_years_prevition"),
-            "contract": data_form.get("contract"),
             "observations": data_form.get("observations"),
             'equipment_width': data_form.get('equipment_width'),
             'equipment_height': data_form.get('equipment_height'),
@@ -224,27 +221,16 @@ def add_equipment():
             'thermal_disipation': data_form.get('thermal_disipation'),
             'power_config': data_form.get('power_config')
         }
-        # Create a new Client instance
-        new_client = Client(
-            clientName=data.get('clientName'),
-            user_id=current_user
-        )
-        db.session.add(new_client)
-        db.session.commit()
-
+      
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
             brand=data.get('data'),
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
-            service=data.get('service'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            contract=data.get('contract'),
-            clientName=data.get('clientName'),
             componentType=data.get('componentType')
-
         )
 
         # Agregar la nueva descripción a la sesión de la base de datos
@@ -279,7 +265,7 @@ def add_equipment():
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
             description=new_description,  # Asociar la descripción al equipo
-            client_id=current_user
+           
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)
@@ -297,9 +283,34 @@ def add_equipment():
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
 
+@api.route('/addEquipmentToUser/<int:user_id>/<int:equipment_id>', methods=['POST'])
+def add_equipment_to_user(user_id, equipment_id):
+    try :
+        user = User.query.get(user_id)
+        equipment = Equipment.query.get(equipment_id)
+        # Asociar el equipo al usuario
+        user.equipments.append(equipment)
+        db.session.commit()
+
+        response_body = {
+            "message": "Equipment added to user successfully",
+            "user_id": user.id,
+            "equipment_id": equipment.id,
+        }
+
+        return jsonify(response_body), 200
+
+    except Exception as e:
+        return jsonify({"message": str(e)}), 500
 
 @api.route('/rack', methods=['GET'])
 def all_rack():
     racks = Rack.query.all()
     racks_data = list(map(lambda rack: rack.serialize(), racks))
     return jsonify(racks_data), 200
+
+@api.route('/equipment', methods=['GET'])
+def all_equipment():
+    equipments = Equipment.query.all()
+    equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
+    return jsonify(equipments_data), 200

@@ -28,7 +28,6 @@ class User(db.Model):
             "coordination": self.coordination,
             "username": self.username,
             "clientName": self.clientName,
-            'observations': self.observations,
             'contract': self.contract,
             'service':self.service,
             "created_at": self.created_at,

@@ -1,19 +1,13 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			selectedContract: localStorage.getItem("selectedContract") || [],
-			selectedService: localStorage.getItem("selectedService") || [],
-			clientName: localStorage.getItem("clientName") || [],
-			username: localStorage.getItem("username") || [],
-			coordination: localStorage.getItem("coordination") || [],
+			currentUser: null,
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
-			
-			name: "",
 
 		},
 		actions: {
-			
-			
+
+
 			getUserData: async () => {
 				const store = getStore();
 				try {
@@ -21,7 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "GET",
 						headers: {
 							"Content-Type": "aplication/json",
-							
+
 						}
 					});
 					if (response.ok) {
@@ -37,34 +31,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			
-			SelectedUsers: ( clientName, username, coordination) => {
-				const store = getStore();
-				setStore({
-					clientName,
-					username, 
-					coordination
-					// Other store properties...
-				})
-				localStorage.setItem("clientName", clientName)
-				localStorage.setItem("username", username)
-				localStorage.setItem("coordination", coordination)
-			},
-			
-
-
 			addUser: async (user) => {
 				const store = getStore();
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/addUser`, {
 						method: "POST",
-						body: user, 
+						body: user,
 					});
-			
+
 					if (response.ok) {
-						
+
 						console.log("Client added successfully");
-						
+
 						return response
 					} else {
 						// Manejo de errores en caso de respuesta no exitosa
@@ -116,20 +94,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					if (response.ok) {
-						const data = await response.json(); // Parse the response body
 						// return data;
-						return response.status; // Return the parsed data
+						return response; // Return the parsed data
 					} else {
-						const errorData = await response.json(); // Parse the error response
-						throw new Error(errorData.message); // Throw the error message from the backend
+						console.log("Error adding equipment:", response.statusText);
+
 					}
 
 				} catch (error) {
-					console.log("Error loading message from backend", error)
+					console.log("Error adding new rquipment", error)
 				}
 			},
 
-			
+			addEquipmentToUser: async (userId, equipmentId) => {
+				try {
+					// Realiza una solicitud al backend para asociar el equipo al usuario en la base de datos
+					const response = await fetch(`${process.env.BACKEND_URL}/addEquipmentToUser/${userId}/${equipmentId}`, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					});
+
+					if (response.ok) {
+						// El equipo se asoció correctamente al usuario
+						console.log('Equipo asociado al usuario correctamente');
+						// Puedes actualizar la información del usuario en el estado si es necesario
+						actions.getUserData(); // Por ejemplo, si tienes un método para cargar los detalles del usuario actual desde el backend
+					} else {
+						console.error('Error al asociar el equipo al usuario');
+					}
+				} catch (error) {
+					console.error('Error en la solicitud:', error);
+				}
+			},
+
+
 
 		}
 	};

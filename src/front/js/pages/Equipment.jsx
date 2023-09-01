@@ -3,23 +3,23 @@ import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Equipment() {
   const { actions, store } = useContext(Context)
+  const currentUser = store.userData.id
+  console.log("current",currentUser)
 
   const [formData, setFormData] = useState({
-    clientName:store.clientName,
-    contract: store.selectedContract,
-    service: store.selectedService,
-    username:store.username,
-    coordination:store.coordination,
-    model:"",
-    brand:"",
-    serial:"",
-    number_part:"",
-    componentType:"",
-    five_years_prevition:"",
-    observations:"",
+
+    model: "",
+    brand: "",
+    serial: "",
+    number_part: "",
+    componentType: "",
+    five_years_prevition: "",
+    observations: "",
     equipment_width: "",
     equipment_length: "",
     equipment_height: "",
@@ -47,23 +47,22 @@ function Equipment() {
     power_config: "",
   })
   const handleFieldChange = (event) => {
-    const { name, value, type, checked } = event.target;
+    const { name, type, value, checked } = event.target;
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: type === "checkbox" ? checked : value,
+    setFormData((prevFormData) => ({ //Objeto de datos del formulario actual antes de que se realice el cambio
+      ...prevFormData, // copia del estado para no modificar el estado existente
+      [name]: type === "checkbox" ? checked : value, // Si el campo es una casilla de verificación, se usa el valor de checked para determinar si está marcado o no.
     }));
   };
 
   const handleAddEquipment = async () => {
+    if (!formData.componentType || !formData.serial || !formData.model || !formData.brand || !formData.equipment_width) {
+      toast.error("Llene todos los campos")
+      return
+    }
     try {
       const formData = new FormData();
 
-      formData.append("username", store.username)
-      formData.append("coordination", store.coordination)
-      formData.append("clientName", store.clientName);
-      formData.append("contract", store.selectedContract);
-      formData.append("service", store.selectedService);
       formData.append("model", formData.model)
       formData.append("brand", formData.brand)
       formData.append("serial", formData.serial)
@@ -99,26 +98,27 @@ function Equipment() {
 
 
       const response = await actions.addEquipment(formData)
-      console.log(formData)
-      console.log(response)
-      if (response === 200) {
-      console.log("Equipment added successfully");
-      // Realiza cualquier acción adicional necesaria
-    } else {
-      console.log("Error adding equipment");
-    }
+
+      if (response === 200 || 201) {
+        toast.success("Datos Guardados con Exito")
+        setTimeout(() => {
+          console.log("siguiente paso");
+        }, 3000);
+
+        const equipmentId = response.data.equipment_id
+        await actions.addEquipmentToUser(store.currentUser.id, equipmentId)
+      } else {
+        toast.error("Error registrando")
+      }
     } catch (error) {
       console.log("newEquipment ", error)
 
     }
   };
 
-  
   return (
     <>
-Para el solicitante {store.clientName}
-Requiere un servicio de {store.selectedService}
-En el tipo de colocacion {store.selectedContract}
+      <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <Details handleFieldChange={handleFieldChange} formData={formData} />
       <div className="container">
         <div className="p-3 mb-2 bg-info">
@@ -423,120 +423,120 @@ En el tipo de colocacion {store.selectedContract}
             onChange={handleFieldChange}
           />
         </div>
-      
 
-      <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
-      <div className="mb-3 col-4">
-        <label htmlFor="ac_dc" className="form-label">
-          Tipo de Alimentación (AC/DC)
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="ac_dc"
-          name="ac_dc"
-          value={formData.ac_dc}
-          placeholder="Introduzca el valor"
-          onChange={handleFieldChange}
-        />
-      </div>
 
-      <div className="mb-3 col-4">
-        <label htmlFor="input_current" className="form-label">
-          Tensión de Alimentación (Voltios)
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="input_current"
-          name="input_current"
-          value={formData.input_current}
-          placeholder="Introduzca el valor"
-          onChange={handleFieldChange}
-        />
-      </div>
+        <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
+        <div className="mb-3 col-4">
+          <label htmlFor="ac_dc" className="form-label">
+            Tipo de Alimentación (AC/DC)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="ac_dc"
+            name="ac_dc"
+            value={formData.ac_dc}
+            placeholder="Introduzca el valor"
+            onChange={handleFieldChange}
+          />
+        </div>
 
-      <div className="mb-3 col-4">
-        <label htmlFor="power" className="form-label">
-          Potencia consumida por fuente de poder (w):
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="power"
-          name="power"
-          value={formData.power}
-          placeholder="Introduzca el valor en watts"
-          onChange={handleFieldChange}
-        />
-      </div>
+        <div className="mb-3 col-4">
+          <label htmlFor="input_current" className="form-label">
+            Tensión de Alimentación (Voltios)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="input_current"
+            name="input_current"
+            value={formData.input_current}
+            placeholder="Introduzca el valor"
+            onChange={handleFieldChange}
+          />
+        </div>
 
-      <div className="mb-3 col-4">
-        <label htmlFor="power_supply" className="form-label">
-          Cantidad de Fuentes de Alimentación por equipo
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="power_supply"
-          name="power_supply"
-          value={formData.power_supply}
-          placeholder="Introduzca la cantidad de alimentacion"
-          onChange={handleFieldChange}
-        />
-      </div>
+        <div className="mb-3 col-4">
+          <label htmlFor="power" className="form-label">
+            Potencia consumida por fuente de poder (w):
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="power"
+            name="power"
+            value={formData.power}
+            placeholder="Introduzca el valor en watts"
+            onChange={handleFieldChange}
+          />
+        </div>
 
-      <div className="mb-3 col-4">
-        <label htmlFor="operation_temp" className="form-label">
-          Rango de Temperatura de Operación del Equipo (°C)
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="operation_temp"
-          name="operation_temp"
-          value={formData.operation_temp}
-          placeholder="Introduzca el rango de Temp"
-          onChange={handleFieldChange}
-        />
-      </div>
+        <div className="mb-3 col-4">
+          <label htmlFor="power_supply" className="form-label">
+            Cantidad de Fuentes de Alimentación por equipo
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="power_supply"
+            name="power_supply"
+            value={formData.power_supply}
+            placeholder="Introduzca la cantidad de alimentacion"
+            onChange={handleFieldChange}
+          />
+        </div>
 
-      <div className="mb-3 col-4">
-        <label htmlFor="thermal_disipation" className="form-label">
-          Disipación Térmica (BTU-Hr)
-        </label>
-        <input
-          type="text"
-          className="form-control"
-          id="thermal_disipation"
-          name="thermal_disipation"
-          value={formData.thermal_disipation}
-          placeholder="Introduzca el valor en BTU-hr"
-          onChange={handleFieldChange}
-        />
-      </div>
-      <div>
-        Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
-        <select
-          className="form-select"
-          aria-label="Default select example"
-          name="power_config"
-          onChange={handleFieldChange}
-          value={formData.power_config}
-        >
-          <option >Seleccione la Correcta</option>
-          <option value="1">1</option>
-          <option value="2">n+1</option>
-          <option value="3">2n+1</option>
-          <option value="4">Descrita en observaciones</option>
-        </select>
-      </div>
-      <Observations handleFieldChange={handleFieldChange} formData={formData} />
-      <Link to="/consult">
-        <button className="btn btn-primary"
-          onClick={handleAddEquipment}
-        >Agregar</button>
-      </Link>
+        <div className="mb-3 col-4">
+          <label htmlFor="operation_temp" className="form-label">
+            Rango de Temperatura de Operación del Equipo (°C)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="operation_temp"
+            name="operation_temp"
+            value={formData.operation_temp}
+            placeholder="Introduzca el rango de Temp"
+            onChange={handleFieldChange}
+          />
+        </div>
+
+        <div className="mb-3 col-4">
+          <label htmlFor="thermal_disipation" className="form-label">
+            Disipación Térmica (BTU-Hr)
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="thermal_disipation"
+            name="thermal_disipation"
+            value={formData.thermal_disipation}
+            placeholder="Introduzca el valor en BTU-hr"
+            onChange={handleFieldChange}
+          />
+        </div>
+        <div>
+          Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
+          <select
+            className="form-select"
+            aria-label="Default select example"
+            name="power_config"
+            onChange={handleFieldChange}
+            value={formData.power_config}
+          >
+            <option >Seleccione la Correcta</option>
+            <option value="1">1</option>
+            <option value="2">n+1</option>
+            <option value="3">2n+1</option>
+            <option value="4">Descrita en observaciones</option>
+          </select>
+        </div>
+        <Observations handleFieldChange={handleFieldChange} formData={formData} />
+        <Link to="/consult">
+          <button className="btn btn-primary"
+            onClick={handleAddEquipment}
+          >Agregar</button>
+        </Link>
       </div>
     </>
   );
