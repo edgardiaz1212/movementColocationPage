@@ -21,6 +21,7 @@ def addUser():
             "username": data_form.get('username'),
             "clientName": data_form.get('clientName'),
             "contract": data_form.get('contract'),
+            "service" :data_form.get('service')
         }
         new_user = User(
             username=data.get('username'),
@@ -28,6 +29,7 @@ def addUser():
             email=data.get('email'),
             clientName=data.get('clientName'),
             contract=data.get('contract'),
+            service = data.get('service')
         )
         db.session.add(new_user)
         try:

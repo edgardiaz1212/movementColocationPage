@@ -16,15 +16,23 @@ const initialState={
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-	
+	const [showSection, setShowSection] =useState(false)
 	const [newUser, setNewUser]= useState(initialState)
 	
 	const handleChange = ({ target }) => {
 		setNewUser({ ...newUser, [target.name]: target.value })
 	  };
 	
+	const handleSections =() =>{
+		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username){
+			console.log("faltan datos")
+			toast.error("Llene todos los campos")
+			return}
+		setShowSection(true)
+	}
+
 	const handleAddAll = async () => {
-		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username || !newUser.contract){
+		if (!newUser.contract || !newUser.service){
 			console.log("faltan datos")
 			toast.error("Llene todos los campos")
 			return
@@ -36,11 +44,12 @@ export const Home = () => {
 			formData.append("username", newUser.username)
 			formData.append("clientName",newUser.clientName)
 			formData.append("contract", newUser.contract)
+			formData.append("service",newUser.service)
 
 			const response = await actions.addUser(formData)
 
 			if (response == 200 || 201){
-				toast.success("Perfecto, continua el registro")
+				toast.success("Datos Guardados con Exito")
 				setTimeout(() => {
 					console.log("siguiente paso");
 				  }, 3000);
@@ -55,9 +64,11 @@ export const Home = () => {
 	};
 
 	return (
+		<>
+		<ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
 		<div className="container text-center mt-5">
 
-			
+			{!showSection ?(
 			<>
 				<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
 				<div className="m-auto col-4">
@@ -117,10 +128,10 @@ export const Home = () => {
 					/>
 				</div>
 				<button className="btn btn-primary m-4" 
-				
+				onClick={handleSections}
 				>Anadir</button>
 			</>
-			
+			):(
 			<>
 				<h1>Detalles de la solicitud</h1>
 				<div className="container">
@@ -139,7 +150,7 @@ export const Home = () => {
 					</select>
 				</div>
 
-				{newUser.contract && (
+				
 					<div>
 						<div>Tipo de actividad</div>
 						<select
@@ -190,9 +201,10 @@ export const Home = () => {
 							</div>
 						 )} 
 					</div>
-				 )} 
+				  
 			</>
-			
+			)}
 		</div>
+		</>
 	);
 }

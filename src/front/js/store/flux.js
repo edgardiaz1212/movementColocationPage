@@ -37,17 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			SelectedComponents: (selectedContract, selectedService) => {
-				const store = getStore();
-				setStore({
-					selectedContract,
-					selectedService,
-					// Other store properties...
-				})
-				localStorage.setItem("selectedContract", selectedContract)
-				localStorage.setItem("selectedService", selectedService)
-
-			},
+			
 			SelectedUsers: ( clientName, username, coordination) => {
 				const store = getStore();
 				setStore({
@@ -68,20 +58,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/addUser`, {
 						method: "POST",
-						// headers: {
-						// 	'Content-Type': 'application/json',
-						// },
-						body: user, // Envía el nombre del cliente al backend
+						body: user, 
 					});
 			
 					if (response.ok) {
-						// Puedes manejar la respuesta exitosa como desees
+						
 						console.log("Client added successfully");
-						//let data = await response.json();
-						// // Por ejemplo, podrías actualizar el estado con el nuevo cliente
-						// setStore({
-						// 	clients: [...store.clients, data.clientName]
-						// });
+						
 						return response
 					} else {
 						// Manejo de errores en caso de respuesta no exitosa
