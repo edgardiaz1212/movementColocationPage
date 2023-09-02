@@ -105,30 +105,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addEquipmentToUser: async (userId, equipmentId) => {
-				try {
-					// Realiza una solicitud al backend para asociar el equipo al usuario en la base de datos
-					const response = await fetch(`${process.env.BACKEND_URL}/addEquipmentToUser/${userId}/${equipmentId}`, {
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					});
-
-					if (response.ok) {
-						// El equipo se asoció correctamente al usuario
-						console.log('Equipo asociado al usuario correctamente');
-						// Puedes actualizar la información del usuario en el estado si es necesario
-						actions.getUserData(); // Por ejemplo, si tienes un método para cargar los detalles del usuario actual desde el backend
-					} else {
-						console.error('Error al asociar el equipo al usuario');
-					}
-				} catch (error) {
-					console.error('Error en la solicitud:', error);
-				}
-			},
-
-
+			addDescription: async (description) =>{}
 
 		}
 	};

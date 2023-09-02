@@ -13,24 +13,44 @@ function Details() {
     five_years_prevition: "",
     observations: "",
   });
-  
+
   const handleChange = ({ target }) => {
-		setDescriptionFormData({ ...newUser, [target.name]: target.value })
-	  };
-	
-    const handleAddDescription = async()=>{
-      try {
-        if(!descriptionFormData.componentType || !descriptionFormData.serial || !descriptionFormData.model || !descriptionFormData.brand){}
-        console.log("faltan detalles Descripcion")
-        toast.error("Llene todos los campos")
-        return
-      } catch (error) {
-        console.log("error al enviar descripcion", error)
-      }
+    setDescriptionFormData({ ...newUser, [target.name]: target.value })
+  };
+
+  const handleAddDescription = async () => {
+    if (!descriptionFormData.componentType || !descriptionFormData.serial || !descriptionFormData.model || !descriptionFormData.brand) {
+      console.log("faltan detalles Descripcion")
+      toast.error("Llene todos los campos")
+      return
     }
+    try {
+      const formData = new FormData()
+
+      formData.append("model", descriptionFormData.model)
+      formData.append("brand", descriptionFormData.brand)
+      formData.append("serial", descriptionFormData.serial)
+      formData.append("number_part", descriptionFormData.number_part)
+      formData.append("componentType", descriptionFormData.componentType)
+      formData.append("five_years_prevition", descriptionFormData.five_years_prevition)
+      formData.append("observations", descriptionFormData.observations)
+
+      const response = await actions.addDescription(formData)
+      if (response == 200 || 201){
+				toast.success("Datos Guardados con Exito")
+				setTimeout(() => {
+					console.log("Descripcion lista");
+				  }, 2000);
+			}else{
+				toast.error("Error registrando")
+			}
+    } catch (error) {
+      console.log("error al enviar descripcion", error)
+    }
+  }
   return (
     <>
-    <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
+      <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
 
       <div className="p-3 mb-2 bg-info">
         <h2>Datos Generales</h2>
@@ -49,7 +69,7 @@ function Details() {
               id="brand"
               name="brand"
               placeholder="Introduzca la marca"
-              value={ descriptionFormData.brand}
+              value={descriptionFormData.brand}
               onChange={handleChange}
             />
           </div>
@@ -63,7 +83,7 @@ function Details() {
               className="form-control"
               id="model"
               name="model"
-              value={ descriptionFormData.model}
+              value={descriptionFormData.model}
               placeholder="Introduzca el modelo"
               onChange={handleChange}
             />
@@ -78,7 +98,7 @@ function Details() {
               className="form-control"
               id="serial"
               name="serial"
-              value={ descriptionFormData.serial}
+              value={descriptionFormData.serial}
               placeholder="Introduzca el serial"
               onChange={handleChange}
             />
@@ -92,7 +112,7 @@ function Details() {
               className="form-control"
               id="number_part"
               name="number_part"
-              value={ descriptionFormData.number_part}
+              value={descriptionFormData.number_part}
               placeholder="Introduzca el número de parte"
               onChange={handleChange}
             />
@@ -106,14 +126,14 @@ function Details() {
               className="form-control"
               id="componentType"
               name="componentType"
-              value={ descriptionFormData.componentType}
+              value={descriptionFormData.componentType}
               placeholder="Introduzca el tipo de componente"
               onChange={handleChange}
             />
           </div>
-          <button className="btn btn-primary m-4" 
-				onClick
-				>Anadir</button>
+          <button className="btn btn-primary m-4"
+            onClick={handleAddDescription}
+          >Anadir</button>
         </div>
       </div>
     </>

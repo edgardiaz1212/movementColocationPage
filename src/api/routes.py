@@ -55,7 +55,40 @@ def get_user_info():
         # else:
         #     return jsonify({'error': 'User not found'}), 404
 
+@api.route('/description', methods=['POST'])
+def addDescription():
+    if request.method=='POST':
+        try:
+            data_form = request.form
+            data={
+                "brand": data_form.get("brand"),
+                "model": data_form.get("model"),
+                "serial": data_form.get("serial"),
+                "number_part": data_form.get("number_part"),
+                "componentType": data_form.get("componentType"),
+                "five_years_prevition": data_form.get("five_years_prevition"),
+                "observations": data_form.get("observations"),
+            }
+            new_description = Description(
+            brand=data.get("brand"),
+            model=data.get('model'),
+            serial=data.get('serial'),
+            number_part=data.get('number_part'),
+            service=data.get('service'),
+            five_years_prevition=data.get('five_years_prevition'),
+            observations=data.get('observations'),
+            contract=data.get('contract'),
+            componentType=data.get('componentType')
 
+        )
+            db.session.add(new_description)
+            db.session.commit()
+            return jsonify({"description_id": description_id}), 201
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload User", "error": str(error)}), 500
+        return jsonify([]), 200
+    
 @api.route('/rack', methods=['POST'])
 def add_rack():
     try:

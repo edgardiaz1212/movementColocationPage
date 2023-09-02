@@ -56,7 +56,7 @@ function Equipment() {
   };
 
   const handleAddEquipment = async () => {
-    if ( || !data.equipment_width) {
+    if (!data.equipment_width) {
       console.log("faltan datos importantes")
       toast.error("Llene todos los campos")
       return
@@ -65,13 +65,8 @@ function Equipment() {
     try {
       const formData = new FormData();
 
-      formData.append("model", data.model)
-      formData.append("brand", data.brand)
-      formData.append("serial", data.serial)
-      formData.append("number_part", data.number_part)
-      formData.append("componentType", data.componentType)
-      formData.append("five_years_prevition", data.five_years_prevition)
-      formData.append("observations", data.observations)
+      
+     
       formData.append("equipment_width", data.equipment_width)
       formData.append('equipment_height', data.equipment_height)
       formData.append('equipment_length', data.equipment_length)

@@ -51,7 +51,7 @@ export const Home = () => {
 			if (response == 200 || 201){
 				toast.success("Datos Guardados con Exito")
 				setTimeout(() => {
-					console.log("siguiente paso");
+					console.log("Equipo Agregado");
 				  }, 3000);
 			}else{
 				toast.error("Error registrando")
