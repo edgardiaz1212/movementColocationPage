@@ -1,57 +1,8 @@
-import React, { useContexformDatat, useState } from "react";
-import { Context } from '../store/appContext'
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React from "react";
 
-function Details() {
-  const [descriptionFormData, setDescriptionFormData] = useState({
-    brand: "",
-    model: "",
-    serial_number: "",
-    number_part: "",
-    componentType: "",
-    five_years_prevition: "",
-    observations: "",
-  });
-
-  const handleChange = ({ target }) => {
-    setDescriptionFormData({ ...newUser, [target.name]: target.value })
-  };
-
-  const handleAddDescription = async () => {
-    if (!descriptionFormData.componentType || !descriptionFormData.serial || !descriptionFormData.model || !descriptionFormData.brand) {
-      console.log("faltan detalles Descripcion")
-      toast.error("Llene todos los campos")
-      return
-    }
-    try {
-      const formData = new FormData()
-
-      formData.append("model", descriptionFormData.model)
-      formData.append("brand", descriptionFormData.brand)
-      formData.append("serial", descriptionFormData.serial)
-      formData.append("number_part", descriptionFormData.number_part)
-      formData.append("componentType", descriptionFormData.componentType)
-      formData.append("five_years_prevition", descriptionFormData.five_years_prevition)
-      formData.append("observations", descriptionFormData.observations)
-
-      const response = await actions.addDescription(formData)
-      if (response == 200 || 201){
-				toast.success("Datos Guardados con Exito")
-				setTimeout(() => {
-					console.log("Descripcion lista");
-				  }, 2000);
-			}else{
-				toast.error("Error registrando")
-			}
-    } catch (error) {
-      console.log("error al enviar descripcion", error)
-    }
-  }
+function Details({handleFieldChange,  data}) {
   return (
     <>
-      <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-
       <div className="p-3 mb-2 bg-info">
         <h2>Datos Generales</h2>
       </div>
@@ -69,8 +20,8 @@ function Details() {
               id="brand"
               name="brand"
               placeholder="Introduzca la marca"
-              value={descriptionFormData.brand}
-              onChange={handleChange}
+              value={ data.brand}
+              onChange={handleFieldChange}
             />
           </div>
 
@@ -83,9 +34,9 @@ function Details() {
               className="form-control"
               id="model"
               name="model"
-              value={descriptionFormData.model}
+              value={ data.model}
               placeholder="Introduzca el modelo"
-              onChange={handleChange}
+              onChange={handleFieldChange}
             />
           </div>
 
@@ -98,9 +49,9 @@ function Details() {
               className="form-control"
               id="serial"
               name="serial"
-              value={descriptionFormData.serial}
+              value={ data.serial}
               placeholder="Introduzca el serial"
-              onChange={handleChange}
+              onChange={handleFieldChange}
             />
           </div>
           <div className="m-auto">
@@ -112,9 +63,9 @@ function Details() {
               className="form-control"
               id="number_part"
               name="number_part"
-              value={descriptionFormData.number_part}
+              value={ data.number_part}
               placeholder="Introduzca el número de parte"
-              onChange={handleChange}
+              onChange={handleFieldChange}
             />
           </div>
           <div className="m-auto">
@@ -126,14 +77,12 @@ function Details() {
               className="form-control"
               id="componentType"
               name="componentType"
-              value={descriptionFormData.componentType}
+              value={ data.componentType}
               placeholder="Introduzca el tipo de componente"
-              onChange={handleChange}
+              onChange={handleFieldChange}
             />
           </div>
-          <button className="btn btn-primary m-4"
-            onClick={handleAddDescription}
-          >Anadir</button>
+          
         </div>
       </div>
     </>

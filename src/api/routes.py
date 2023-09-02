@@ -74,10 +74,8 @@ def addDescription():
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
-            service=data.get('service'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            contract=data.get('contract'),
             componentType=data.get('componentType')
 
         )
@@ -162,10 +160,10 @@ def add_rack():
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
-            service=data.get('service'),
+
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            contract=data.get('contract'),
+
             componentType=data.get('componentType')
 
         )
@@ -219,7 +217,7 @@ def add_rack():
         return jsonify({"message": str(e)}), 500
 
 
-@api.route('/equipment', methods=['POST'])
+@api.route('/addequipment', methods=['POST'])
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
@@ -229,7 +227,7 @@ def add_equipment():
         data = {
             'brand': data_form.get('brand'),
             'model': data_form.get('model'),
-            'serial_number': data_form.get('serial_number'),
+            'serial': data_form.get('serial'),
             "number_part": data_form.get("number_part"),
             "componentType": data_form.get("componentType"),
             "five_years_prevition": data_form.get("five_years_prevition"),
@@ -260,60 +258,73 @@ def add_equipment():
       
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data.get('data'),
+            brand=data.get('brand'),
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            componentType=data.get('componentType')
+            componentType=data.get('componentType'),
         )
-
         # Agregar la nueva descripción a la sesión de la base de datos
         db.session.add(new_description)
-        db.session.commit()
-
+       
+        try:
+            db.session.commit()
+        #     response_body = {
+        #     "message": "Description added successfully",
+        # }
+        #     return jsonify(response_body), 200
+        #except Exception as error:
+        #     db.session.rollback()
+        #     return jsonify({"msg": "Error occurred while trying to upload Description", "error": str(error)}), 500
+            description_id = new_description.id
         # Crear una instancia de Equipment con los datos recibidos
-        new_equipment = Equipment(
-            equipment_width=data.get('equipment_width'),
-            equipment_height=data.get('equipment_height'),
-            equipment_length=data.get('equipment_length'),
-            packaging_width=data.get('packaging_width'),
-            packaging_length=data.get('packaging_length'),
-            packaging_height=data.get('packaging_height'),
-            weight=data.get('weight'),
-            anchor_type=data.get('anchor_type'),
-            service_area=data.get('service_area'),
-            service_frontal=data.get('service_frontal'),
-            service_back=data.get('service_back'),
-            service_lateral=data.get('service_lateral'),
-            access_width=data.get('access_width'),
-            access_inclination=data.get('access_inclination'),
-            access_length=data.get('access_length'),
-            rack_number=data.get('rack_number'),
-            rack_unit_position=data.get('rack_unit_position'),
-            total_rack_units=data.get('total_rack_units'),
-            ac_dc=data.get('ac_dc'),
-            input_current=data.get('input_current'),
-            power=data.get('power'),
-            power_supply=data.get('power_supply'),
-            operation_temp=data.get('operation_temp'),
-            thermal_disipation=data.get('thermal_disipation'),
-            power_config=data.get('power_config'),
-            description_id=new_description.id,  # Asociar la descripción al equipo
-            user_id=user_id
-        )
+            new_equipment = Equipment(
+                equipment_width=data.get('equipment_width'),
+                equipment_height=data.get('equipment_height'),
+                equipment_length=data.get('equipment_length'),
+                packaging_width=data.get('packaging_width'),
+                packaging_length=data.get('packaging_length'),
+                packaging_height=data.get('packaging_height'),
+                weight=data.get('weight'),
+                anchor_type=data.get('anchor_type'),
+                service_area=data.get('service_area'),
+                service_frontal=data.get('service_frontal'),
+                service_back=data.get('service_back'),
+                service_lateral=data.get('service_lateral'),
+                access_width=data.get('access_width'),
+                access_inclination=data.get('access_inclination'),
+                access_length=data.get('access_length'),
+                rack_number=data.get('rack_number'),
+                rack_unit_position=data.get('rack_unit_position'),
+                total_rack_units=data.get('total_rack_units'),
+                ac_dc=data.get('ac_dc'),
+                input_current=data.get('input_current'),
+                power=data.get('power'),
+                power_supply=data.get('power_supply'),
+                operation_temp=data.get('operation_temp'),
+                thermal_disipation=data.get('thermal_disipation'),
+                power_config=data.get('power_config'),
+                description_id=description_id,
+                user_id=user_id
+            )
         # Agregar el nuevo equipo a la sesión de la base de datos
-        db.session.add(new_equipment)
-        db.session.commit()
-
+        
+            db.session.add(new_equipment)
+        #try:
+            db.session.commit()
+          
         # Crear una respuesta exitosa
-        response_body = {
-            "message": "Equipment added successfully",
+            response_body = {
+            "message": "Description Equipment added successfully",
             "equipment_id": new_equipment.id  # Si deseas devolver el ID del equipo creado
-        }
-
-        return jsonify(response_body), 200
+            }
+            return jsonify(response_body), 200
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload Equipment description", "error": str(error)}), 500
+        
 
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error

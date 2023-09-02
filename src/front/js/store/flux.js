@@ -86,11 +86,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore()
 				try {
 					// fetching data from the backend
-					const response = await fetch(`${process.env.BACKEND_URL}/equipment`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/addequipment`, {
 						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
+						
 						body: equipment,
 					});
 
