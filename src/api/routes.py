@@ -151,6 +151,10 @@ def add_rack():
         )
         db.session.add(new_description)
         try:
+            db.session.commit()
+        
+            description_id = new_description.id
+            
         # # Crear una instancia de Rack con los datos recibidos
             new_rack = Rack(
                 has_cabinet=data.get('has_cabinet'),
@@ -178,7 +182,6 @@ def add_rack():
                 neutro=data.get('neutro'),
                 description_id=new_description.id,
                 user_id=user_id,
-                description_id=description_id,
             )
 
         # # Agregar el nuevo rack a la sesión de la base de datos
@@ -292,7 +295,7 @@ def add_equipment():
         # Agregar el nuevo equipo a la sesión de la base de datos
         
             db.session.add(new_equipment)
-        #try:
+
             db.session.commit()
           
         # Crear una respuesta exitosa
