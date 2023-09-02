@@ -34,7 +34,8 @@ def addUser():
         db.session.add(new_user)
         try:
             db.session.commit()
-            return jsonify({"msg": "User created"}), 201
+            user_id = new_user.id
+            return jsonify({"user_id": user_id}), 201
         except Exception as error:
             db.session.rollback()
             return jsonify({"msg": "Error occurred while trying to upload User", "error": str(error)}), 500
@@ -162,8 +163,9 @@ def add_rack():
             fases=data.get('fases'),
             output_connector=data.get('output_connector'),
             neutro=data.get('neutro'),
-            description=new_description,
-            client=new_client
+            description_id=new_description.id,
+            user_id=user_id
+           
 
         )
 
@@ -188,6 +190,7 @@ def add_rack():
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
+        user_id = request.form.get('user_id')
         data_form = request.form
         
         data = {
@@ -264,8 +267,8 @@ def add_equipment():
             operation_temp=data.get('operation_temp'),
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
-            description=new_description,  # Asociar la descripción al equipo
-           
+            description_id=new_description.id,  # Asociar la descripción al equipo
+            user_id=user_id
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)

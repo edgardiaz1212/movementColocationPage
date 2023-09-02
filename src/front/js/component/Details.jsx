@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useContexformDatat, useState } from "react";
+import { Context } from '../store/appContext'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function Details({handleFieldChange, formData}) {
+function Details() {
+  const [descriptionFormData, setDescriptionFormData] = useState({
+    brand: "",
+    model: "",
+    serial_number: "",
+    number_part: "",
+    componentType: "",
+    five_years_prevition: "",
+    observations: "",
+  });
+  
+  const handleChange = ({ target }) => {
+		setDescriptionFormData({ ...newUser, [target.name]: target.value })
+	  };
+	
+    const handleAddDescription = async()=>{
+      try {
+        if(!descriptionFormData.componentType || !descriptionFormData.serial || !descriptionFormData.model || !descriptionFormData.brand){}
+        console.log("faltan detalles Descripcion")
+        toast.error("Llene todos los campos")
+        return
+      } catch (error) {
+        console.log("error al enviar descripcion", error)
+      }
+    }
   return (
     <>
+    <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
+
       <div className="p-3 mb-2 bg-info">
         <h2>Datos Generales</h2>
       </div>
@@ -20,8 +49,8 @@ function Details({handleFieldChange, formData}) {
               id="brand"
               name="brand"
               placeholder="Introduzca la marca"
-              value={formData.brand}
-              onChange={handleFieldChange}
+              value={ descriptionFormData.brand}
+              onChange={handleChange}
             />
           </div>
 
@@ -34,9 +63,9 @@ function Details({handleFieldChange, formData}) {
               className="form-control"
               id="model"
               name="model"
-              value={formData.model}
+              value={ descriptionFormData.model}
               placeholder="Introduzca el modelo"
-              onChange={handleFieldChange}
+              onChange={handleChange}
             />
           </div>
 
@@ -49,9 +78,9 @@ function Details({handleFieldChange, formData}) {
               className="form-control"
               id="serial"
               name="serial"
-              value={formData.serial}
+              value={ descriptionFormData.serial}
               placeholder="Introduzca el serial"
-              onChange={handleFieldChange}
+              onChange={handleChange}
             />
           </div>
           <div className="m-auto">
@@ -63,9 +92,9 @@ function Details({handleFieldChange, formData}) {
               className="form-control"
               id="number_part"
               name="number_part"
-              value={formData.number_part}
+              value={ descriptionFormData.number_part}
               placeholder="Introduzca el número de parte"
-              onChange={handleFieldChange}
+              onChange={handleChange}
             />
           </div>
           <div className="m-auto">
@@ -77,11 +106,14 @@ function Details({handleFieldChange, formData}) {
               className="form-control"
               id="componentType"
               name="componentType"
-              value={formData.componentType}
+              value={ descriptionFormData.componentType}
               placeholder="Introduzca el tipo de componente"
-              onChange={handleFieldChange}
+              onChange={handleChange}
             />
           </div>
+          <button className="btn btn-primary m-4" 
+				onClick
+				>Anadir</button>
         </div>
       </div>
     </>

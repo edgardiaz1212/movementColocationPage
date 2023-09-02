@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Observations({ handleFieldChange, formData }) {
+function Observations({ handleFieldChange, data }) {
   return (
     <>
       <div className="input-group">
@@ -10,7 +10,7 @@ function Observations({ handleFieldChange, formData }) {
           aria-label="With textarea"
           id="observations"
           name='observations'
-          value={formData.observations}
+          value={ data.observations}
           onChange={handleFieldChange}
         >
         </textarea>
@@ -23,7 +23,7 @@ function Observations({ handleFieldChange, formData }) {
           aria-label="With textarea"
           id="five_years_prevition"
           name='five_years_prevition'
-          value={formData.five_years_prevition}
+          value={ data.five_years_prevition}
           onChange={handleFieldChange}
         ></textarea>
       </div>

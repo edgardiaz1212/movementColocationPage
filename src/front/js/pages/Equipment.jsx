@@ -8,11 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Equipment() {
   const { actions, store } = useContext(Context)
-  const currentUser = store.userData.id
-  console.log("current",currentUser)
+  const currentUser = store.currentUser
+  //console.log("current",currentUser)
 
-  const [formData, setFormData] = useState({
-
+  const initialState = {
     model: "",
     brand: "",
     serial: "",
@@ -45,57 +44,60 @@ function Equipment() {
     operation_temp: "",
     thermal_disipation: "",
     power_config: "",
-  })
+  }
+  const [data, setData] = useState(initialState)
+
   const handleFieldChange = (event) => {
     const { name, type, value, checked } = event.target;
-
-    setFormData((prevFormData) => ({ //Objeto de datos del formulario actual antes de que se realice el cambio
-      ...prevFormData, // copia del estado para no modificar el estado existente
+        setData((prevData) => ({ //Objeto de datos del formulario actual antes de que se realice el cambio
+      ...prevData, // copia del estado para no modificar el estado existente
       [name]: type === "checkbox" ? checked : value, // Si el campo es una casilla de verificación, se usa el valor de checked para determinar si está marcado o no.
     }));
   };
 
   const handleAddEquipment = async () => {
-    if (!formData.componentType || !formData.serial || !formData.model || !formData.brand || !formData.equipment_width) {
+    if ( || !data.equipment_width) {
+      console.log("faltan datos importantes")
       toast.error("Llene todos los campos")
       return
     }
+    console.log(data)
     try {
       const formData = new FormData();
 
-      formData.append("model", formData.model)
-      formData.append("brand", formData.brand)
-      formData.append("serial", formData.serial)
-      formData.append("number_part", formData.number_part)
-      formData.append("componentType", formData.componentType)
-      formData.append("five_years_prevition", formData.five_years_prevition)
-      formData.append("observations", formData.observations)
-      formData.append("equipment_width", formData.equipment_width)
-      formData.append('equipment_height', formData.equipment_height)
-      formData.append('equipment_length', formData.equipment_length)
-      formData.append('packaging_width', formData.packaging_width)
-      formData.append('packaging_length', formData.packaging_length)
-      formData.append('packaging_height', formData.packaging_height)
-      formData.append('weight', formData.weight)
-      formData.append('anchor_type', formData.anchor_type)
-      formData.append('service_area', formData.service_area)
-      formData.append('service_frontal', formData.service_frontal)
-      formData.append('service_back', formData.service_back)
-      formData.append('service_lateral', formData.service_lateral)
-      formData.append('access_width', formData.access_width)
-      formData.append('access_inclination', formData.access_inclination)
-      formData.append('access_length', formData.access_length)
-      formData.append('rack_number', formData.rack_number)
-      formData.append('rack_unit_position', formData.rack_unit_position)
-      formData.append('total_rack_units', formData.total_rack_units)
-      formData.append('ac_dc', formData.ac_dc)
-      formData.append('input_current', formData.input_current)
-      formData.append('power', formData.power)
-      formData.append('power_supply', formData.power_supply)
-      formData.append('operation_temp', formData.operation_temp)
-      formData.append('thermal_disipation', formData.thermal_disipation)
-      formData.append('power_config', formData.power_config)
-
+      formData.append("model", data.model)
+      formData.append("brand", data.brand)
+      formData.append("serial", data.serial)
+      formData.append("number_part", data.number_part)
+      formData.append("componentType", data.componentType)
+      formData.append("five_years_prevition", data.five_years_prevition)
+      formData.append("observations", data.observations)
+      formData.append("equipment_width", data.equipment_width)
+      formData.append('equipment_height', data.equipment_height)
+      formData.append('equipment_length', data.equipment_length)
+      formData.append('packaging_width', data.packaging_width)
+      formData.append('packaging_length', data.packaging_length)
+      formData.append('packaging_height', data.packaging_height)
+      formData.append('weight', data.weight)
+      formData.append('anchor_type', data.anchor_type)
+      formData.append('service_area', data.service_area)
+      formData.append('service_frontal', data.service_frontal)
+      formData.append('service_back', data.service_back)
+      formData.append('service_lateral', data.service_lateral)
+      formData.append('access_width', data.access_width)
+      formData.append('access_inclination', data.access_inclination)
+      formData.append('access_length', data.access_length)
+      formData.append('rack_number', data.rack_number)
+      formData.append('rack_unit_position', data.rack_unit_position)
+      formData.append('total_rack_units', data.total_rack_units)
+      formData.append('ac_dc', data.ac_dc)
+      formData.append('input_current', data.input_current)
+      formData.append('power', data.power)
+      formData.append('power_supply', data.power_supply)
+      formData.append('operation_temp', data.operation_temp)
+      formData.append('thermal_disipation', data.thermal_disipation)
+      formData.append('power_config', data.power_config)
+      formData.append('user_id', currentUser)
 
       const response = await actions.addEquipment(formData)
 
@@ -105,8 +107,8 @@ function Equipment() {
           console.log("siguiente paso");
         }, 3000);
 
-        const equipmentId = response.data.equipment_id
-        await actions.addEquipmentToUser(store.currentUser.id, equipmentId)
+        // const equipmentId = response.data.equipment_id
+        // await actions.addEquipmentToUser(store.currentUser.id, equipmentId)
       } else {
         toast.error("Error registrando")
       }
@@ -119,8 +121,10 @@ function Equipment() {
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-      <Details handleFieldChange={handleFieldChange} formData={formData} />
+
+
       <div className="container">
+        <Details handleFieldChange={handleFieldChange} data={data} />
         <div className="p-3 mb-2 bg-info">
           <h2>ESPECIFICACIONES FÍSICAS DEL EQUIPO</h2>
         </div>
@@ -136,7 +140,7 @@ function Equipment() {
                 className="form-control"
                 id="equipment_width"
                 name="equipment_width"
-                value={formData.equipment_width}
+                value={data.equipment_width}
                 placeholder="Introduzca el ancho del equipo"
                 onChange={handleFieldChange}
               />
@@ -151,7 +155,7 @@ function Equipment() {
                 className="form-control"
                 id="equipment_length"
                 name="equipment_length"
-                value={formData.equipment_length}
+                value={data.equipment_length}
                 placeholder="Introduzca el largo del equipo"
                 onChange={handleFieldChange}
               />
@@ -166,7 +170,7 @@ function Equipment() {
                 className="form-control"
                 id="equipment_height"
                 name="equipment_height"
-                value={formData.equipment_height}
+                value={ data.equipment_height}
                 placeholder="Introduzca el alto del equipo"
                 onChange={handleFieldChange}
               />
@@ -186,7 +190,7 @@ function Equipment() {
                 className="form-control"
                 id="packaging_width"
                 name="packaging_width"
-                value={formData.packaging_width}
+                value={ data.packaging_width}
                 placeholder="Introduzca el ancho del embalaje"
                 onChange={handleFieldChange}
               />
@@ -201,7 +205,7 @@ function Equipment() {
                 className="form-control"
                 id="packaging_length"
                 name="packaging_length"
-                value={formData.packaging_length}
+                value={ data.packaging_length}
                 placeholder="Introduzca el largo del embalaje"
                 onChange={handleFieldChange}
               />
@@ -216,7 +220,7 @@ function Equipment() {
                 className="form-control"
                 id="packaging_height"
                 name="packaging_height"
-                value={formData.packaging_height}
+                value={ data.packaging_height}
                 placeholder="Introduzca el alto del embalaje"
                 onChange={handleFieldChange}
               />
@@ -232,7 +236,7 @@ function Equipment() {
             className="form-control"
             id="weight"
             name="weight"
-            value={formData.weight}
+            value={ data.weight}
             placeholder="Introduzca el peso maximo que puede tener"
             onChange={handleFieldChange}
           />
@@ -246,7 +250,7 @@ function Equipment() {
             className="form-control"
             id="anchor_type"
             name="anchor_type"
-            value={formData.anchor_type}
+            value={ data.anchor_type}
             placeholder="Introduzca elemntos fijantes"
             onChange={handleFieldChange}
           />
@@ -260,7 +264,7 @@ function Equipment() {
               id="serviceAreaYes"
               name="service_area"
               value="Si"
-              checked={formData.service_area === "Si"}
+              checked={ data.service_area === "Si"}
               onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaYes">
@@ -274,7 +278,7 @@ function Equipment() {
               name="service_area"
               id="serviceAreaNo"
               value="No"
-              checked={formData.service_area === "No"}
+              checked={ data.service_area === "No"}
               onChange={handleFieldChange}
             />
             <label className="form-check-label" htmlFor="serviceAreaNo">
@@ -290,9 +294,9 @@ function Equipment() {
                 type="checkbox"
                 name="service_frontal"
                 id="service_frontal"
-                checked={formData.service_frontal}
+                checked={ data.service_frontal}
                 onChange={handleFieldChange}
-                disabled={formData.service_area === "No"}
+                disabled={ data.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_frontal">
                 Frontal
@@ -304,9 +308,9 @@ function Equipment() {
                 type="checkbox"
                 name="service_back"
                 id="service_back"
-                value={formData.service_back}
+                value={ data.service_back}
                 onChange={handleFieldChange}
-                disabled={formData.service_area === "No"}
+                disabled={ data.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_back">
                 Posterior
@@ -318,9 +322,9 @@ function Equipment() {
                 type="checkbox"
                 name="service_lateral"
                 id="service_lateral"
-                value={formData.service_lateral}
+                value={ data.service_lateral}
                 onChange={handleFieldChange}
-                disabled={formData.service_area === "No"}
+                disabled={ data.service_area === "No"}
               />
               <label className="form-check-label" htmlFor="service_lateral">
                 Lateral
@@ -341,7 +345,7 @@ function Equipment() {
                 className="form-control"
                 id="access_length"
                 name="access_length"
-                value={formData.access_length}
+                value={ data.access_length}
                 placeholder="Introduzca altura minima para el acceso"
                 onChange={handleFieldChange}
               />
@@ -356,7 +360,7 @@ function Equipment() {
                 className="form-control"
                 id="access_width"
                 name="access_width"
-                value={formData.access_width}
+                value={ data.access_width}
                 placeholder="Introduzca el ancho para el acceso"
                 onChange={handleFieldChange}
               />
@@ -371,7 +375,7 @@ function Equipment() {
                 className="form-control"
                 id="access_inclination"
                 name="access_inclination"
-                value={formData.access_inclination}
+                value={ data.access_inclination}
                 placeholder="Introduzca la inclinacion permitida"
                 onChange={handleFieldChange}
               />
@@ -388,7 +392,7 @@ function Equipment() {
             className="form-control"
             id="rack_number"
             name="rack_number"
-            value={formData.rack_number}
+            value={ data.rack_number}
             placeholder="Introduzca en que rack se colocara"
             onChange={handleFieldChange}
           />
@@ -403,7 +407,7 @@ function Equipment() {
             className="form-control"
             id="rack_unit_position"
             name="rack_unit_position"
-            value={formData.rack_unit_position}
+            value={ data.rack_unit_position}
             placeholder="Introduzca las unidade de rack"
             onChange={handleFieldChange}
           />
@@ -418,7 +422,7 @@ function Equipment() {
             className="form-control"
             id="total_rack_units"
             name="total_rack_units"
-            value={formData.total_rack_units}
+            value={ data.total_rack_units}
             placeholder="Introduzca unidades de rack del equipo"
             onChange={handleFieldChange}
           />
@@ -435,7 +439,7 @@ function Equipment() {
             className="form-control"
             id="ac_dc"
             name="ac_dc"
-            value={formData.ac_dc}
+            value={ data.ac_dc}
             placeholder="Introduzca el valor"
             onChange={handleFieldChange}
           />
@@ -450,7 +454,7 @@ function Equipment() {
             className="form-control"
             id="input_current"
             name="input_current"
-            value={formData.input_current}
+            value={ data.input_current}
             placeholder="Introduzca el valor"
             onChange={handleFieldChange}
           />
@@ -465,7 +469,7 @@ function Equipment() {
             className="form-control"
             id="power"
             name="power"
-            value={formData.power}
+            value={ data.power}
             placeholder="Introduzca el valor en watts"
             onChange={handleFieldChange}
           />
@@ -480,7 +484,7 @@ function Equipment() {
             className="form-control"
             id="power_supply"
             name="power_supply"
-            value={formData.power_supply}
+            value={ data.power_supply}
             placeholder="Introduzca la cantidad de alimentacion"
             onChange={handleFieldChange}
           />
@@ -495,7 +499,7 @@ function Equipment() {
             className="form-control"
             id="operation_temp"
             name="operation_temp"
-            value={formData.operation_temp}
+            value={ data.operation_temp}
             placeholder="Introduzca el rango de Temp"
             onChange={handleFieldChange}
           />
@@ -510,7 +514,7 @@ function Equipment() {
             className="form-control"
             id="thermal_disipation"
             name="thermal_disipation"
-            value={formData.thermal_disipation}
+            value={ data.thermal_disipation}
             placeholder="Introduzca el valor en BTU-hr"
             onChange={handleFieldChange}
           />
@@ -522,7 +526,7 @@ function Equipment() {
             aria-label="Default select example"
             name="power_config"
             onChange={handleFieldChange}
-            value={formData.power_config}
+            value={ data.power_config}
           >
             <option >Seleccione la Correcta</option>
             <option value="1">1</option>
@@ -531,13 +535,14 @@ function Equipment() {
             <option value="4">Descrita en observaciones</option>
           </select>
         </div>
-        <Observations handleFieldChange={handleFieldChange} formData={formData} />
+        <Observations handleFieldChange={handleFieldChange} data={data} />
         <Link to="/consult">
           <button className="btn btn-primary"
             onClick={handleAddEquipment}
           >Agregar</button>
         </Link>
       </div>
+
     </>
   );
 }

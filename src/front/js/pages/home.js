@@ -47,7 +47,7 @@ export const Home = () => {
 			formData.append("service",newUser.service)
 
 			const response = await actions.addUser(formData)
-			await actions.getUserData()
+			//await actions.getUserData()
 			if (response == 200 || 201){
 				toast.success("Datos Guardados con Exito")
 				setTimeout(() => {

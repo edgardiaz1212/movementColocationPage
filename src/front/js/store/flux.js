@@ -1,7 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			currentUser: null,
+			currentUser: JSON.parse(localStorage.getItem("currentUser")) || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 
 		},
@@ -40,9 +40,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					if (response.ok) {
-
+						const responseData = await response.json();
+						setStore({ currentUser: responseData });
+						localStorage.setItem("currentUser", JSON.stringify(responseData))
 						console.log("Client added successfully");
-
 						return response
 					} else {
 						// Manejo de errores en caso de respuesta no exitosa
@@ -98,9 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return response; // Return the parsed data
 					} else {
 						console.log("Error adding equipment:", response.statusText);
-
 					}
-
 				} catch (error) {
 					console.log("Error adding new rquipment", error)
 				}
