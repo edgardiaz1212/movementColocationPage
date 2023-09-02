@@ -127,10 +127,8 @@ def add_rack():
             "fases": data_form.get("fases"),
             "output_connector": data_form.get("output_connector"),
             "neutro": data_form.get("neutro"),
-            "clientName": data_form.get("clientName"),
-            "username": data_form.get("username"),
-            "coordination": data_form.get("coordination")
-        }
+            "username": data_form.get("username"),}
+
 
         if data.get("brand") is None:
             return jsonify({"msg": "Missing brand parameter"}), 400
@@ -147,12 +145,10 @@ def add_rack():
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
             componentType=data.get('componentType')
-
         )
         db.session.add(new_description)
         try:
             db.session.commit()
-        
             description_id = new_description.id
             
         # # Crear una instancia de Rack con los datos recibidos
@@ -183,19 +179,15 @@ def add_rack():
                 description_id=new_description.id,
                 user_id=user_id,
             )
-
         # # Agregar el nuevo rack a la sesión de la base de datos
             db.session.add(new_rack)
             db.session.commit()
-
         # Crear una respuesta exitosa
             response_body = {
                 "message": "Rack added successfully",
                 "rack_id": new_rack.id  # Si deseas devolver el ID del rack creado
             }
-
             return jsonify(response_body), 200
-
         except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
             db.session.rollback()
@@ -203,8 +195,6 @@ def add_rack():
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
-
-
 
 @api.route('/equipment', methods=['POST'])
 def add_equipment():

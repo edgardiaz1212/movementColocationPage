@@ -61,34 +61,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// fetching data from the backend
 					const response = await fetch(`${process.env.BACKEND_URL}/rack`, {
 						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
 						body: rack,
 					});
-
-					//const data = await response.json()
-
-					// don't forget to return something, that is how the async resolves
 					if (response.ok) {
-						const data = await response.json(); // Parse the response body
-						return response.status; // Return the parsed data
+						return response
 					} else {
-						const errorData = await response.json(); // Parse the error response
-						throw new Error(errorData.message); // Throw the error message from the backend
+						console.log("Error adding rack:", response.statusText);
 					}
-
 				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
+			
 			addEquipment: async (equipment) => {
 				const store = getStore()
 				try {
 					// fetching data from the backend
 					const response = await fetch(`${process.env.BACKEND_URL}/equipment`, {
 						method: "POST",
-						
 						body: equipment,
 					});
 
@@ -99,7 +89,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log("Error adding equipment:", response.statusText);
 					}
 				} catch (error) {
-					console.log("Error adding new rquipment", error)
+					console.log("Error adding new equipment", error)
 				}
 			},
 

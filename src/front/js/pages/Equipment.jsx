@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 function Equipment() {
   const { actions, store } = useContext(Context)
   const currentUser = store.currentUser.user_id
-  //console.log("current",currentUser)
+  const navigate= useNavigate
 
   const initialState = {
     model: "",
@@ -47,20 +47,12 @@ function Equipment() {
     user_id: currentUser
   }
   const [data, setData] = useState(initialState)
-
-  // const handleFieldChange = (event) => {
-  //   const { name, type, value, checked } = event.target;
-  //   setData((prevData) => ({ //Objeto de datos del formulario actual antes de que se realice el cambio
-  //     ...prevData, // copia del estado para no modificar el estado existente
-  //     [name]: type === "checkbox" ? checked : (name === "service_area" ? value === "true" : value), // Si el campo es una casilla de verificación, se usa el valor de checked para determinar si está marcado o no.
-  //   }));
-  // };
   const handleFieldChange = ({ target }) => {
     setData({ ...data, [target.name]: target.value })
   };
 
   const handleAddEquipment = async () => {
-    if (!data.brand) {
+    if (!data.brand || !data.model ||!data.serial ||!data.componentType) {
       console.log("faltan datos importantes")
       toast.error("Llene todos los campos")
       return
@@ -108,7 +100,7 @@ function Equipment() {
       if (response === 200 || 201) {
         toast.success("Datos Guardados con Exito")
         setTimeout(() => {
-          console.log("siguiente paso");
+          navigate("/consult");
         }, 3000);
 
         // const equipmentId = response.data.equipment_id
@@ -125,8 +117,6 @@ function Equipment() {
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-
-
       <div className="container">
         <Details handleFieldChange={handleFieldChange} data={data} />
         <div className="p-3 mb-2 bg-info">
