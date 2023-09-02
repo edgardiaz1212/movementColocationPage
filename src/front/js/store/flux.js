@@ -105,7 +105,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addDescription: async (description) =>{}
+			addDescription: async (description) =>{
+				const store =getStore()
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/adddescription`,{
+						method: "POST",
+						
+						body:description
+					})
+					if (response.ok){
+						return response
+					}else{
+						console.log("Error adding Description", response.statusText)
+					}
+				} catch (error) {
+					console.log("Error adding Description", error)
+				}
+			}
 
 		}
 	};

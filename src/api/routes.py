@@ -55,7 +55,7 @@ def get_user_info():
         # else:
         #     return jsonify({'error': 'User not found'}), 404
 
-@api.route('/description', methods=['POST'])
+@api.route('/adddescription', methods=['POST'])
 def addDescription():
     if request.method=='POST':
         try:
@@ -74,15 +74,14 @@ def addDescription():
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
-            service=data.get('service'),
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-            contract=data.get('contract'),
             componentType=data.get('componentType')
 
         )
             db.session.add(new_description)
             db.session.commit()
+            description_id=new_description.id
             return jsonify({"description_id": description_id}), 201
         except Exception as error:
             db.session.rollback()
@@ -223,13 +222,13 @@ def add_rack():
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
-        user_id = request.form.get('user_id')
+        #user_id = request.form.get('user_id')
         data_form = request.form
         
         data = {
             'brand': data_form.get('brand'),
             'model': data_form.get('model'),
-            'serial_number': data_form.get('serial_number'),
+            'serial': data_form.get('serial'),
             "number_part": data_form.get("number_part"),
             "componentType": data_form.get("componentType"),
             "five_years_prevition": data_form.get("five_years_prevition"),
@@ -255,12 +254,13 @@ def add_equipment():
             'power_supply': data_form.get('power_supply'),
             'operation_temp': data_form.get('operation_temp'),
             'thermal_disipation': data_form.get('thermal_disipation'),
-            'power_config': data_form.get('power_config')
+            'power_config': data_form.get('power_config'),
+            'user_id': data_form.get('user_id')
         }
       
         # Crear una instancia de Description con los datos recibidos
         new_description = Description(
-            brand=data.get('data'),
+            brand=data.get('brand'),
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
@@ -301,7 +301,7 @@ def add_equipment():
             thermal_disipation=data.get('thermal_disipation'),
             power_config=data.get('power_config'),
             description_id=new_description.id,  # Asociar la descripción al equipo
-            user_id=user_id
+            user_id=data.get('user_id')
         )
         # Agregar el nuevo equipo a la sesión de la base de datos
         db.session.add(new_equipment)

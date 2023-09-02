@@ -8,17 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Equipment() {
   const { actions, store } = useContext(Context)
-  const currentUser = store.currentUser
+  const currentUser = store.currentUser.user_id
   //console.log("current",currentUser)
 
   const initialState = {
-    model: "",
-    brand: "",
-    serial: "",
-    number_part: "",
-    componentType: "",
-    five_years_prevition: "",
-    observations: "",
+    // model: "",
+    // brand: "",
+    // serial: "",
+    // number_part: "",
+    // componentType: "",
+    // five_years_prevition: "",
+    // observations: "",
     equipment_width: "",
     equipment_length: "",
     equipment_height: "",
@@ -44,6 +44,7 @@ function Equipment() {
     operation_temp: "",
     thermal_disipation: "",
     power_config: "",
+    user_id:currentUser
   }
   const [data, setData] = useState(initialState)
 
@@ -56,7 +57,7 @@ function Equipment() {
   };
 
   const handleAddEquipment = async () => {
-    if (!data.equipment_width) {
+    if ( !data.equipment_width || !data.brand) {
       console.log("faltan datos importantes")
       toast.error("Llene todos los campos")
       return
@@ -65,8 +66,13 @@ function Equipment() {
     try {
       const formData = new FormData();
 
-      
-     
+      // formData.append("model", data.model)
+      // formData.append("brand", data.brand)
+      // formData.append("serial", data.serial)
+      // formData.append("number_part", data.number_part)
+      // formData.append("componentType", data.componentType)
+      // formData.append("five_years_prevition", data.five_years_prevition)
+      // formData.append("observations", data.observations)
       formData.append("equipment_width", data.equipment_width)
       formData.append('equipment_height', data.equipment_height)
       formData.append('equipment_length', data.equipment_length)
@@ -119,7 +125,9 @@ function Equipment() {
 
 
       <div className="container">
-        <Details handleFieldChange={handleFieldChange} data={data} />
+        <Details 
+        // handleFieldChange={handleFieldChange} data={data} 
+        />
         <div className="p-3 mb-2 bg-info">
           <h2>ESPECIFICACIONES FÍSICAS DEL EQUIPO</h2>
         </div>
@@ -530,7 +538,9 @@ function Equipment() {
             <option value="4">Descrita en observaciones</option>
           </select>
         </div>
-        <Observations handleFieldChange={handleFieldChange} data={data} />
+        {/* <Observations  
+         handleFieldChange={handleFieldChange} data={data} 
+         /> */}
         <Link to="/consult">
           <button className="btn btn-primary"
             onClick={handleAddEquipment}

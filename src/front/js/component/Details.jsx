@@ -1,13 +1,14 @@
-import React, { useContexformDatat, useState } from "react";
+import React, { useContexformDatat, useContext, useState } from "react";
 import { Context } from '../store/appContext'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Details() {
+  const {actions} =useContext(Context)
   const [descriptionFormData, setDescriptionFormData] = useState({
     brand: "",
     model: "",
-    serial_number: "",
+    serial: "",
     number_part: "",
     componentType: "",
     five_years_prevition: "",
@@ -15,7 +16,7 @@ function Details() {
   });
 
   const handleChange = ({ target }) => {
-    setDescriptionFormData({ ...newUser, [target.name]: target.value })
+    setDescriptionFormData({ ...descriptionFormData, [target.name]: target.value })
   };
 
   const handleAddDescription = async () => {
@@ -24,7 +25,8 @@ function Details() {
       toast.error("Llene todos los campos")
       return
     }
-    try {
+    console.log(descriptionFormData)
+    try { 
       const formData = new FormData()
 
       formData.append("model", descriptionFormData.model)
@@ -36,14 +38,14 @@ function Details() {
       formData.append("observations", descriptionFormData.observations)
 
       const response = await actions.addDescription(formData)
-      if (response == 200 || 201){
-				toast.success("Datos Guardados con Exito")
-				setTimeout(() => {
-					console.log("Descripcion lista");
-				  }, 2000);
-			}else{
-				toast.error("Error registrando")
-			}
+      if (response == 200 || 201) {
+        toast.success("Datos Guardados con Exito")
+        setTimeout(() => {
+          console.log("Descripcion lista", formData);
+        }, 2000);
+      } else {
+        toast.error("Error registrando")
+      }
     } catch (error) {
       console.log("error al enviar descripcion", error)
     }
@@ -131,6 +133,32 @@ function Details() {
               onChange={handleChange}
             />
           </div>
+          <div className="input-group">
+            <span className="input-group-text">Observaciones</span>
+            <textarea
+              className="form-control"
+              aria-label="With textarea"
+              id="observations"
+              name='observations'
+              placeholder="Observaciones sobre el equipo"
+              value={descriptionFormData.observations}
+              onChange={handleChange}
+            >
+            </textarea>
+          </div>
+
+          <div className="input-group">
+            <span className="input-group-text">Prevision de 5 anos</span>
+            <textarea
+              className="form-control"
+              aria-label="With textarea"
+              id="five_years_prevition"
+              name='five_years_prevition'
+              value={descriptionFormData.five_years_prevition}
+              onChange={handleChange}
+            ></textarea>
+          </div>
+
           <button className="btn btn-primary m-4"
             onClick={handleAddDescription}
           >Anadir</button>

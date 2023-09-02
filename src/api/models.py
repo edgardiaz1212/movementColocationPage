@@ -37,7 +37,7 @@ class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     brand = db.Column(db.String(120), )
     model = db.Column(db.String(120), )
-    serial = db.Column(db.String(120), unique=False)
+    serial = db.Column(db.String(120), unique=True)
     number_part = db.Column(db.String(120))
     five_years_prevition = db.Column(db.String(255))
     observations = db.Column(db.String(255))
