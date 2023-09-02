@@ -3,7 +3,7 @@ import React from 'react'
 function Observations({ handleFieldChange, data }) {
   return (
     <>
-      <div className="input-group">
+      <div className="input-group m-3">
         <span className="input-group-text">Observaciones</span>
         <textarea
           className="form-control"
@@ -16,7 +16,7 @@ function Observations({ handleFieldChange, data }) {
         </textarea>
       </div>
 
-      <div className="input-group">
+      <div className="input-group m-3">
         <span className="input-group-text">Prevision de 5 anos</span>
         <textarea
           className="form-control"

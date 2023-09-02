@@ -230,116 +230,117 @@ function Equipment() {
               />
             </div>
           </div>
-        </div>
-        <div className="m-auto col-4">
-          <label htmlFor="weight" className="form-label">
-            Peso Maximo del equipo
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="weight"
-            name="weight"
-            value={data.weight}
-            placeholder="Introduzca el peso maximo que puede tener"
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div className="m-auto col-4">
-          <label htmlFor="anchor_type" className="form-label">
-            Tipo de anclaje al rack
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="anchor_type"
-            name="anchor_type"
-            value={data.anchor_type}
-            placeholder="Introduzca elemntos fijantes"
-            onChange={handleFieldChange}
-          />
-        </div>
-        <form className="m-auto col-4">
-          <p>Requiere área de servicio</p>
-          <div className="form-check">
+
+          <div className="m-auto col-4">
+            <label htmlFor="weight" className="form-label">
+              Peso Maximo del equipo
+            </label>
             <input
-              className="form-check-input"
-              type="radio"
-              id="serviceAreaYes"
-              name="service_area"
-              value="true"
-              checked={data.service_area === "true"}
+              type="text"
+              className="form-control"
+              id="weight"
+              name="weight"
+              value={data.weight}
+              placeholder="Introduzca el peso maximo que puede tener"
               onChange={handleFieldChange}
             />
-            <label className="form-check-label" htmlFor="serviceAreaYes">
-              Sí
-            </label>
           </div>
-          <div className="form-check">
+          <div className="m-auto col-4">
+            <label htmlFor="anchor_type" className="form-label">
+              Tipo de anclaje al rack
+            </label>
             <input
-              className="form-check-input"
-              type="radio"
-              name="service_area"
-              id="serviceAreaNo"
-              value="false"
-              checked={data.service_area === "false"}
+              type="text"
+              className="form-control"
+              id="anchor_type"
+              name="anchor_type"
+              value={data.anchor_type}
+              placeholder="Introduzca elemntos fijantes"
               onChange={handleFieldChange}
             />
-            <label className="form-check-label" htmlFor="serviceAreaNo">
-              No
-            </label>
           </div>
+          <div className="m-auto col-4">
+            <p>Requiere área de servicio</p>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                id="serviceAreaYes"
+                name="service_area"
+                value="true"
+                checked={data.service_area === "true"}
+                onChange={handleFieldChange}
+              />
+              <label className="form-check-label" htmlFor="serviceAreaYes">
+                Sí
+              </label>
+            </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="radio"
+                name="service_area"
+                id="serviceAreaNo"
+                value="false"
+                checked={data.service_area === "false"}
+                onChange={handleFieldChange}
+              />
+              <label className="form-check-label" htmlFor="serviceAreaNo">
+                No
+              </label>
+            </div>
 
-          <div className="container">
-            Ubicacion area de servivio
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="service_frontal"
-                id="service_frontal"
-                value="si"
-                checked={data.service_frontal}
-                onChange={handleFieldChange}
-                disabled={data.service_area === "false"}
-              />
-              <label className="form-check-label" htmlFor="service_frontal">
-                Frontal
-              </label>
+            <div className="container">
+              Ubicacion area de servivio
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="service_frontal"
+                  id="service_frontal"
+                  value="si"
+                  checked={data.service_frontal}
+                  onChange={handleFieldChange}
+                  disabled={data.service_area === "false"}
+                />
+                <label className="form-check-label" htmlFor="service_frontal">
+                  Frontal
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="service_back"
+                  id="service_back"
+                  value="si"
+                  checked={data.service_back}
+                  onChange={handleFieldChange}
+                  disabled={data.service_area === "false"}
+                />
+                <label className="form-check-label" htmlFor="service_back">
+                  Posterior
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  name="service_lateral"
+                  id="service_lateral"
+                  value="si"
+                  checked={data.service_lateral}
+                  onChange={handleFieldChange}
+                  disabled={data.service_area === "false"}
+                />
+                <label className="form-check-label" htmlFor="service_lateral">
+                  Lateral
+                </label>
+              </div>
             </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="service_back"
-                id="service_back"
-                value="si"
-                checked={data.service_back}
-                onChange={handleFieldChange}
-                disabled={data.service_area === "false"}
-              />
-              <label className="form-check-label" htmlFor="service_back">
-                Posterior
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                name="service_lateral"
-                id="service_lateral"
-                value="si"
-                checked={data.service_lateral}
-                onChange={handleFieldChange}
-                disabled={data.service_area === "false"}
-              />
-              <label className="form-check-label" htmlFor="service_lateral">
-                Lateral
-              </label>
-            </div>
+
           </div>
-        </form>
-
+        </div>
         <div className="container row">
           <h4 className="col-3">Dimensiones Requeridas ruta de acceso</h4>
           <div className="col-6">
@@ -435,117 +436,120 @@ function Equipment() {
           />
         </div>
 
+        <div className="container row mt-5">
+        <div className="p-3 mb-2 bg-info">
+          <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
+          </div>
+          <div className="mb-3 col-4">
+            <label htmlFor="ac_dc" className="form-label">
+              Tipo de Alimentación (AC/DC)
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="ac_dc"
+              name="ac_dc"
+              value={data.ac_dc}
+              placeholder="Introduzca el valor"
+              onChange={handleFieldChange}
+            />
+          </div>
 
-        <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
-        <div className="mb-3 col-4">
-          <label htmlFor="ac_dc" className="form-label">
-            Tipo de Alimentación (AC/DC)
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="ac_dc"
-            name="ac_dc"
-            value={data.ac_dc}
-            placeholder="Introduzca el valor"
-            onChange={handleFieldChange}
-          />
-        </div>
+          <div className="mb-3 col-4">
+            <label htmlFor="input_current" className="form-label">
+              Tensión de Alimentación (Voltios)
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="input_current"
+              name="input_current"
+              value={data.input_current}
+              placeholder="Introduzca el valor"
+              onChange={handleFieldChange}
+            />
+          </div>
 
-        <div className="mb-3 col-4">
-          <label htmlFor="input_current" className="form-label">
-            Tensión de Alimentación (Voltios)
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="input_current"
-            name="input_current"
-            value={data.input_current}
-            placeholder="Introduzca el valor"
-            onChange={handleFieldChange}
-          />
-        </div>
+          <div className="mb-3 col-4">
+            <label htmlFor="power" className="form-label">
+              Potencia consumida por fuente de poder (w):
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="power"
+              name="power"
+              value={data.power}
+              placeholder="Introduzca el valor en watts"
+              onChange={handleFieldChange}
+            />
+          </div>
 
-        <div className="mb-3 col-4">
-          <label htmlFor="power" className="form-label">
-            Potencia consumida por fuente de poder (w):
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="power"
-            name="power"
-            value={data.power}
-            placeholder="Introduzca el valor en watts"
-            onChange={handleFieldChange}
-          />
-        </div>
+          <div className="mb-3 col-4">
+            <label htmlFor="power_supply" className="form-label">
+              Cantidad de Fuentes de Alimentación por equipo
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="power_supply"
+              name="power_supply"
+              value={data.power_supply}
+              placeholder="Introduzca la cantidad de alimentacion"
+              onChange={handleFieldChange}
+            />
+          </div>
 
-        <div className="mb-3 col-4">
-          <label htmlFor="power_supply" className="form-label">
-            Cantidad de Fuentes de Alimentación por equipo
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="power_supply"
-            name="power_supply"
-            value={data.power_supply}
-            placeholder="Introduzca la cantidad de alimentacion"
-            onChange={handleFieldChange}
-          />
-        </div>
+          <div className="mb-3 col-4">
+            <label htmlFor="operation_temp" className="form-label">
+              Rango de Temperatura de Operación del Equipo (°C)
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="operation_temp"
+              name="operation_temp"
+              value={data.operation_temp}
+              placeholder="Introduzca el rango de Temp"
+              onChange={handleFieldChange}
+            />
+          </div>
 
-        <div className="mb-3 col-4">
-          <label htmlFor="operation_temp" className="form-label">
-            Rango de Temperatura de Operación del Equipo (°C)
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="operation_temp"
-            name="operation_temp"
-            value={data.operation_temp}
-            placeholder="Introduzca el rango de Temp"
-            onChange={handleFieldChange}
-          />
+          <div className="mb-3 col-4">
+            <label htmlFor="thermal_disipation" className="form-label">
+              Disipación Térmica (BTU-Hr)
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="thermal_disipation"
+              name="thermal_disipation"
+              value={data.thermal_disipation}
+              placeholder="Introduzca el valor en BTU-hr"
+              onChange={handleFieldChange}
+            />
+          </div>
+          <div>
+            Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              name="power_config"
+              id={data.power_config}
+              onChange={handleFieldChange}
+              value={data.power_config}
+            >
+              <option >Seleccione la Correcta</option>
+              <option value="1">1</option>
+              <option value="2">n+1</option>
+              <option value="3">2n+1</option>
+              <option value="4">Descrita en observaciones</option>
+            </select>
+          </div>
         </div>
-
-        <div className="mb-3 col-4">
-          <label htmlFor="thermal_disipation" className="form-label">
-            Disipación Térmica (BTU-Hr)
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="thermal_disipation"
-            name="thermal_disipation"
-            value={data.thermal_disipation}
-            placeholder="Introduzca el valor en BTU-hr"
-            onChange={handleFieldChange}
-          />
-        </div>
-        <div>
-          Configuración de Fuentes de Alimentación (1, n+1, 2n+1)
-          <select
-            className="form-select"
-            aria-label="Default select example"
-            name="power_config"
-            id={data.power_config}
-            onChange={handleFieldChange}
-            value={data.power_config}
-          >
-            <option >Seleccione la Correcta</option>
-            <option value="1">1</option>
-            <option value="2">n+1</option>
-            <option value="3">2n+1</option>
-            <option value="4">Descrita en observaciones</option>
-          </select>
-        </div>
-        <Observations handleFieldChange={handleFieldChange} data={data} />
+        <Observations  handleFieldChange={handleFieldChange} data={data} />
         <Link to="">
-          <button className="btn btn-primary"
+          <button className="btn btn-primary m-2"
             onClick={handleAddEquipment}
           >Agregar</button>
         </Link>

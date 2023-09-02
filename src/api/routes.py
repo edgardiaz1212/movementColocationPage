@@ -92,7 +92,7 @@ def add_rack():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
         data_form = request.form
-        current_user = 1
+        user_id = request.form.get('user_id')
 
         data = {
             "brand": data_form.get("brand"),
@@ -139,85 +139,71 @@ def add_rack():
         if data.get("serial") is None:
             return jsonify({"msg": "Missing serial parameter"}), 400
 
-       # Create a new Client instance
-        new_user = User(
-            username=data.get('username'),
-            coordination=data.get('coordination'),
-            email=data.get('email')
-        )
-        db.session.add(new_user)
-        db.session.commit()
-
-        new_client = Client(
-            clientName=data.get('clientName'),
-            user_id=current_user
-        )
-        db.session.add(new_client)
-        db.session.commit()
-
         new_description = Description(
             brand=data.get("brand"),
             model=data.get('model'),
             serial=data.get('serial'),
             number_part=data.get('number_part'),
-
             five_years_prevition=data.get('five_years_prevition'),
             observations=data.get('observations'),
-
             componentType=data.get('componentType')
 
         )
         db.session.add(new_description)
-        db.session.commit()
+        try:
         # # Crear una instancia de Rack con los datos recibidos
-        new_rack = Rack(
-            has_cabinet=data.get('has_cabinet'),
-            leased=data.get('leased'),
-            total_cabinets=data.get('total_cabinets'),
-            open_closed=data.get('open_closed'),
-            security=data.get('security'),
-            type_security=data.get('type_security'),
-            has_extractors=data.get('has_extractors'),
-            extractors_ubication=data.get('extractors_ubication'),
-            modular=data.get('modular'),
-            lateral_doors=data.get('lateral_doors'),
-            lateral_ubication=data.get('lateral_ubication'),
-            rack_unit=data.get('rack_unit'),
-            rack_position=data.get('rack_position'),
-            has_accessory=data.get('has_accessory'),
-            accessory_description=data.get('accessory_description'),
-            rack_width=data.get('rack_width'),
-            rack_length=data.get('rack_length'),
-            rack_height=data.get('rack_height'),
-            internal_pdu=data.get('internal_pdu'),
-            input_connector=data.get('input_connector'),
-            fases=data.get('fases'),
-            output_connector=data.get('output_connector'),
-            neutro=data.get('neutro'),
-            description_id=new_description.id,
-            user_id=user_id
-           
-
-        )
+            new_rack = Rack(
+                has_cabinet=data.get('has_cabinet'),
+                leased=data.get('leased'),
+                total_cabinets=data.get('total_cabinets'),
+                open_closed=data.get('open_closed'),
+                security=data.get('security'),
+                type_security=data.get('type_security'),
+                has_extractors=data.get('has_extractors'),
+                extractors_ubication=data.get('extractors_ubication'),
+                modular=data.get('modular'),
+                lateral_doors=data.get('lateral_doors'),
+                lateral_ubication=data.get('lateral_ubication'),
+                rack_unit=data.get('rack_unit'),
+                rack_position=data.get('rack_position'),
+                has_accessory=data.get('has_accessory'),
+                accessory_description=data.get('accessory_description'),
+                rack_width=data.get('rack_width'),
+                rack_length=data.get('rack_length'),
+                rack_height=data.get('rack_height'),
+                internal_pdu=data.get('internal_pdu'),
+                input_connector=data.get('input_connector'),
+                fases=data.get('fases'),
+                output_connector=data.get('output_connector'),
+                neutro=data.get('neutro'),
+                description_id=new_description.id,
+                user_id=user_id,
+                description_id=description_id,
+            )
 
         # # Agregar el nuevo rack a la sesión de la base de datos
-        db.session.add(new_rack)
-        db.session.commit()
+            db.session.add(new_rack)
+            db.session.commit()
 
         # Crear una respuesta exitosa
-        response_body = {
-            "message": "Rack added successfully",
-            "rack_id": new_rack.id  # Si deseas devolver el ID del rack creado
-        }
+            response_body = {
+                "message": "Rack added successfully",
+                "rack_id": new_rack.id  # Si deseas devolver el ID del rack creado
+            }
 
-        return jsonify(response_body), 200
+            return jsonify(response_body), 200
 
+        except Exception as e:
+        # Si ocurre algún error, devolver una respuesta de error
+            db.session.rollback()
+            return jsonify({"msg": "Error occurred while trying to upload Equipment description", "error": str(e)}), 500
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
 
 
-@api.route('/addequipment', methods=['POST'])
+
+@api.route('/equipment', methods=['POST'])
 def add_equipment():
     try:
         # Obtener los datos del formulario en el cuerpo de la solicitud
@@ -271,13 +257,7 @@ def add_equipment():
        
         try:
             db.session.commit()
-        #     response_body = {
-        #     "message": "Description added successfully",
-        # }
-        #     return jsonify(response_body), 200
-        #except Exception as error:
-        #     db.session.rollback()
-        #     return jsonify({"msg": "Error occurred while trying to upload Description", "error": str(error)}), 500
+        
             description_id = new_description.id
         # Crear una instancia de Equipment con los datos recibidos
             new_equipment = Equipment(
@@ -317,8 +297,8 @@ def add_equipment():
           
         # Crear una respuesta exitosa
             response_body = {
-            "message": "Description Equipment added successfully",
-            "equipment_id": new_equipment.id  # Si deseas devolver el ID del equipo creado
+                "message": "Description Equipment added successfully",
+                "equipment_id": new_equipment.id  # Si deseas devolver el ID del equipo creado
             }
             return jsonify(response_body), 200
         except Exception as error:
