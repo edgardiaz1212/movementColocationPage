@@ -43,10 +43,9 @@ def addUser():
 
 
 @api.route('/user', methods=['GET'])
-def get_user_info():
+def get_current_user(user_id):
     if request.method == "GET":
-        # user = User.query.filter_by(id=get_jwt_identity()).first()
-        users = User.query.all()
+        users = User.query.filter_by(user_id).first()
         users_data = list(map(lambda user: user.serialize(), users))
         return jsonify(users_data), 200
 
@@ -303,34 +302,14 @@ def add_equipment():
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
 
-@api.route('/addEquipmentToUser/<int:user_id>/<int:equipment_id>', methods=['POST'])
-def add_equipment_to_user(user_id, equipment_id):
-    try :
-        user = User.query.get(user_id)
-        equipment = Equipment.query.get(equipment_id)
-        # Asociar el equipo al usuario
-        user.equipments.append(equipment)
-        db.session.commit()
-
-        response_body = {
-            "message": "Equipment added to user successfully",
-            "user_id": user.id,
-            "equipment_id": equipment.id,
-        }
-
-        return jsonify(response_body), 200
-
-    except Exception as e:
-        return jsonify({"message": str(e)}), 500
-
 @api.route('/rack', methods=['GET'])
-def all_rack():
+def get_all_rack_by_user():
     racks = Rack.query.all()
     racks_data = list(map(lambda rack: rack.serialize(), racks))
     return jsonify(racks_data), 200
 
 @api.route('/equipment', methods=['GET'])
-def all_equipment():
+def get_all_equipment_by_user():
     equipments = Equipment.query.all()
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 function Equipment() {
   const { actions, store } = useContext(Context)
   const currentUser = store.currentUser.user_id
-  const navigate= useNavigate
 
   const initialState = {
     model: "",
@@ -531,11 +530,11 @@ function Equipment() {
           </div>
         </div>
         <Observations  handleFieldChange={handleFieldChange} data={data} />
-        <Link to="">
-          <button className="btn btn-primary m-2"
+        
+          <Link to="/consult" className="btn btn-primary m-2"
             onClick={handleAddEquipment}
-          >Agregar</button>
-        </Link>
+          >Agregar</Link>
+        
       </div>
 
     </>

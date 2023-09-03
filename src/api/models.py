@@ -58,6 +58,7 @@ class Description(db.Model):
             'number_part': self.number_part,
             'five_years_prevition': self.five_years_prevition,
             'componentType': self.componentType,
+            
         }
 
 class Rack(db.Model):
@@ -124,6 +125,7 @@ class Rack(db.Model):
             'output_connector':self.output_connector,
             'neutro':self.neutro,
             'description':self.description.serialize(),
+            'user':self.user.serialize()
         }
         
 class Equipment(db.Model):
@@ -174,7 +176,7 @@ class Equipment(db.Model):
             'equipment_length':self.equipment_length,
             'packaging_width':self.packaging_width,
             'packaging_length':self.packaging_length,
-            'packaging_heigth':self.packaging_heigth,
+            'packaging_height':self.packaging_height,
             'weight':self.weight,
             "anchor_type":self.anchor_type,
             'service_area':self.service_area,
@@ -193,5 +195,6 @@ class Equipment(db.Model):
             'operation_temp':self.operation_temp,
             'thermal_disipation':self.thermal_disipation,
             'power_config':self.thermal_disipation,
-            'description':self.description.serialize()
+            'description':self.description.serialize(),
+            'user':self.user.serialize()
              }

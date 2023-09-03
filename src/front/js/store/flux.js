@@ -72,7 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error loading message from backend", error)
 				}
 			},
-			
+
 			addEquipment: async (equipment) => {
 				const store = getStore()
 				try {
@@ -93,7 +93,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			addDescription: async (description) =>{}
+			getRack: async () => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/rack`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "aplication/json",
+						}
+					});
+					if (response.ok) {
+						const responseData = await response.json();
+						// console.log("User data:", responseData);
+						// setStore({ userData: responseData });
+						// localStorage.setItem("userData", JSON.stringify(responseData));
+					} else {
+						console.log("Error fetching user data:", response.status);
+					}
+				} catch (error) {
+					console.log("Error fetching user data:", error);
+				}
+			},
+
 
 		}
 	};

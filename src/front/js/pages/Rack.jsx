@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Details from "../component/Details.jsx";
 import Observations from "../component/Observations.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +10,6 @@ function Rack() {
 
   const { actions, store } = useContext(Context)
   const currentUser = store.currentUser.user_id
-  const navigate= useNavigate
 
   const initialState = {
     brand: "",
@@ -618,10 +617,10 @@ function Rack() {
           <Observations handleFieldChange={handleFieldChange} data={data} />
         </div>
         
-          <button className="btn btn-primary m-2"
+          <Link to='/consult' className="btn btn-primary m-2"
             onClick={handleAddRack}
             type="button">Agregar
-            </button>
+            </Link>
         
       </div>
     </>
