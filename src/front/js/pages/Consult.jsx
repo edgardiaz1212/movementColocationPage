@@ -9,19 +9,27 @@ function Consult() {
         // Llamar a las funciones para obtener los datos de los racks y equipos aquí
         actions.getRackByUser();
         actions.getEquipmentByUser();
+        actions.getUserData()
     }, []);
-console.log(store.equipmentsData)
+
+console.log(store.userData)
     return (
         <>
-            <div>Para el CLIENTE que requiere el SERVICIO respecto al CONTRATO las siguiente planillas de solicitud</div>
+        <div className="container">
+            <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
             <div className="container ">
                 <div className="row border border-black">
-                    <h3 className="col-9 border border-black">
-                        RACK numero  {store.racksData.map((rack) => (
-                            <tr key={rack.id}>
-                                <td>{rack.id}</td>
+                    <div className="primer col-9 border border-danger">
+                       <h2> RACK numero  </h2>
+                        {store.racksData.map((rack) => (
+                            <div key={rack.id}>
+                               {rack.id},
+                                {rack.rack_width},,
+                                {rack.internal_pdu}--
+                                {rack.user.username}+
+                                {rack.user.id}
 
-                            </tr>
+                            </div>
                         ))}
                         <br />
                         <Link to="/rack"
@@ -32,12 +40,14 @@ console.log(store.equipmentsData)
                             className="btn btn-primary m-1"
                             onClick
                         > Planilla</Link>
-                    </h3>
-                    <div className="col-4 border border-black">
-                        Equipo posicion 1 {store.equipmentsData.map((equipment) => (
+                    </div>
+                    <div className="segundo col-4 border border-black">
+                        Equipo posicion 1 
+                        {store.equipmentsData.map((equipment) => (
                         <tr key={equipment.id}>
-                            <td>{equipment.rack_unit_position}</td>
-                            <td>{equipment.user.clientName}</td>
+                            <tr>{equipment.rack_unit_position}</tr>
+                            <tr>{equipment.user.clientName}</tr>
+                            <tr>{equipment.description.componentType}</tr>
 
                         </tr>
                     ))}<br />
@@ -48,8 +58,9 @@ console.log(store.equipmentsData)
                         </Link> <Link to=""
                             className="btn btn-primary m-1"
                             onClick
-                        > Planilla</Link></div>
-                    {/* Aqui va un map */}
+                        > Planilla</Link>
+                        </div>
+                   
                 </div>
             </div>
 
@@ -66,6 +77,7 @@ console.log(store.equipmentsData)
             >
                 Agregar nuevo Equipo</Link>
             <button>finalizar</button>
+            </div>
         </>)
 }
 export default Consult

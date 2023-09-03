@@ -42,17 +42,16 @@ def addUser():
         return jsonify([]), 200
 
 
-@api.route('/user', methods=['GET'])
+@api.route('/user/<int:user_id>', methods=['GET'])
 def get_current_user(user_id):
-    if request.method == "GET":
-        users = User.query.filter_by(user_id).first()
-        users_data = list(map(lambda user: user.serialize(), users))
-        return jsonify(users_data), 200
+     if request.method == "GET":
+        user = User.query.filter_by(id=user_id).first()
+        if user:
+            user_data = user.serialize()
+            return jsonify(user_data), 200
+        else:
+            return jsonify({"message": "User not found"}), 404
 
-        # if user:
-        #     return jsonify(user.serialize()), 200
-        # else:
-        #     return jsonify({'error': 'User not found'}), 404
 
 @api.route('/description', methods=['POST'])
 def addDescription():
@@ -307,13 +306,13 @@ def get_all_rack_by_useruser_id(user_id):
     user = User.query.filter_by(id=user_id).first()
     if not user:
         return jsonify({"message": "User not found"}), 404
-    racks = Rack.query.all()
+    racks = Rack.query.filter_by(user_id=user_id).all()
     racks_data = list(map(lambda rack: rack.serialize(), racks))
     return jsonify(racks_data), 200
 
 @api.route('/equipment/<int:user_id>', methods=['GET'])
 def get_all_equipment_by_user(user_id):
     user = User.query.filter_by(id=user_id).first()
-    equipments = Equipment.query.all()
+    equipments = Equipment.query.filter_by(user_id=user_id).all()
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200

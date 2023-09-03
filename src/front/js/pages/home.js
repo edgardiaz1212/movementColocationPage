@@ -142,8 +142,8 @@ export const Home = () => {
 						value={newUser.contract}
 					>
 						<option value="">Seleccionar Contrato</option>
-						<option value="Rack">Colocacion en Rack</option>
-						<option value="catalogado">Colocacion Catalogado</option>
+						<option value="Colocacion en Rack">Colocacion en Rack</option>
+						<option value="Colocacion Catalogado">Colocacion Catalogado</option>
 					</select>
 				</div>
 
@@ -159,10 +159,10 @@ export const Home = () => {
 							value={newUser.service}
 						>
 							<option value="">Seleccionar servicio</option>
-							<option value="instalacion">Instalacion</option>
-							<option value="retiro">Retiro</option>
-							<option value="desincorporacion">Desincorporacion</option>
-							<option value="mudanza">Mudanza</option>
+							<option value="Instalacion">Instalacion</option>
+							<option value="Retiro">Retiro</option>
+							<option value="Desincorporacion">Desincorporacion</option>
+							<option value="Mudanza">Mudanza</option>
 						</select>
 
 						{newUser.service && (

@@ -12,17 +12,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUserData: async () => {
 				const store = getStore();
+				const currentUser = store.currentUser; 
+				
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/user`, {
+				
+					const response = await fetch(`${process.env.BACKEND_URL}/user/${currentUser.user_id}`, {
 						method: "GET",
 						headers: {
-							"Content-Type": "aplication/json",
-
-						}
+							"Content-Type": "application/json",
+						},
 					});
+					
 					if (response.ok) {
 						const responseData = await response.json();
-						console.log("User data:", responseData);
+						
 						setStore({ userData: responseData });
 						localStorage.setItem("userData", JSON.stringify(responseData));
 					} else {
@@ -99,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const store = getStore();
 				const userId = store.currentUser.user_id
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/rack//${userId}`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/rack/${userId}`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "aplication/json",
