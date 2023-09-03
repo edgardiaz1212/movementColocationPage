@@ -104,20 +104,20 @@ def add_rack():
             "five_years_prevition": data_form.get("five_years_prevition"),
             "contract": data_form.get("contract"),
             "observations": data_form.get("observations"),
-            "has_cabinet": data_form.get("has_cabinet").lower() == "si",
-            "leased": data_form.get("leased").lower() == "si",
+            "has_cabinet": data_form.get("has_cabinet").lower() == True if data_form.get("has_cabinet") else False,
+            "leased": data_form.get("leased").lower() == True if data_form.get("leased") else False,
             "total_cabinets": data_form.get("total_cabinets"),
-            "open_closed": data_form.get("open_closed").lower() == "abierto",
-            "security": data_form.get("security").lower() == "si",
+            "open_closed": data_form.get("open_closed").lower() == True if data_form.get("open_closed") else False,
+            "security": data_form.get("security").lower() == True if data_form.get("security") else False,
             "type_security": data_form.get("type_security"),
-            "has_extractors": data_form.get("has_extractors").lower() == "si",
+            "has_extractors": data_form.get("has_extractors").lower() == True if data_form.get("has_extractors") else False,
             "extractors_ubication": data_form.get("extractors_ubication"),
-            "modular": data_form.get("modular").lower() == "si",
-            "lateral_doors": data_form.get("lateral_doors").lower() == "si",
+            "modular": data_form.get("modular").lower() == True if data_form.get("modular") else False,
+            "lateral_doors": data_form.get("lateral_doors").lower() == True if data_form.get("lateral_doors") else False,
             "lateral_ubication": data_form.get("lateral_ubication"),
             "rack_unit": data_form.get("rack_unit"),
             "rack_position": data_form.get("rack_position"),
-            "has_accessory": data_form.get("has_accessory").lower() == "si",
+            "has_accessory": data_form.get("has_accessory").lower() == True if data_form.get("has_accessory") else False,
             "accessory_description": data_form.get("accessory_description"),
             "rack_width": data_form.get("rack_width"),
             "rack_length": data_form.get("rack_length"),
@@ -126,7 +126,7 @@ def add_rack():
             "input_connector": data_form.get("input_connector"),
             "fases": data_form.get("fases"),
             "output_connector": data_form.get("output_connector"),
-            "neutro": data_form.get("neutro"),
+            "neutro": data_form.get("neutro").lower() == True if data_form.get("neutro") else False,
             "username": data_form.get("username"),}
 
 
@@ -191,7 +191,7 @@ def add_rack():
         except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
             db.session.rollback()
-            return jsonify({"msg": "Error occurred while trying to upload Equipment description", "error": str(e)}), 500
+            return jsonify({"msg": "Error occurred while trying to upload Rack description", "error": str(e)}), 500
     except Exception as e:
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500

@@ -124,7 +124,6 @@ class Rack(db.Model):
             'output_connector':self.output_connector,
             'neutro':self.neutro,
             'description':self.description.serialize(),
-            'client': self.client.serialize() if self.client else None 
         }
         
 class Equipment(db.Model):
