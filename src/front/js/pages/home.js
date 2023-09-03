@@ -49,10 +49,7 @@ export const Home = () => {
 			const response = await actions.addUser(formData)
 			//await actions.getUserData()
 			if (response == 200 || 201){
-				toast.success("Datos Guardados con Exito")
-				setTimeout(() => {
-					console.log("Equipo Agregado");
-				  }, 3000);
+				console.log("Data registrada");
 			}else{
 				toast.error("Error registrando")
 			}

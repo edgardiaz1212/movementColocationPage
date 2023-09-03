@@ -74,7 +74,6 @@ function Rack() {
       toast.error("Llene todos los campos")
       return
     }
-    console.log(data)
     try {
       const formData = new FormData();
 
@@ -112,13 +111,7 @@ function Rack() {
 
       const response = await actions.addRack(formData)
       if (response === 201 || 200) {
-        toast.success("Successfully Registered")
         console.log("Registro exitoso")
-        //retrasa el cambio a home por 2 segundos
-        setTimeout(() => {
-          navigate("/consult")
-        }, 3000)
-
       } else {
         toast.error("Error Registrando Rack")
         console.log("Error en el registro de Rack")
@@ -624,11 +617,12 @@ function Rack() {
 
           <Observations handleFieldChange={handleFieldChange} data={data} />
         </div>
-        <Link to="">
-          <button
+        
+          <button className="btn btn-primary m-2"
             onClick={handleAddRack}
-            type="button">Agregar</button>
-        </Link>
+            type="button">Agregar
+            </button>
+        
       </div>
     </>
   );

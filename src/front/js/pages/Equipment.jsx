@@ -98,19 +98,12 @@ function Equipment() {
       const response = await actions.addEquipment(formData)
 
       if (response === 200 || 201) {
-        toast.success("Datos Guardados con Exito")
-        setTimeout(() => {
-          navigate("/consult");
-        }, 3000);
-
-        // const equipmentId = response.data.equipment_id
-        // await actions.addEquipmentToUser(store.currentUser.id, equipmentId)
+        console.log("Equipo anadido")
       } else {
         toast.error("Error registrando")
       }
     } catch (error) {
       console.log("newEquipment ", error)
-
     }
   };
 
