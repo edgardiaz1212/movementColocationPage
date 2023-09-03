@@ -168,31 +168,27 @@ export const Home = () => {
 						{newUser.service && (
 							<div className="p-3">
 								{newUser.contract === "Rack" && (
-									<Link to="/equipment">
-										<button
-											className="btn btn-primary"
-											onClick={handleAddAll}
-										>
-											Agregar Equipo
-										</button>
-									</Link>
+									<Link to="/equipment"
+									className="btn btn-primary"
+									onClick={handleAddAll}
+								>
+									Agregar Equipo</Link>
 								)}
 								{newUser.contract === "catalogado" && (
 									<>
-										<Link to="/rack">
-											<button
+										
+											<Link to="/rack"
 												className="btn btn-primary m-1"
 												onClick={handleAddAll}
 											>
-												Agregar Rack</button>
-										</Link>
-										<Link to="/equipment">
-											<button
+												Agregar Rack</Link>
+										
+										<Link to="/equipment"
 												className="btn btn-primary"
 												onClick={handleAddAll}
 											>
-												Agregar Equipo</button>
-										</Link>
+												Agregar Equipo</Link>
+										
 									</>
 								)}
 							</div>

@@ -3,6 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			currentUser: JSON.parse(localStorage.getItem("currentUser")) || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
+			racksData:[],
+			equipmentsData:[]
 
 		},
 		actions: {
@@ -93,10 +95,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			getRack: async () => {
+			getRackByUser: async () => {
 				const store = getStore();
+				const userId = store.currentUser.user_id
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/rack`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/rack//${userId}`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "aplication/json",
@@ -105,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (response.ok) {
 						const responseData = await response.json();
 						// console.log("User data:", responseData);
-						// setStore({ userData: responseData });
+						setStore({ racksData: responseData });
 						// localStorage.setItem("userData", JSON.stringify(responseData));
 					} else {
 						console.log("Error fetching user data:", response.status);
@@ -114,8 +117,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error fetching user data:", error);
 				}
 			},
-
-
+			getEquipmentByUser: async () => {
+				const store = getStore();
+				const userId = store.currentUser.user_id; // Obtén el user_id del usuario actual
+			
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${userId}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+					if (response.ok) {
+						const responseData = await response.json();
+						// Almacena los datos de los racks en el estado de la tienda
+						setStore({ equipmentsData: responseData });
+						return responseData; // Opcional: puedes devolver los datos para su posterior uso en el componente.
+					} else {
+						console.log("Error fetching rack data:", response.status);
+					}
+				} catch (error) {
+					console.log("Error fetching rack data:", error);
+				}
+			},
+			
+			
+			
+			
+			
+			
+			
 		}
 	};
 };

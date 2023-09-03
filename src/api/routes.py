@@ -302,14 +302,18 @@ def add_equipment():
         # Si ocurre algún error, devolver una respuesta de error
         return jsonify({"message": str(e)}), 500
 
-@api.route('/rack', methods=['GET'])
-def get_all_rack_by_user():
+@api.route('/rack/<int:user_id>', methods=['GET'])
+def get_all_rack_by_useruser_id(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
     racks = Rack.query.all()
     racks_data = list(map(lambda rack: rack.serialize(), racks))
     return jsonify(racks_data), 200
 
-@api.route('/equipment', methods=['GET'])
-def get_all_equipment_by_user():
+@api.route('/equipment/<int:user_id>', methods=['GET'])
+def get_all_equipment_by_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
     equipments = Equipment.query.all()
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200
