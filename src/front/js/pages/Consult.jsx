@@ -29,8 +29,11 @@ function Consult() {
                     <div className="row border border-black">
                         {isNotCatalog && hasRackData && (
                             <div className="col-12 border border-danger">
+                                    {/* aca un condicion que si es contrato calogado solo muestre el map de los equiops.
+                                    otra condicion que si es no catalogado y solo se agrego equipo mostrar un bloque de rack pero con mensaje debe anadir el rack numero x */}
                                 {store.racksData.map((rack) => (
                                     <div key={rack.id}>
+
                                         <h2>RACK número {rack.rack_position}</h2>
                                         <table className="table">
                                             <thead>
