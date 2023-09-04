@@ -76,6 +76,7 @@ class Rack(db.Model):
     lateral_ubication = db.Column(db.String(50))
     rack_unit = db.Column(db.String(10))
     rack_position = db.Column(db.String(120))
+    rack_ubication=db.Column(db.String(50))
     has_accessory=db.Column(db.Boolean())
     accessory_description = db.Column(db.String(50))
     rack_width = db.Column(db.String(10))
@@ -114,6 +115,7 @@ class Rack(db.Model):
             'lateral_ubication':self.lateral_ubication,
             'rack_unit':self.rack_unit,
             'rack_position':self.rack_position,
+            'rack_ubication':self.rack_ubication,
             'has_accesory':self.has_accessory,
             'accesory_description':self.accessory_description,
             'rack_width':self.rack_width,
@@ -146,6 +148,7 @@ class Equipment(db.Model):
     access_inclination = db.Column(db.String(120))
     access_length = db.Column(db.String(120))
     rack_number = db.Column(db.String(10))
+    equip_rack_ubication = db.Column(db.String(10))
     rack_unit_position = db.Column(db.String(120))
     total_rack_units = db.Column(db.String(10))
     ac_dc = db.Column(db.String(10))
@@ -187,6 +190,7 @@ class Equipment(db.Model):
             'access_inclination':self.access_inclination,
             'access_length':self.access_length,
             'rack_number':self.rack_number,
+            'equip_rack_ubication':self.equip_rack_ubication,
             'rack_unit_position':self.rack_unit_position,
             'total_rack_units':self.total_rack_units,
             'ac_dc':self.ac_dc,
