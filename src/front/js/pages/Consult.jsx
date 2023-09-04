@@ -27,7 +27,6 @@ function Consult() {
                 <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
                 <div className="container ">
                     <div className="row border border-black">
-
                         {isNotCatalog && (
                             <>
                                 {hasRackData ? (
@@ -38,25 +37,24 @@ function Consult() {
                                             {store.racksData.map((rack) => (
                                                 <div key={rack.id}>
                                                     <h2>RACK número {rack.rack_position}</h2>
-                                                    <table className="table">
+                                                    <table className="table table-striped">
                                                         <thead>
                                                             <tr>
-                                                                <th>Rack Position</th>
+                                                                <th>Equipos en Rack Posicion {rack.rack_position}</th>
                                                                 {/* Agrega otras columnas de racks aquí */}
                                                             </tr>
                                                             <Link to="/rack" className="btn btn-primary m-1">Editar</Link>
-                                                                    <Link to="" className="btn btn-primary m-1">Ver Planilla</Link>
+                                                            <Link to="" className="btn btn-primary m-1">Ver Planilla</Link>
                                                         </thead>
                                                         <tbody>
                                                             {getEquipmentsForRack(rack.rack_position).map((equipment) => (
-
                                                                 <>
-                                                                <tr key={equipment.id}>
+                                                                    <tr key={equipment.id}>
 
-                                                                    <td>{equipment.rack_number}, {equipment.id}</td>
-                                                                    {/* Agrega otras celdas de datos del equipo aquí */}
+                                                                        <td>{equipment.rack_number}, el componente  {equipment.description.componentType}</td>
+                                                                        {/* Agrega otras celdas de datos del equipo aquí */}
 
-                                                                </tr>
+                                                                    </tr>
                                                                     <Link to="/equipment" className="btn btn-primary m-1">Editar</Link>
                                                                     <Link to="" className="btn btn-primary m-1">Ver Planilla</Link>
                                                                 </>
@@ -69,18 +67,31 @@ function Consult() {
                                     </>
                                 ) : (
                                     <>
-                                        <h2>Agrega el rack correspondiente al equipo</h2>
-                                        {store.equipmentsData.map((equipment) => (
-                                            <>
-                                                <tr key={equipment.id}>
-                                                    <td>{equipment.rack_number}</td>
-                                                </tr>
+                                        <div className="alert alert-warning" role="alert">
+                                            Agrega el rack donde sera instalado el equipo
+                                        </div>
 
-                                            </>
-                                        ))}
+                                        <table className="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Equipo</th>
+                                                    {/* Agrega otras columnas de racks aquí */}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {store.equipmentsData.map((equipment) => (
+                                                    <>
+                                                        <tr key={equipment.id}>
+                                                            <td>{equipment.rack_number}</td>
+                                                            
+                                                        </tr>
+                                                    </>
+                                                ))}</tbody>
+                                        </table>
                                     </>
                                 )}
-                            </>)}
+                            </>
+                        )}
 
                     </div>
                 </div>
