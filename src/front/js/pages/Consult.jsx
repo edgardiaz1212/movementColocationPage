@@ -27,40 +27,61 @@ function Consult() {
                 <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
                 <div className="container ">
                     <div className="row border border-black">
-                        {isNotCatalog && hasRackData && (
-                            <div className="col-12 border border-danger">
-                                    {/* aca un condicion que si es contrato calogado solo muestre el map de los equiops.
-                                    otra condicion que si es no catalogado y solo se agrego equipo mostrar un bloque de rack pero con mensaje debe anadir el rack numero x */}
-                                {store.racksData.map((rack) => (
-                                    <div key={rack.id}>
 
-                                        <h2>RACK número {rack.rack_position}</h2>
-                                        <table className="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Rack Position</th>
-                                                    {/* Agrega otras columnas de racks aquí */}
-                                                    <Link to="/rack" className="btn btn-primary m-1">Editar</Link>
-                                                    <Link to="" className="btn btn-primary m-1">Planilla</Link>
-                                                    <button className="btn btn-primary m-1">hola</button>
+                        {isNotCatalog && (
+                            <>
+                                {hasRackData ? (
+                                    <>
+                                        <div className="col-12 border border-danger">
+                                            {/* aca un condicion que si es contrato calogado solo muestre el map de los equiops.
+                                    otra condicion que si es no catalogado y solo se agrego equipo mostrar un bloque de rack pero con mensaje debe anadir el rack numero x */}
+                                            {store.racksData.map((rack) => (
+                                                <div key={rack.id}>
+                                                    <h2>RACK número {rack.rack_position}</h2>
+                                                    <table className="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Rack Position</th>
+                                                                {/* Agrega otras columnas de racks aquí */}
+                                                            </tr>
+                                                            <Link to="/rack" className="btn btn-primary m-1">Editar</Link>
+                                                                    <Link to="" className="btn btn-primary m-1">Ver Planilla</Link>
+                                                        </thead>
+                                                        <tbody>
+                                                            {getEquipmentsForRack(rack.rack_position).map((equipment) => (
+
+                                                                <>
+                                                                <tr key={equipment.id}>
+
+                                                                    <td>{equipment.rack_number}, {equipment.id}</td>
+                                                                    {/* Agrega otras celdas de datos del equipo aquí */}
+
+                                                                </tr>
+                                                                    <Link to="/equipment" className="btn btn-primary m-1">Editar</Link>
+                                                                    <Link to="" className="btn btn-primary m-1">Ver Planilla</Link>
+                                                                </>
+                                                            ))}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h2>Agrega el rack correspondiente al equipo</h2>
+                                        {store.equipmentsData.map((equipment) => (
+                                            <>
+                                                <tr key={equipment.id}>
+                                                    <td>{equipment.rack_number}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                {getEquipmentsForRack(rack.rack_position).map((equipment) => (
-                                                    <tr key={equipment.id}>
-                                                        <td>{equipment.rack_number}, {equipment.id}</td>
-                                                        {/* Agrega otras celdas de datos del equipo aquí */}
-                                                        <Link to="/equipment" className="btn btn-primary m-1">Editar</Link>
-                                                        <Link to="" className="btn btn-primary m-1">Planilla</Link></tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                ))}
-                                <Link to="/rack" className="btn btn-primary m-1">Editar</Link>
-                                <Link to="" className="btn btn-primary m-1">Planilla</Link>
-                            </div>
-                        )}
+
+                                            </>
+                                        ))}
+                                    </>
+                                )}
+                            </>)}
+
                     </div>
                 </div>
                 <p>Seleccionar otra actividad</p>
