@@ -174,7 +174,7 @@ export const Home = () => {
 								>
 									Agregar Equipo</Link>
 								)}
-								{newUser.contract === "Colocacion Catalogado" && (
+								{newUser.contract === "Colocacion no Catalogado" && (
 									<>
 										
 											<Link to="/rack"

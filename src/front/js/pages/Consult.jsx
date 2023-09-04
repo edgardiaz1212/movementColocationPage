@@ -20,7 +20,7 @@ function Consult() {
     const getEquipmentsForRack = (rackNumber) => {
         return store.equipmentsData.filter((equipment) => equipment.rack_number === rackNumber);
     };
-console.log(store.equipmentsData)
+    console.log(store.equipmentsData)
     return (
         <>
             <div className="container">
@@ -37,6 +37,9 @@ console.log(store.equipmentsData)
                                                 <tr>
                                                     <th>Rack Position</th>
                                                     {/* Agrega otras columnas de racks aquí */}
+                                                    <Link to="/rack" className="btn btn-primary m-1">Editar</Link>
+                                                    <Link to="" className="btn btn-primary m-1">Planilla</Link>
+                                                    <button className="btn btn-primary m-1">hola</button>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -44,7 +47,8 @@ console.log(store.equipmentsData)
                                                     <tr key={equipment.id}>
                                                         <td>{equipment.rack_number}, {equipment.id}</td>
                                                         {/* Agrega otras celdas de datos del equipo aquí */}
-                                                    </tr>
+                                                        <Link to="/equipment" className="btn btn-primary m-1">Editar</Link>
+                                                        <Link to="" className="btn btn-primary m-1">Planilla</Link></tr>
                                                 ))}
                                             </tbody>
                                         </table>
