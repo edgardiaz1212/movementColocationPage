@@ -32,6 +32,7 @@ function Rack() {
     lateral_ubication: "",
     rack_unit: "",
     rack_position: "",
+    rack_ubication:"",
     has_accessory:true,
     accessory_description: "",
     rack_width: "",
@@ -96,6 +97,7 @@ function Rack() {
       formData.append('lateral_ubication', data.lateral_ubication)
       formData.append('rack_unit', data.rack_unit)
       formData.append('rack_position', data.rack_position)
+      formData.append('rack_ubication', data.rack_ubication)
       formData.append('has_accessory', data.has_accessory)
       formData.append('accessory_description', data.accessory_description)
       formData.append('rack_width', data.rack_width)
@@ -431,6 +433,19 @@ function Rack() {
                     id="rack_position"
                     name="rack_position"
                     placeholder="Introduzca la posicion del rack respecto a los demas"
+                    onChange={handleFieldChange}
+                  />
+                </div>
+                <div className="m-auto col-4">
+                  <label htmlFor="rack_position" className="form-label">
+                    Ubicacion en losa en el DC
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="rack_ubication"
+                    name="rack_ubication"
+                    placeholder="Introduzca la ubicacion del rack respecto en el DC"
                     onChange={handleFieldChange}
                   />
                 </div>
