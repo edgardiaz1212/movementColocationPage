@@ -142,7 +142,7 @@ export const Home = () => {
 						value={newUser.contract}
 					>
 						<option value="">Seleccionar Contrato</option>
-						<option value="Colocacion en Rack">Colocacion en Rack</option>
+						<option value="Colocacion no Catalogado">Colocacion no Catalogado</option>
 						<option value="Colocacion Catalogado">Colocacion Catalogado</option>
 					</select>
 				</div>
@@ -167,14 +167,14 @@ export const Home = () => {
 
 						{newUser.service && (
 							<div className="p-3">
-								{newUser.contract === "Rack" && (
+								{newUser.contract === "Colocacion Catalogado" && (
 									<Link to="/equipment"
 									className="btn btn-primary"
 									onClick={handleAddAll}
 								>
 									Agregar Equipo</Link>
 								)}
-								{newUser.contract === "catalogado" && (
+								{newUser.contract === "Colocacion Catalogado" && (
 									<>
 										
 											<Link to="/rack"

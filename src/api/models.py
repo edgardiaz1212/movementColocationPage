@@ -186,6 +186,7 @@ class Equipment(db.Model):
             'access_width':self.access_width,
             'access_inclination':self.access_inclination,
             'access_length':self.access_length,
+            'rack_number':self.rack_number,
             'rack_unit_position':self.rack_unit_position,
             'total_rack_units':self.total_rack_units,
             'ac_dc':self.ac_dc,
