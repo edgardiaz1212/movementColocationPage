@@ -375,7 +375,7 @@ function Equipment() {
 
         <div className="m-auto col-4">
           <label htmlFor="rack_number" className="form-label">
-            Ubicacion, Rack donde estara ubicado
+            Numero de Rack donde estara ubicado
           </label>
           <input
             type="text"
@@ -387,7 +387,20 @@ function Equipment() {
             onChange={handleFieldChange}
           />
         </div>
-
+        <div className="m-auto col-4">
+          <label htmlFor="equip_rack_ubication" className="form-label">
+            Numero de Rack donde estara ubicado
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="equip_rack_ubication"
+            name="equip_rack_ubication"
+            value={data.equip_rack_ubication}
+            placeholder="Introduzca ubicacion DC del rack donde se colocara"
+            onChange={handleFieldChange}
+          />
+        </div>
         <div className="m-auto col-4">
           <label htmlFor="rack_unit_position" className="form-label">
             Las unidades de rack que ocupara
