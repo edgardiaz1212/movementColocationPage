@@ -6,6 +6,7 @@ function Buttons(){
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
                                             <Link to="/rack" className="btn btn-primary btn-sm ">Editar</Link>
                                             <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>
+                                            {/* aca en ver debo pasar como props los datos del equipo o rack seleccionado a pdfview , estos deben venir segun donde este el boton*/}
                                             <button className="button_delete" type="button">
                                                 <span className="button__text">Eliminar</span>
                                                 <span className="button__icon">
