@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Buttons from "../component/Buttons.jsx";
@@ -23,7 +23,8 @@ function Consult() {
     const equipmentsWithoutRack = store.equipmentsData.filter(
         (equipment) => !equipment.rack_number || !store.racksData.some((rack) => rack.rack_position === equipment.rack_number)
     );
-
+        const [viewPDF, setViewPdf]=useState(false)
+        
     return (
         <div className="container">
             <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
