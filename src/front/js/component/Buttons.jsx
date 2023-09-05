@@ -1,11 +1,11 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Buttons(){
     return(
         <>
         <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <Link to="/rack" className="btn btn-primary btn-sm m-1">Editar</Link>
-                                            <Link to="" className="btn btn-primary btn-sm m-1">Ver Planilla</Link>
+                                            <Link to="/rack" className="btn btn-primary btn-sm ">Editar</Link>
+                                            <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>
                                             <button className="button_delete" type="button">
                                                 <span className="button__text">Eliminar</span>
                                                 <span className="button__icon">

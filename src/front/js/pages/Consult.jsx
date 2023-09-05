@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import Buttons from "../component/Buttons";
+import Buttons from "../component/Buttons.jsx";
 
 function Consult() {
     const { actions, store } = useContext(Context);
