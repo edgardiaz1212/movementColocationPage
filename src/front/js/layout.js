@@ -4,16 +4,16 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import Rack from "./pages/Rack.jsx";
 import Equipment from "./pages/Equipment.jsx";
 import Consult from "./pages/Consult.jsx";
-
+import PDFView from "./pages/PDFView.jsx"
+import EditEquipment from "./pages/EditEquipment.jsx";
+import EditRack from "./pages/EditRack.jsx";
 
 
 //create your first component
@@ -34,7 +34,9 @@ const Layout = () => {
                         <Route element={<Rack/>} path="/rack"/>
                         <Route element={<Equipment/>} path="/equipment"/>
                         <Route element={<Consult/>} path="/consult"/>
-
+                        <Route element={<PDFView/>} path= "/finalview"/>
+                        <Route element={<EditEquipment/>} path ="/editequipment:id"/>
+                        <Route element={<EditRack/>} path ="editrack:id"/>
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
