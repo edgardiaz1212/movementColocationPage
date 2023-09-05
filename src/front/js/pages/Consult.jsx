@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import Buttons from "../component/Buttons";
 
 function Consult() {
     const { actions, store } = useContext(Context);
@@ -39,42 +40,7 @@ function Consult() {
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
                                         <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
-                                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                            <Link to="/rack" className="btn btn-primary btn-sm m-1">Editar</Link>
-                                            <Link to="" className="btn btn-primary btn-sm m-1">Ver Planilla</Link>
-                                            <button className="button_delete" type="button">
-                                                <span className="button__text">Eliminar</span>
-                                                <span className="button__icon">
-                                                    <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
-                                                        <title></title>
-                                                        <path
-                                                            d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
-                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                        ></path>
-                                                        <line
-                                                            style={{ stroke: "#fff", strokeLinecap: "round", strokeMiterlimit: "10", strokeWidth: "32px" }}
-                                                            x1="80" x2="432" y1="112" y2="112"
-                                                        ></line>
-                                                        <path
-                                                            d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
-                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                        ></path>
-                                                        <line
-                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                            x1="256" x2="256" y1="176" y2="400"
-                                                        ></line>
-                                                        <line
-                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                            x1="184" x2="192" y1="176" y2="400"
-                                                        ></line>
-                                                        <line
-                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                            x1="328" x2="320" y1="176" y2="400"
-                                                        ></line>
-                                                    </svg>
-                                                </span>
-                                            </button>
-                                        </div>
+                                        <Buttons/>
                                     </div>
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
@@ -90,42 +56,7 @@ function Consult() {
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
 
-                                                        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                            <Link to="/equipment" className="btn btn-primary btn-sm m-1">Editar</Link>
-                                                            <Link to="" className="btn btn-primary btn-sm m-1">Ver Planilla</Link>
-                                                            <button className="button_delete" type="button">
-                                                                <span className="button__text">Eliminar</span>
-                                                                <span className="button__icon">
-                                                                    <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
-                                                                        <title></title>
-                                                                        <path
-                                                                            d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
-                                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                        ></path>
-                                                                        <line
-                                                                            style={{ stroke: "#fff", strokeLinecap: "round", strokeMiterlimit: "10", strokeWidth: "32px" }}
-                                                                            x1="80" x2="432" y1="112" y2="112"
-                                                                        ></line>
-                                                                        <path
-                                                                            d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
-                                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                        ></path>
-                                                                        <line
-                                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                            x1="256" x2="256" y1="176" y2="400"
-                                                                        ></line>
-                                                                        <line
-                                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                            x1="184" x2="192" y1="176" y2="400"
-                                                                        ></line>
-                                                                        <line
-                                                                            style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                            x1="328" x2="320" y1="176" y2="400"
-                                                                        ></line>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                        </div>
+                                                        <Buttons/>
 
                                                     </tr>
 
@@ -158,44 +89,7 @@ function Consult() {
 
                                         <tr key={equipment.id}>
                                             <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                <Link to="/equipment" className="btn btn-primary btn-sm m-1">Editar</Link>
-                                                <Link to="" className="btn btn-primary btn-sm m-1">Ver Planilla</Link>
-
-                                                <button className="button_delete" type="button">
-                                                    <span className="button__text">Eliminar</span>
-                                                    <span className="button__icon">
-                                                        <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
-                                                            <title></title>
-                                                            <path
-                                                                d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
-                                                                style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                            ></path>
-                                                            <line
-                                                                style={{ stroke: "#fff", strokeLinecap: "round", strokeMiterlimit: "10", strokeWidth: "32px" }}
-                                                                x1="80" x2="432" y1="112" y2="112"
-                                                            ></line>
-                                                            <path
-                                                                d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
-                                                                style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                            ></path>
-                                                            <line
-                                                                style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                x1="256" x2="256" y1="176" y2="400"
-                                                            ></line>
-                                                            <line
-                                                                style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                x1="184" x2="192" y1="176" y2="400"
-                                                            ></line>
-                                                            <line
-                                                                style={{ fill: "none", stroke: "#fff", strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "32px" }}
-                                                                x1="328" x2="320" y1="176" y2="400"
-                                                            ></line>
-                                                        </svg>
-                                                    </span>
-                                                </button>
-
-                                            </div>
+                                            <Buttons/>
                                         </tr>
 
                                     ))}
@@ -220,9 +114,7 @@ function Consult() {
                                         <tr key={equipment.id}>
                                             <td>Componentes {equipment.description.componentType}</td>
                                         </tr>
-                                        <Link to="/equipment" className="btn btn-primary btn-sm m-1">Editar</Link>
-                                        <Link to="" className="btn btn-primary btn-sm m-1">Ver Planilla</Link>
-                                        <button className="btn btn-primary btn-sm m-1"> Eliminar</button>
+                                        <Buttons/>
                                     </>))}
                             </tbody>
                         </table>
