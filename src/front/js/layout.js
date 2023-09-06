@@ -35,8 +35,8 @@ const Layout = () => {
                         <Route element={<Equipment/>} path="/equipment"/>
                         <Route element={<Consult/>} path="/consult"/>
                         <Route element={<PDFView/>} path= "/finalview"/>
-                        <Route element={<EditEquipment/>} path ="/editequipment:id"/>
-                        <Route element={<EditRack/>} path ="editrack:id"/>
+                        <Route element={<EditEquipment/>} path ="/edit-equipment:id"/>
+                        <Route element={<EditRack/>} path ="edit-rack:id"/>
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

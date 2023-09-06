@@ -9,5 +9,5 @@ function EditRack() {
     <div>EditRack</div>
   )
 }
-
+<button>Terminar Edicion</button>
 export default EditRack

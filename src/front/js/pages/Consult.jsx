@@ -41,7 +41,7 @@ function Consult() {
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
                                         <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
-                                        <Buttons/>
+                                        <Buttons editLink={`/edit-rack/${rack.id}`}/>
                                     </div>
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
@@ -57,7 +57,7 @@ function Consult() {
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
 
-                                                        <Buttons/>
+                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`}/>
 
                                                     </tr>
 
@@ -90,7 +90,7 @@ function Consult() {
 
                                         <tr key={equipment.id}>
                                             <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <Buttons/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`}/>
                                         </tr>
 
                                     ))}
