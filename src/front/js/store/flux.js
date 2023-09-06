@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentUser: JSON.parse(localStorage.getItem("currentUser")) || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 			racksData: [],
-			equipmentsData: []
+			equipmentsData: [],
+			equipmentByIdData: []
 
 		},
 		actions: {
@@ -162,21 +163,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			getEquipmentById: async (id) => {
-				
-					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${id}`, {
+				const store = getStore()
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/get_equipment/${id}`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
 						},
 					});
-				console.log(response)
-					try {	
+				
+						
 					if (response.ok) {
-						const responseData = await response.json();
+						const equipmentByIdData = await response.json();
 						// Verificar si se obtuvieron datos válidos
-						if (responseData) {
+						
+						if (equipmentByIdData) {
 							
-							return responseData; // Devuelve los datos del equipo encontrado
+							
+							return equipmentByIdData; // Devuelve los datos del equipo encontrado
 						} else {
 							throw new Error("No se encontraron datos para el equipo con el ID proporcionado");
 						}

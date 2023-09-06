@@ -10,26 +10,23 @@ function EditEquipment() {
   const navigate=useNavigate()
   const {actions, store}= useContext(Context)
   const {equipmentData} =store
-  const [data, setData] = useState({initialState})
+  const [data, setData] = useState({})
   const { id } = useParams()
   
-  const initialState={
-    model:""
-  }
+ 
 console.log("es:",id)
   useEffect(() => {
     // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
     actions.getEquipmentById(id)
-        .then((equipmentData) => {
+        .then((equipmentByIdData) => {
             // Establece el estado inicial con los datos del equipo
-            setData(equipmentData);
+            setData(equipmentByIdData);
+            console.log(equipmentByIdData)
         })
-        
         .catch((error) => {
             toast.error(`Error al cargar los datos del equipo: ${error.message}`);
         });
 }, [id, actions]);
-console.log(useEffect)
   
 const handleEdit=()=>{
     actions.editEquipment(data)

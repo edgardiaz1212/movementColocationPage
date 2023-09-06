@@ -400,7 +400,7 @@ def edit_equipment(id):
     except Exception as error:
         return jsonify({'message':f'{error.args[0]}'}), 500
    
-@api.route('/equipment/<int:equipment_id>', methods=['GET'])
+@api.route('/get_equipment/<int:equipment_id>', methods=['GET'])
 def get_equipment_by_id(equipment_id):
     equipment = Equipment.query.get(equipment_id)
     if not equipment:
