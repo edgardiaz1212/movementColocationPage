@@ -3,8 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			currentUser: JSON.parse(localStorage.getItem("currentUser")) || [],
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
-			racksData:[],
-			equipmentsData:[]
+			racksData: [],
+			equipmentsData: []
 
 		},
 		actions: {
@@ -12,20 +12,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getUserData: async () => {
 				const store = getStore();
-				const currentUser = store.currentUser; 
-				
+				const currentUser = store.currentUser;
+
 				try {
-				
+
 					const response = await fetch(`${process.env.BACKEND_URL}/user/${currentUser.user_id}`, {
 						method: "GET",
 						headers: {
 							"Content-Type": "application/json",
 						},
 					});
-					
+
 					if (response.ok) {
 						const responseData = await response.json();
-						
+
 						setStore({ userData: responseData });
 						localStorage.setItem("userData", JSON.stringify(responseData));
 					} else {
@@ -123,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getEquipmentByUser: async () => {
 				const store = getStore();
 				const userId = store.currentUser.user_id; // Obtén el user_id del usuario actual
-			
+
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${userId}`, {
 						method: "GET",
@@ -143,13 +143,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error fetching rack data:", error);
 				}
 			},
-			
-			
-			
-			
-			
-			
-			
+			editEquipment: async (equipment) => {
+				const store = getStore()
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
+						method: 'PUT',
+						body:equipment
+					}
+				)
+					if (response.ok){
+						return response
+				}else {
+					console.log("Error updating social media")
+					return response.status
+				}
+			} catch (error) {
+					console.log("Error updating equipment:", error)
+				}
+			}
+
+
+
+
+
+
 		}
 	};
 };

@@ -115,7 +115,7 @@ function Consult() {
                                         <tr key={equipment.id}>
                                             <td>Componentes {equipment.description.componentType}</td>
                                         </tr>
-                                        <Buttons/>
+                                        <Buttons editLink={`/edit-equipment/${equipment.id}`}/>
                                     </>))}
                             </tbody>
                         </table>

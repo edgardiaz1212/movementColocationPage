@@ -320,3 +320,89 @@ def get_all_equipment_by_user(user_id):
     equipments = Equipment.query.filter_by(user_id=user_id).all()
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200
+
+@api.route('/equipment/<int:equipment_id>', methods=['PUT'])
+def edit_equipment(id):
+    equipment = Equipment.query.filter_by(id=id).first()
+    if not equipment:
+        return jsonify({"message": "Equipment not found"}), 404
+    data_form=request.form
+    data={
+        'brand': data_form.get('brand'),
+            'model': data_form.get('model'),
+            'serial': data_form.get('serial'),
+            "number_part": data_form.get("number_part"),
+            "componentType": data_form.get("componentType"),
+            "five_years_prevition": data_form.get("five_years_prevition"),
+            "observations": data_form.get("observations"),
+            'equipment_width': data_form.get('equipment_width'),
+            'equipment_height': data_form.get('equipment_height'),
+            'equipment_length': data_form.get('equipment_length'),
+            'packaging_width': data_form.get('packaging_width'),
+            'packaging_length': data_form.get('packaging_length'),
+            'packaging_height': data_form.get('packaging_height'),
+            'weight': data_form.get('weight'),
+            'anchor_type': data_form.get('anchor_type'),
+            'service_area': data_form.get('service_area'),
+            'access_width': data_form.get('access_width'),
+            'access_inclination': data_form.get('access_inclination'),
+            'access_length': data_form.get('access_length'),
+            'rack_number': data_form.get('rack_number'),
+            'rack_unit_position': data_form.get('rack_unit_position'),
+            'equip_rack_ubication': data_form.get('equip_rack_ubication'),
+            'total_rack_units': data_form.get('total_rack_units'),
+            'ac_dc': data_form.get('ac_dc'),
+            'input_current': data_form.get('input_current'),
+            'power': data_form.get('power'),
+            'power_supply': data_form.get('power_supply'),
+            'operation_temp': data_form.get('operation_temp'),
+            'thermal_disipation': data_form.get('thermal_disipation'),
+            'power_config': data_form.get('power_config')
+    }
+    
+    equipment.description.brand=data.get('brand')
+    equipment.description.model=data.get('model')
+    equipment.description.serial=data.get('serial')
+    equipment.description.number_part=data.get('number_part')
+    equipment.description.five_years_prevition=data.get('five_years_prevition')
+    equipment.description.observations=data.get('observations')
+    equipment.description.componentType=data.get('componentType')
+    equipment.equipment_width=data.get('equipment_width')
+    equipment.equipment_height=data.get('equipment_height')
+    equipment.equipment_length=data.get('equipment_length')
+    equipment.packaging_width=data.get('packaging_width')
+    equipment.packaging_length=data.get('packaging_length')
+    equipment.packaging_height=data.get('packaging_height')
+    equipment.weight=data.get('weight')
+    equipment.anchor_type=data.get('anchor_type')
+    equipment.service_area=data.get('service_area')
+    equipment.service_frontal=data.get('service_frontal')
+    equipment.service_back=data.get('service_back')
+    equipment.service_lateral=data.get('service_lateral')
+    equipment.access_width=data.get('access_width')
+    equipment.access_inclination=data.get('access_inclination')
+    equipment.access_length=data.get('access_length')
+    equipment.rack_number=data.get('rack_number')
+    equipment.rack_unit_position=data.get('rack_unit_position')
+    equipment.equip_rack_ubication=data.get('equip_rack_ubication')
+    equipment.total_rack_units=data.get('total_rack_units')
+    equipment.ac_dc=data.get('ac_dc')
+    equipment.input_current=data.get('input_current')
+    equipment.power=data.get('power')
+    equipment.power_supply=data.get('power_supply')
+    equipment.operation_temp=data.get('operation_temp')
+    equipment.thermal_disipation=data.get('thermal_disipation')
+    equipment.power_config=data.get('power_config')
+
+    try:
+        db.session.commit()
+        return jsonify({'message':'equipment updated'}),200 
+    except Exception as error:
+        return jsonify({'message':f'{error.args[0]}'}), 500
+    #data = request.get_json()
+    # if not data:
+    #     return jsonify({"message": "No data provided"}), 400
+    # equipment.name = data.get('name')
+    # equipment.description = data.get('description')
+    # equipment.user_id = data.get('user_id')
+    
