@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 function Buttons({ editLink }) {
+    const {store}=useContext(Context)
+    
     return (
         <>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                <Link to={editLink} className="btn btn-primary btn-sm ">
+                <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
                 <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>

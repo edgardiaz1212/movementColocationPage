@@ -160,11 +160,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 			} catch (error) {
 					console.log("Error updating equipment:", error)
 				}
-			}
-
-
-
-
+			},
+			getEquipmentById: async (id) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${id}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (response.ok) {
+						const responseData = await response.json();
+						// Verificar si se obtuvieron datos válidos
+						if (responseData) {
+							return responseData; // Devuelve los datos del equipo encontrado
+						} else {
+							throw new Error("No se encontraron datos para el equipo con el ID proporcionado");
+						}
+					} else if (response.status === 404) {
+						throw new Error("Equipo no encontrado"); // Manejo específico para el caso de equipo no encontrado
+					} else {
+						throw new Error(`Error al obtener el equipo: ${response.status}`);
+					}
+				} catch (error) {
+					console.log("Error fetching equipment data:", error);
+					throw error; // Propaga el error para que el componente pueda manejarlo
+				}
+			},
 
 
 		}
