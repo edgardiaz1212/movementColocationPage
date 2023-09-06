@@ -1,27 +1,37 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Details from '../component/Details.jsx';
+import Observations from '../component/Observations.jsx';
 
 function EditEquipment() {
   const navigate=useNavigate()
-  const [data, setData] = useState({})
-  const { theid } = useParams()
+  const {actions, store}= useContext(Context)
+  const {equipmentData} =store
+  const [data, setData] = useState({initialState})
+  const { id } = useParams()
   
+  const initialState={
+    model:""
+  }
+console.log("es:",id)
   useEffect(() => {
     // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
-    actions.getEquipmentById(theid)
+    actions.getEquipmentById(id)
         .then((equipmentData) => {
             // Establece el estado inicial con los datos del equipo
             setData(equipmentData);
         })
+        
         .catch((error) => {
             toast.error(`Error al cargar los datos del equipo: ${error.message}`);
         });
-}, [theid, actions]);
-
-  const handleEdit=()=>{
+}, [id, actions]);
+console.log(useEffect)
+  
+const handleEdit=()=>{
     actions.editEquipment(data)
     .then(() => {
         toast.success('Equipo editado exitosamente');

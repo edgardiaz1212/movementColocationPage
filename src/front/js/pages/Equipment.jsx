@@ -56,7 +56,7 @@ function Equipment() {
       toast.error("Llene todos los campos")
       return
     }
-    console.log(data)
+    
     try {
       const formData = new FormData();
 

@@ -399,10 +399,12 @@ def edit_equipment(id):
         return jsonify({'message':'equipment updated'}),200 
     except Exception as error:
         return jsonify({'message':f'{error.args[0]}'}), 500
-    #data = request.get_json()
-    # if not data:
-    #     return jsonify({"message": "No data provided"}), 400
-    # equipment.name = data.get('name')
-    # equipment.description = data.get('description')
-    # equipment.user_id = data.get('user_id')
+   
+@api.route('/equipment/<int:equipment_id>', methods=['GET'])
+def get_equipment_by_id(equipment_id):
+    equipment = Equipment.query.get(equipment_id)
+    if not equipment:
+        return jsonify({"message": "Equipment not found"}), 404
+    return jsonify(equipment.serialize()), 200
+
     
