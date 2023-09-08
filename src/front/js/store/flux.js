@@ -145,23 +145,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			editEquipment: async (equipment) => {
-				const store = getStore()
+				const store = getStore();
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
-						method: 'PUT',
-						body: equipment
-					}
-					)
-					if (response.ok) {
-						return response
-					} else {
-						console.log("Error updating social media")
-						return response.status
-					}
+				  const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
+					method: 'PUT',
+					headers: {
+					  'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
+					},
+					body: JSON.stringify(equipment), // Convierte equipment a JSON
+				  });
+			  
+				  if (response.ok) {
+					return response;
+				  } else {
+					console.log("Error updating equipment", response.status);
+					return response.status;
+				  }
 				} catch (error) {
-					console.log("Error updating equipment:", error)
+				  console.log("Error updating equipment:", error);
 				}
-			},
+			  },
+
 			getEquipmentById: async (id) => {
 				const store = getStore()
 				try {

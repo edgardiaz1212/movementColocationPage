@@ -219,7 +219,10 @@ def add_equipment():
             'packaging_height': data_form.get('packaging_height'),
             'weight': data_form.get('weight'),
             'anchor_type': data_form.get('anchor_type'),
-            'service_area': data_form.get('service_area'),
+            'service_area': data_form.get('service_area').lower() == True if data_form.get("service_area") else False,
+            'service_frontal':data_form.get('service_frontal').lower() == True if data_form.get("service_frontal") else False,
+            'service_back': data_form.get('service_back').lower() == True if data_form.get("service_back") else False,
+            'service_lateral': data_form.get('service_lateral').lower() == True if data_form.get("service_lateral") else False,
             'access_width': data_form.get('access_width'),
             'access_inclination': data_form.get('access_inclination'),
             'access_length': data_form.get('access_length'),
@@ -321,14 +324,14 @@ def get_all_equipment_by_user(user_id):
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200
 
-@api.route('/equipment/<int:equipment_id>', methods=['PUT'])
+@api.route('/equipment/<int:id>', methods=['PUT'])
 def edit_equipment(id):
     equipment = Equipment.query.filter_by(id=id).first()
     if not equipment:
         return jsonify({"message": "Equipment not found"}), 404
     data_form=request.form
     data={
-        'brand': data_form.get('brand'),
+            'brand': data_form.get('brand'),
             'model': data_form.get('model'),
             'serial': data_form.get('serial'),
             "number_part": data_form.get("number_part"),

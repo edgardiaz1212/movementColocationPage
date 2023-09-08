@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: a86fda39e1d9
+Revision ID: 79a649e532ef
 Revises: 
-Create Date: 2023-09-02 19:12:30.927284
+Create Date: 2023-09-07 21:57:55.799533
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a86fda39e1d9'
+revision = '79a649e532ef'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -55,6 +55,7 @@ def upgrade():
     sa.Column('lateral_ubication', sa.String(length=50), nullable=True),
     sa.Column('rack_unit', sa.String(length=10), nullable=True),
     sa.Column('rack_position', sa.String(length=120), nullable=True),
+    sa.Column('rack_ubication', sa.String(length=50), nullable=True),
     sa.Column('has_accessory', sa.Boolean(), nullable=True),
     sa.Column('accessory_description', sa.String(length=50), nullable=True),
     sa.Column('rack_width', sa.String(length=10), nullable=True),
@@ -81,14 +82,15 @@ def upgrade():
     sa.Column('packaging_height', sa.String(length=120), nullable=True),
     sa.Column('weight', sa.String(length=120), nullable=True),
     sa.Column('anchor_type', sa.String(length=120), nullable=True),
-    sa.Column('service_area', sa.String(length=50), nullable=True),
-    sa.Column('service_frontal', sa.String(length=50), nullable=True),
-    sa.Column('service_back', sa.String(length=50), nullable=True),
-    sa.Column('service_lateral', sa.String(length=50), nullable=True),
+    sa.Column('service_area', sa.Boolean(), nullable=True),
+    sa.Column('service_frontal', sa.Boolean(), nullable=True),
+    sa.Column('service_back', sa.Boolean(), nullable=True),
+    sa.Column('service_lateral', sa.Boolean(), nullable=True),
     sa.Column('access_width', sa.String(length=120), nullable=True),
     sa.Column('access_inclination', sa.String(length=120), nullable=True),
     sa.Column('access_length', sa.String(length=120), nullable=True),
     sa.Column('rack_number', sa.String(length=10), nullable=True),
+    sa.Column('equip_rack_ubication', sa.String(length=10), nullable=True),
     sa.Column('rack_unit_position', sa.String(length=120), nullable=True),
     sa.Column('total_rack_units', sa.String(length=10), nullable=True),
     sa.Column('ac_dc', sa.String(length=10), nullable=True),
