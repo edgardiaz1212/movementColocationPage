@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const responseData = await response.json();
 						setStore({ currentUser: responseData });
 						localStorage.setItem("currentUser", JSON.stringify(responseData))
-						console.log("Client added successfully");
+						console.log("Client added successfully", responseData);
 						return response
 					} else {
 						// Manejo de errores en caso de respuesta no exitosa
@@ -147,24 +147,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			editEquipment: async (equipment) => {
 				const store = getStore();
 				try {
-				  const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
-					method: 'PUT',
-					headers: {
-					  'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
-					},
-					body: JSON.stringify(equipment), // Convierte equipment a JSON
-				  });
-			  
-				  if (response.ok) {
-					return response;
-				  } else {
-					console.log("Error updating equipment", response.status);
-					return response.status;
-				  }
+					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
+						},
+						body: JSON.stringify(equipment), // Convierte equipment a JSON
+					});
+
+					if (response.ok) {
+						return response;
+					} else {
+						console.log("Error updating equipment", response.status);
+						return response.status;
+					}
 				} catch (error) {
-				  console.log("Error updating equipment:", error);
+					console.log("Error updating equipment:", error);
 				}
-			  },
+			},
 
 			getEquipmentById: async (id) => {
 				const store = getStore()
@@ -175,15 +175,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 						},
 					});
-				
-						
+
+
 					if (response.ok) {
 						const equipmentByIdData = await response.json();
 						// Verificar si se obtuvieron datos válidos
-						
+
 						if (equipmentByIdData) {
-							
-							
+
+
 							return equipmentByIdData; // Devuelve los datos del equipo encontrado
 						} else {
 							throw new Error("No se encontraron datos para el equipo con el ID proporcionado");
@@ -194,7 +194,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error(`Error al obtener el equipo: ${response.status}`);
 					}
 				} catch (error) {
-					
+
 					console.log("Error fetching equipment data:", error);
 					throw error; // Propaga el error para que el componente pueda manejarlo
 				}

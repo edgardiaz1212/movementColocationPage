@@ -35,7 +35,16 @@ def addUser():
         try:
             db.session.commit()
             user_id = new_user.id
-            return jsonify({"user_id": user_id}), 201
+            user_info = {
+                "user_id": user_id,
+                "username": new_user.username,
+                "coordination": new_user.coordination,
+                "email": new_user.email,
+                "clientName": new_user.clientName,
+                "contract": new_user.contract,
+                "service": new_user.service
+            }
+            return jsonify(user_info), 201
         except Exception as error:
             db.session.rollback()
             return jsonify({"msg": "Error occurred while trying to upload User", "error": str(error)}), 500
