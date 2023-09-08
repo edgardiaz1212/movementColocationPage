@@ -1,7 +1,8 @@
 import React from "react";
 
 function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
-
+    const isInstallationService = currentUser.service === 'Instalacion';
+    console.log(currentUser)
     return (
         <>
             <div className="p-3 mb-2 titles">
@@ -128,7 +129,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             id="anchor_type"
                             name="anchor_type"
                             value={data.anchor_type}
-                            placeholder="Introduzca elemntos fijantes"
+                            placeholder="Introduzca elementos fijantes"
                             onChange={handleFieldChange}
                         />
                     </div>
@@ -278,6 +279,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
+                    {!isInstallationService && (
                     <div className="m-auto col-4">
                         <label htmlFor="equip_rack_ubication" className="form-label">
                             Losa en DC donde estara ubicado
@@ -292,6 +294,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
+                    )}
                     <div className="m-auto col-4">
                         <label htmlFor="rack_unit_position" className="form-label">
                             Las unidades de rack que ocupara

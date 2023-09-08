@@ -9,7 +9,7 @@ import BasicEquip from '../component/BasicEquip.jsx';
 function EditEquipment() {
   const navigate = useNavigate()
   const { actions, store } = useContext(Context)
-  
+  const {currentUser}=store
   const [data, setData] = useState({})
   const { id } = useParams()
  
@@ -145,7 +145,7 @@ return (
   <>
     <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
     <div className="container">
-    <BasicEquip handleFieldChange={handleFieldChange} data={data}/>
+    <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={{currentUser}}/>
 
       <button
         onClick={handleEdit}>

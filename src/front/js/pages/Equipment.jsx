@@ -8,7 +8,7 @@ import BasicEquip from "../component/BasicEquip.jsx";
 function Equipment() {
   const { actions, store } = useContext(Context)
   const currentUserId = store.currentUser.user_id
-  const {currentUser}=store
+  const { currentUser } = store
   const initialState = {
     model: "",
     brand: "",
@@ -126,7 +126,6 @@ function Equipment() {
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div className="container primer">
         <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
-
         <Link to="/consult" className="btn btn-primary m-2"
           onClick={handleAddEquipment}
         >Agregar</Link>
