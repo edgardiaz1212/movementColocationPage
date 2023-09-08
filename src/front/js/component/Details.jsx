@@ -3,8 +3,8 @@ import React from "react";
 function Details({handleFieldChange,  data}) {
   return (
     <>
-      <div className="p-3 mb-2 bg-info">
-        <h2>Datos Generales</h2>
+      <div className="p-3 mb-2 titles">
+        <h2>DATOS GENERALES</h2>
       </div>
 
       <div className="container row mt-5">

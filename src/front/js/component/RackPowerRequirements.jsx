@@ -1,6 +1,6 @@
 import React from 'react'
 
-function PowerRequirements({ handleFieldChange, data }) {
+function RackPowerRequirements({ handleFieldChange, data }) {
   return (
     <>
     <h2 className="mt-4">Requerimiento de energia para el rack</h2>
@@ -90,4 +90,4 @@ function PowerRequirements({ handleFieldChange, data }) {
   )
 }
 
-export default PowerRequirements
+export default RackPowerRequirements

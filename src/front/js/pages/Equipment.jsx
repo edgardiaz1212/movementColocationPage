@@ -7,8 +7,8 @@ import BasicEquip from "../component/BasicEquip.jsx";
 
 function Equipment() {
   const { actions, store } = useContext(Context)
-  const currentUser = store.currentUser.user_id
-
+  const currentUserId = store.currentUser.user_id
+  const {currentUser}=store
   const initialState = {
     model: "",
     brand: "",
@@ -42,12 +42,12 @@ function Equipment() {
     operation_temp: "",
     thermal_disipation: "",
     power_config: "",
-    user_id: currentUser
+    user_id: currentUserId
   }
   const [data, setData] = useState(initialState)
   const handleFieldChange = (event) => {
     const { name, type, checked, value } = event.target;
-  
+
     // Manejar los campos de entrada de texto como cadenas
     if (type !== "checkbox" && type !== "radio") {
       setData((prevFormData) => ({
@@ -57,7 +57,7 @@ function Equipment() {
     } else {
       // Manejar los campos de tipo checkbox y radio como booleanos
       const newValue = type === "checkbox" ? checked : value === "true" ? true : false;
-  
+
       setData((prevFormData) => ({
         ...prevFormData,
         [name]: newValue,
@@ -66,12 +66,12 @@ function Equipment() {
   };
 
   const handleAddEquipment = async () => {
-    if (!data.brand || !data.model ||!data.serial ||!data.componentType) {
+    if (!data.brand || !data.model || !data.serial || !data.componentType) {
       console.log("faltan datos importantes")
       toast.error("Llene todos los campos")
       return
     }
-    
+
     try {
       const formData = new FormData();
 
@@ -107,7 +107,7 @@ function Equipment() {
       formData.append('operation_temp', data.operation_temp)
       formData.append('thermal_disipation', data.thermal_disipation)
       formData.append('power_config', data.power_config)
-      formData.append('user_id', currentUser)
+      formData.append('user_id', currentUserId)
 
       const response = await actions.addEquipment(formData)
 
@@ -124,13 +124,13 @@ function Equipment() {
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-      <div className="container">
-<BasicEquip handleFieldChange={handleFieldChange} data={data}/>
+      <div className="container primer">
+        <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
 
-          <Link to="/consult" className="btn btn-primary m-2"
-            onClick={handleAddEquipment}
-          >Agregar</Link>
-        
+        <Link to="/consult" className="btn btn-primary m-2"
+          onClick={handleAddEquipment}
+        >Agregar</Link>
+
       </div>
 
     </>
