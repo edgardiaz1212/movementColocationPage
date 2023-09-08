@@ -1,6 +1,4 @@
 import React, { useState, useContext } from "react";
-import Details from "../component/Details.jsx";
-import Observations from "../component/Observations.jsx";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
@@ -9,8 +7,8 @@ import BasicRack from "../component/BasicRack.jsx";
 function Rack() {
 
   const { actions, store } = useContext(Context)
-  const currentUser = store.currentUser.user_id
-
+  const currentUserId= store.currentUser.user_id
+  const {currentUser}=store
   const initialState = {
     brand: "",
     model: "",
@@ -43,7 +41,7 @@ function Rack() {
     fases: "",
     output_connector: "",
     neutro: true,
-    user_id: currentUser
+    user_id: currentUserId
   }
 
   const [data, setData] = useState(initialState);
@@ -108,10 +106,11 @@ function Rack() {
       formData.append('fases', data.fases)
       formData.append('output_connector', data.output_connector)
       formData.append('neutro', data.neutro)
-      formData.append('user_id', currentUser)  
+      formData.append('user_id', currentUserId)  
 
       const response = await actions.addRack(formData)
-      if (response === 201 || 200) {
+      if (response === 201 || response === 200) {
+        
         console.log("Registro exitoso")
       } else {
         toast.error("Error Registrando Rack")
@@ -126,7 +125,7 @@ function Rack() {
     <>
     <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div id="rackForm" className="container">
-     <BasicRack handleFieldChange={handleFieldChange} data={data}/>
+     <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={currentUser}/>
 
           <Link to='/consult' className="btn btn-primary m-2"
             onClick={handleAddRack}

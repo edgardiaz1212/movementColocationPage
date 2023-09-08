@@ -1,6 +1,8 @@
 import React from 'react'
 
-function CabinetFeatures({ handleFieldChange, data }) {
+function CabinetFeatures({ handleFieldChange, data, currentUser }) {
+    const isInstallationService = currentUser.service === 'Instalacion';
+    
     return (<>
         <div className="p-3 mb-2 bg-info">
             <h2>Caracteristicas del Gabinete</h2>
@@ -310,6 +312,7 @@ function CabinetFeatures({ handleFieldChange, data }) {
                             onChange={handleFieldChange}
                         />
                     </div>
+                    {!isInstallationService &&(
                     <div className="m-auto col-4">
                         <label htmlFor="rack_position" className="form-label">
                             Ubicacion en losa en el DC
@@ -323,6 +326,7 @@ function CabinetFeatures({ handleFieldChange, data }) {
                             onChange={handleFieldChange}
                         />
                     </div>
+                    )}
                     <div className="m-auto col-4">
                         <p>¿Tiene Accesorios Adicionales?</p>
                         <div className="form-check">

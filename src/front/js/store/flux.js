@@ -49,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const responseData = await response.json();
 						setStore({ currentUser: responseData });
 						localStorage.setItem("currentUser", JSON.stringify(responseData))
-						console.log("Client added successfully", responseData);
+						;
 						return response
 					} else {
 						// Manejo de errores en caso de respuesta no exitosa
