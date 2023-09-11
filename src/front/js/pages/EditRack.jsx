@@ -1,17 +1,21 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BasicRack from '../component/BasicRack.jsx';
 
 function EditRack() {
-    const navigate=useNavigate
-    
-    useEffect(() => {
-      // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
-      if (id){
-        actions.getRackById(id)
+  const navigate = useNavigate
+  const { actions, store } = useContext(Context)
+  const { currentUser } = store
+  const [data, setData] = useState({})
+  const { id } = useParams()
+
+  useEffect(() => {
+    // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
+    if (id) {
+      actions.getRackById(id)
         .then((rackByIdData) => {
           // Establece el estado inicial con los datos del equipo
           setData({
@@ -47,32 +51,32 @@ function EditRack() {
             fases: rackByIdData.fases,
             output_connector: rackByIdData.output_connector,
             neutro: rackByIdData.neutro,
-  
+
           });
         })
         .catch((error) => {
           toast.error(`Error al cargar los datos del equipo: ${error.message}`);
         });
-      }
-    }, [id, actions]);
-  
-    const handleEdit=async ()=>{
-      if (!id) {
-        toast.error("ID del equipo no válido");
-        return;
-      }
-    
-      const response = await actions.editRack(data, id)
-      
-      if (response === 200 || 201) {
-        console.log("Equipo anadido")
-        navigate('/consult')
-  
-      } else {
-        toast.error("Error registrando")
-      }
     }
- 
+  }, [id, actions]);
+
+  const handleEdit = async () => {
+    if (!id) {
+      toast.error("ID del equipo no válido");
+      return;
+    }
+
+    const response = await actions.editRack(data, id)
+
+    if (response === 200 || 201) {
+      console.log("Equipo anadido")
+      navigate('/consult')
+
+    } else {
+      toast.error("Error registrando")
+    }
+  }
+
   const handleFieldChange = (event) => {
     const { name, type, checked, value } = event.target;
 
@@ -92,17 +96,19 @@ function EditRack() {
       }));
     }
   };
-return(
-  <>
-  <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-  <div className="container">
-  <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
-  <button
+  return (
+    <>
+      <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
+      <div className="container">
+        <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
+        <Link to="/consult"
+          className="btn btn-success"
           onClick={handleEdit}>
-          Terminar Edicion</button>
-  </div>
-  </>
-)
+          Terminar Ediciones
+        </Link>
+      </div>
+    </>
+  )
 
 
 }

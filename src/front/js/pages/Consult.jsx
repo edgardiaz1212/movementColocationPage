@@ -72,13 +72,15 @@ function Consult() {
                     {isNotCatalog && hasEquipmentData && (
                         <div className="col-12 p-2 border-top border-secondary">
                             {equipmentsWithoutRack.length > 0 && (
+                                <>
                                 <div className="alert alert-warning" role="alert">
                                     Estos equipos no están asociados a ningún rack o no hay un rack con su posición correspondiente
                                     {/* {equipmentsWithoutRack
                                         .map((equipment) => equipment.rack_number)
                                         .join(", ")} */}
                                 </div>
-                            )}
+                                
+                            
                             <table className="table table-striped">
                                 <thead className="border-top border-bottom ">
                                     <tr>
@@ -95,7 +97,7 @@ function Consult() {
 
                                     ))}
                                 </tbody>
-                            </table>
+                            </table></>)}
                         </div>
                     )}
                 </div>

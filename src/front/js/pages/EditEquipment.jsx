@@ -104,7 +104,7 @@ function EditEquipment() {
       <div className="container">
         <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
 
-        <button
+        <button className="btn btn-secondary"
           onClick={handleEdit}>
           Terminar Edicion</button>
 

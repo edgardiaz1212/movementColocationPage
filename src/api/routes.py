@@ -318,7 +318,7 @@ def add_equipment():
         return jsonify({"message": str(e)}), 500
 
 @api.route('/rack/<int:user_id>', methods=['GET'])
-def get_all_rack_by_useruser_id(user_id):
+def get_all_rack_by_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if not user:
         return jsonify({"message": "User not found"}), 404
@@ -329,6 +329,8 @@ def get_all_rack_by_useruser_id(user_id):
 @api.route('/equipment/<int:user_id>', methods=['GET'])
 def get_all_equipment_by_user(user_id):
     user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 404
     equipments = Equipment.query.filter_by(user_id=user_id).all()
     equipments_data = list(map(lambda equipment: equipment.serialize(), equipments))
     return jsonify(equipments_data), 200
@@ -389,10 +391,10 @@ def get_equipment_by_id(equipment_id):
     return jsonify(equipment.serialize()), 200
 
 @api.route('/rack/<int:id>', methods=['PUT'])
-def rack(id):
+def edit_rack(id):
     rack = Rack.query.filter_by(id=id).first()
     
-    if not equipment:
+    if not rack:
         return jsonify({"message": "Rack not found"}), 404
     data =request.get_json() 
     
@@ -434,10 +436,10 @@ def rack(id):
         return jsonify({'message':'rack updated'}),200 
     except Exception as error:
         return jsonify({'message':f'{error.args[0]}'}), 500
-    
-@api.route('/equipment/<int:user_id>', methods=['GET'])
-def get_all_rack_by_user(user_id):
-    user = User.query.filter_by(id=user_id).first()
-    racks = Rack.query.filter_by(user_id=user_id).all()
-    racks_data = list(map(lambda rack: rack.serialize(), racks))
-    return jsonify(racks_data), 200
+
+@api.route('/get_rack/<int:rack_id>', methods=['GET'])
+def get_rack_by_id(rack_id):
+    rack = Rack.query.get(rack_id)
+    if not rack:
+        return jsonify({"message": "Rack not found"}), 404
+    return jsonify(rack.serialize()), 200    

@@ -114,12 +114,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						const responseData = await response.json();
 						// console.log("User data:", responseData);
 						setStore({ racksData: responseData });
-						// localStorage.setItem("userData", JSON.stringify(responseData));
+						return responseData;
 					} else {
-						console.log("Error fetching user data:", response.status);
+						console.log("Error fetching rack data:", response.status);
 					}
 				} catch (error) {
-					console.log("Error fetching user data:", error);
+					console.log("Error fetching Rack data:", error);
 				}
 			},
 			getEquipmentByUser: async () => {
@@ -139,10 +139,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ equipmentsData: responseData });
 						return responseData; // Opcional: puedes devolver los datos para su posterior uso en el componente.
 					} else {
-						console.log("Error fetching rack data:", response.status);
+						console.log("Error fetching equipment data:", response.status);
 					}
 				} catch (error) {
-					console.log("Error fetching rack data:", error);
+					console.log("Error fetching equipment data:", error);
 				}
 			},
 			editEquipment: async (equipment, id) => {
@@ -183,8 +183,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						// Verificar si se obtuvieron datos válidos
 
 						if (equipmentByIdData) {
-
-
 							return equipmentByIdData; // Devuelve los datos del equipo encontrado
 						} else {
 							throw new Error("No se encontraron datos para el equipo con el ID proporcionado");
@@ -239,8 +237,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						// Verificar si se obtuvieron datos válidos
 
 						if (rackByIdData) {
-
-
 							return rackByIdData; // Devuelve los datos del rack encontrado
 						} else {
 							throw new Error("No se encontraron datos para el rack con el ID proporcionado");
