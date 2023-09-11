@@ -2,7 +2,7 @@ import React from "react";
 
 function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
     const isInstallationService = currentUser.service === 'Instalacion';
-    console.log(currentUser)
+
     return (
         <>
             <div className="p-3 mb-2 titles">

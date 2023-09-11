@@ -144,10 +144,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error fetching rack data:", error);
 				}
 			},
-			editEquipment: async (equipment) => {
+			editEquipment: async (equipment, id) => {
 				const store = getStore();
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${equipment.id}`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/equipment/${id}`, {
 						method: 'PUT',
 						headers: {
 							'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
