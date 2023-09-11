@@ -442,4 +442,17 @@ def get_rack_by_id(rack_id):
     rack = Rack.query.get(rack_id)
     if not rack:
         return jsonify({"message": "Rack not found"}), 404
-    return jsonify(rack.serialize()), 200    
+    return jsonify(rack.serialize()), 200 
+
+@api.route('/delete_equipment/<int:id>', methods=['DELETE'])
+def delete_equipment(id):
+    equipment = Equipment.query.get(id).first()
+    if not equipment:
+        return jsonify({"message": "Equipment not found"}), 404
+    else:
+        db.session.delete(equipment)
+        try:
+            db.session.commit()
+            return jsonify({"msg": "Equipment Deleted"}), 200
+        except Exception as error:
+            return jsonify({"msg": error.args}), 500

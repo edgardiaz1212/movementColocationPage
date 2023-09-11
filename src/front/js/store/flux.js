@@ -252,6 +252,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					throw error; // Propaga el error para que el componente pueda manejarlo
 				}
 			},
+
+			deleteEquipment: async(id)=>{
+				const store=getStore()
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/delete_equipment${id}`,{
+						method:'DELETE'
+					})
+					if (response.ok){
+						getActions().getEquipmentByUser()
+					}else{
+						console.log("erorr deleting equipment")
+					}
+					
+				} catch (error) {
+					console.log("error Borrando rack:", error)
+				}
+			}
 		}
 	};
 };

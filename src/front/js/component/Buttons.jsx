@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 function Buttons({ editLink }) {
-    const {store}=useContext(Context)
+    const {actions, store}=useContext(Context)
     
     return (
         <>
@@ -12,7 +12,7 @@ function Buttons({ editLink }) {
                 </Link>
                 <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>
                 {/* aca en ver debo pasar como props los datos del equipo o rack seleccionado a pdfview , estos deben venir segun donde este el boton*/}
-                <button className="button_delete" type="button">
+                <button className="button_delete" type="button" onClick={actions.deleteEquipment}>
                     <span className="button__text">Eliminar</span>
                     <span className="button__icon">
                         <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
