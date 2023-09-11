@@ -9,10 +9,10 @@ import BasicEquip from '../component/BasicEquip.jsx';
 function EditEquipment() {
   const navigate = useNavigate()
   const { actions, store } = useContext(Context)
-  const {currentUser}=store
+  const { currentUser } = store
   const [data, setData] = useState({})
   const { id } = useParams()
- 
+
 
   console.log("esparam:", id)
   useEffect(() => {
@@ -20,8 +20,7 @@ function EditEquipment() {
     actions.getEquipmentById(id)
       .then((equipmentByIdData) => {
         // Establece el estado inicial con los datos del equipo
-        setData(equipmentByIdData);
-        const initialState = {
+        setData({
           model: equipmentByIdData.description.model,
           brand: equipmentByIdData.description.brand,
           serial: equipmentByIdData.description.serial,
@@ -54,17 +53,14 @@ function EditEquipment() {
           operation_temp: equipmentByIdData.operation_temp,
           thermal_disipation: equipmentByIdData.thermal_disipation,
           power_config: equipmentByIdData.power_config,
-         
-        }
 
-console.log("initial",initialState)
-        console.log("por use effect",equipmentByIdData)
+        });
       })
       .catch((error) => {
         toast.error(`Error al cargar los datos del equipo: ${error.message}`);
       });
   }, [id, actions]);
-  
+
   console.log("equipo ", data);
 
   const handleEdit = async () => {
@@ -118,12 +114,12 @@ console.log("initial",initialState)
     } else {
       toast.error("Error registrando")
     }
-  } 
+  }
 
 
   const handleFieldChange = (event) => {
     const { name, type, checked, value } = event.target;
-  
+
     // Manejar los campos de entrada de texto como cadenas
     if (type !== "checkbox" && type !== "radio") {
       setData((prevFormData) => ({
@@ -133,7 +129,7 @@ console.log("initial",initialState)
     } else {
       // Manejar los campos de tipo checkbox y radio como booleanos
       const newValue = type === "checkbox" ? checked : value === "true" ? true : false;
-  
+
       setData((prevFormData) => ({
         ...prevFormData,
         [name]: newValue,
@@ -141,20 +137,20 @@ console.log("initial",initialState)
     }
   };
 
-return (
-  <>
-    <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-    <div className="container">
-    <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={{currentUser}}/>
+  return (
+    <>
+      <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
+      <div className="container">
+        <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
 
-      <button
-        onClick={handleEdit}>
-        Terminar Edicion</button>
+        <button
+          onClick={handleEdit}>
+          Terminar Edicion</button>
 
-    </div>
+      </div>
 
-  </>
-)
+    </>
+  )
 }
 
 export default EditEquipment
