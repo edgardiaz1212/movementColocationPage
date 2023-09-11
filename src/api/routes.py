@@ -340,38 +340,6 @@ def edit_equipment(id):
     if not equipment:
         return jsonify({"message": "Equipment not found"}), 404
     data =request.get_json() 
-    # data={
-    #         'brand': data_form.get('brand'),
-    #         'model': data_form.get('model'),
-    #         'serial': data_form.get('serial'),
-    #         "number_part": data_form.get("number_part"),
-    #         "componentType": data_form.get("componentType"),
-    #         "five_years_prevition": data_form.get("five_years_prevition"),
-    #         "observations": data_form.get("observations"),
-    #         'equipment_width': data_form.get('equipment_width'),
-    #         'equipment_height': data_form.get('equipment_height'),
-    #         'equipment_length': data_form.get('equipment_length'),
-    #         'packaging_width': data_form.get('packaging_width'),
-    #         'packaging_length': data_form.get('packaging_length'),
-    #         'packaging_height': data_form.get('packaging_height'),
-    #         'weight': data_form.get('weight'),
-    #         'anchor_type': data_form.get('anchor_type'),
-    #         'service_area': data_form.get('service_area'),
-    #         'access_width': data_form.get('access_width'),
-    #         'access_inclination': data_form.get('access_inclination'),
-    #         'access_length': data_form.get('access_length'),
-    #         'rack_number': data_form.get('rack_number'),
-    #         'rack_unit_position': data_form.get('rack_unit_position'),
-    #         'equip_rack_ubication': data_form.get('equip_rack_ubication'),
-    #         'total_rack_units': data_form.get('total_rack_units'),
-    #         'ac_dc': data_form.get('ac_dc'),
-    #         'input_current': data_form.get('input_current'),
-    #         'power': data_form.get('power'),
-    #         'power_supply': data_form.get('power_supply'),
-    #         'operation_temp': data_form.get('operation_temp'),
-    #         'thermal_disipation': data_form.get('thermal_disipation'),
-    #         'power_config': data_form.get('power_config')
-    # }
     
     equipment.description.brand=data.get('brand')
     equipment.description.model=data.get('model')
@@ -420,4 +388,56 @@ def get_equipment_by_id(equipment_id):
         return jsonify({"message": "Equipment not found"}), 404
     return jsonify(equipment.serialize()), 200
 
+@api.route('/rack/<int:id>', methods=['PUT'])
+def rack(id):
+    rack = Rack.query.filter_by(id=id).first()
     
+    if not equipment:
+        return jsonify({"message": "Rack not found"}), 404
+    data =request.get_json() 
+    
+    rack.description.brand=data.get('brand')
+    rack.description.model=data.get('model')
+    rack.description.serial=data.get('serial')
+    rack.description.number_part=data.get('number_part')
+    rack.description.five_years_prevition=data.get('five_years_prevition')
+    rack.description.observations=data.get('observations')
+    rack.description.componentType=data.get('componentType')
+    rack.has_cabinet=data.get('has_cabinet')
+    rack.leased=data.get('leased')
+    rack.total_cabinets=data.get('total_cabinets')
+    rack.open_closed=data.get('open_closed')
+    rack.security=data.get('security')
+    rack.type_security=data.get('type_security')
+    rack.has_extractors=data.get('has_extractors')
+    rack.extractors_ubication=data.get('extractors_ubication')
+    rack.modular=data.get('modular')
+    rack.lateral_doors=data.get('lateral_doors')
+    rack.lateral_ubication=data.get('lateral_ubication')
+    rack.service_lateral=data.get('service_lateral')
+    rack.rack_unit=data.get('rack_unit')
+    rack.rack_position=data.get('rack_position')
+    rack.rack_ubication=data.get('rack_ubication')
+    rack.has_accessory=data.get('has_accessory')
+    rack.accessory_description=data.get('accessory_description')
+    rack.rack_width=data.get('rack_width')
+    rack.rack_length=data.get('rack_length')
+    rack.rack_height=data.get('rack_height')
+    rack.internal_pdu=data.get('internal_pdu')
+    rack.input_connector=data.get('input_connector')
+    rack.fases=data.get('fases')
+    rack.output_connector=data.get('output_connector')
+    rack.neutro=data.get('neutro')
+    
+    try:
+        db.session.commit()
+        return jsonify({'message':'rack updated'}),200 
+    except Exception as error:
+        return jsonify({'message':f'{error.args[0]}'}), 500
+    
+@api.route('/equipment/<int:user_id>', methods=['GET'])
+def get_all_rack_by_user(user_id):
+    user = User.query.filter_by(id=user_id).first()
+    racks = Rack.query.filter_by(user_id=user_id).all()
+    racks_data = list(map(lambda rack: rack.serialize(), racks))
+    return jsonify(racks_data), 200

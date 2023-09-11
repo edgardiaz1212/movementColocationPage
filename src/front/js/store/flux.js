@@ -5,7 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			userData: JSON.parse(localStorage.getItem("userData")) || [],
 			racksData: [],
 			equipmentsData: [],
-			equipmentByIdData: []
+			equipmentByIdData: [],
+			rackByIdData:[]
 
 		},
 		actions: {
@@ -200,7 +201,61 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			editRack: async (rack, id) => {
+				const store = getStore();
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/rack/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
+						},
+						body: JSON.stringify(rack), // Convierte rack a JSON
+					});
 
+					if (response.ok) {
+						return response;
+					} else {
+						console.log("Error updating rack", response.status);
+						return response.status;
+					}
+				} catch (error) {
+					console.log("Error updating rack:", error);
+				}
+			},
+
+			getRackById: async (id) => {
+				const store = getStore()
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/get_rack/${id}`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+
+
+					if (response.ok) {
+						const rackByIdData = await response.json();
+						// Verificar si se obtuvieron datos válidos
+
+						if (rackByIdData) {
+
+
+							return rackByIdData; // Devuelve los datos del rack encontrado
+						} else {
+							throw new Error("No se encontraron datos para el rack con el ID proporcionado");
+						}
+					} else if (response.status === 404) {
+						throw new Error("rack no encontrado"); // Manejo específico para el caso de rack no encontrado
+					} else {
+						throw new Error(`Error al obtener el rack: ${response.status}`);
+					}
+				} catch (error) {
+
+					console.log("Error fetching rack data:", error);
+					throw error; // Propaga el error para que el componente pueda manejarlo
+				}
+			},
 		}
 	};
 };
