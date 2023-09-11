@@ -62,9 +62,7 @@ function EditEquipment() {
     }
   }, [id, actions]);
 
-  console.log("equipo ", data);
-
-  const handleEdit = async () => {
+   const handleEdit = async () => {
     if (!id) {
       toast.error("ID del equipo no válido");
       return;
