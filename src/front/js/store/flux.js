@@ -253,22 +253,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			deleteEquipment: async(id)=>{
+			deleteEquipment: async (id)=>{
 				const store=getStore()
 				try {
-					let response = await fetch(`${process.env.BACKEND_URL}/delete_equipment${id}`,{
-						method:'DELETE'
+					let response = await fetch(`${process.env.BACKEND_URL}/equipment/${id}`,{
+						method:'DELETE',
+						headers:{'Content-Type': 'application/json'}
 					})
 					if (response.ok){
 						getActions().getEquipmentByUser()
+						return response
 					}else{
-						console.log("erorr deleting equipment")
+						console.log("erorr deleting equipment", response.status)
 					}
 					
 				} catch (error) {
 					console.log("error Borrando rack:", error)
+					return null
 				}
-			}
+			},
 		}
 	};
 };

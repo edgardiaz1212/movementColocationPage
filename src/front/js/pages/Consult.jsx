@@ -57,7 +57,7 @@ function Consult() {
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
 
-                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`}/>
+                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`} equipmentId={equipment.id}/>
 
                                                     </tr>
 
@@ -92,7 +92,7 @@ function Consult() {
 
                                         <tr key={equipment.id}>
                                             <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`}/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} equipmentId={equipment.id}/>
                                         </tr>
 
                                     ))}

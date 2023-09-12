@@ -444,9 +444,9 @@ def get_rack_by_id(rack_id):
         return jsonify({"message": "Rack not found"}), 404
     return jsonify(rack.serialize()), 200 
 
-@api.route('/delete_equipment/<int:id>', methods=['DELETE'])
+@api.route('/equipment/<int:id>', methods=['DELETE'])
 def delete_equipment(id):
-    equipment = Equipment.query.get(id).first()
+    equipment = Equipment.query.get(id)
     if not equipment:
         return jsonify({"message": "Equipment not found"}), 404
     else:

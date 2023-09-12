@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-function Buttons({ editLink }) {
-    const {actions, store}=useContext(Context)
-    
+function Buttons({ editLink, equipmentId }) {
+    const { actions, store } = useContext(Context)
+
     return (
         <>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -12,7 +12,25 @@ function Buttons({ editLink }) {
                 </Link>
                 <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>
                 {/* aca en ver debo pasar como props los datos del equipo o rack seleccionado a pdfview , estos deben venir segun donde este el boton*/}
-                <button className="button_delete" type="button" onClick={actions.deleteEquipment}>
+
+                <button className="button_delete" type="button" onClick={async () => {
+    const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este equipo?');
+    if (confirmDelete) {
+        try {
+            const response = await actions.deleteEquipment(equipmentId);
+            if (response && response.ok) {
+                // Realiza alguna acción adicional después de eliminar con éxito, como redireccionar a una página.
+                // Por ejemplo, redireccionar a la página de consulta después de eliminar.
+                window.location.href = '/consult'; // Cambia '/consulta' a la URL deseada.
+            } else {
+                // Maneja el error aquí si lo deseas.
+                console.error('Error al eliminar el equipo:', response ? response.status : 'No se recibió respuesta');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el equipo:', error);
+        }
+    }
+}}>
                     <span className="button__text">Eliminar</span>
                     <span className="button__icon">
                         <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
