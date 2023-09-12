@@ -456,3 +456,16 @@ def delete_equipment(id):
             return jsonify({"msg": "Equipment Deleted"}), 200
         except Exception as error:
             return jsonify({"msg": error.args}), 500
+
+@api.route('/rack/<int:id>', methods=['DELETE'])
+def delete_rackt(id):
+    rack = Rack.query.get(id)
+    if not rack:
+        return jsonify({"message": "Rack not found"}), 404
+    else:
+        db.session.delete(rack)
+        try:
+            db.session.commit()
+            return jsonify({"msg": "Rack Deleted"}), 200
+        except Exception as error:
+            return jsonify({"msg": error.args}), 500

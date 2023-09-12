@@ -268,10 +268,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					
 				} catch (error) {
+					console.log("error Borrando equipo:", error)
+					return null
+				}
+			},
+			deleteRack: async (id)=>{
+				const store=getStore()
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/rack/${id}`,{
+						method:'DELETE',
+						headers:{'Content-Type': 'application/json'}
+					})
+					if (response.ok){
+						getActions().getRackByUser()
+						return response
+					}else{
+						console.log("erorr deleting rack", response.status)
+					}
+					
+				} catch (error) {
 					console.log("error Borrando rack:", error)
 					return null
 				}
 			},
+
 		}
 	};
 };
