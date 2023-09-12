@@ -28,8 +28,8 @@ function Buttons({ editLink, id, type }) {
                 <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
-                <Link to="" className="btn btn-primary btn-sm ">Ver Planilla</Link>
-                {/* aca en ver debo pasar como props los datos del equipo o rack seleccionado a pdfview , estos deben venir segun donde este el boton*/}
+                <Link to={`/view-pdf ?type=${isRack ? 'rack' : 'equipment'} &id=${elementId}`} className="btn btn-primary btn-sm ">Ver Planilla</Link>
+             
 
                 <button className="button_delete" type="button"
                     onClick={handleDelete}

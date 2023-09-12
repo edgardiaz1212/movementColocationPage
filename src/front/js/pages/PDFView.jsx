@@ -1,60 +1,48 @@
-import React, {useState, useEffect} from "react";
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer'
-import { PDFViewer } from '@react-pdf/renderer';
-import CustomHeader from "../component/CustomHeader.jsx";
-//. para visualizar pdf existe pdf viewer
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Document, Page, PDFViewer } from "react-pdf";
 
-function PDFview() {
-    const [pdfData, setPdfData] = useState(null);
+function PDFView() {
+  const location = useLocation();
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    // Genera el PDF utilizando pdf-lib u otra biblioteca
-    const generatePDF = async () => {
-      const pdfDoc = await PDFDocument.create();
-      const page = pdfDoc.addPage([600, 400]);
-      const { width, height } = page.getSize();
-      const helveticaFont = await pdfDoc.embedFont('Helvetica');
-      const drawTextOptions = {
-        x: 50,
-        y: height - 50,
-        font: helveticaFont,
-        size: 30,
-      };
-      page.drawText('Hello, PDF!', drawTextOptions);
+    // Realiza una solicitud al backend para obtener datos según la URL.
+    // Utiliza location.search para obtener parámetros de la URL.
+    // Ejemplo: /pdfview?type=equipment&id=1
+    const params = new URLSearchParams(location.search);
+    const type = params.get("type");
+    const id = params.get("id");
 
-      // Guarda el PDF generado en memoria
-      const pdfBytes = await pdfDoc.save();
-      setPdfData(pdfBytes);
-    };
+    // Realiza una solicitud al backend para obtener datos según el tipo y el ID.
+    // Puedes usar fetch o axios aquí.
 
-    generatePDF();
-  }, []);
+    // Supongamos que obtienes los datos en formato JSON.
+    // Asumiendo que los datos se almacenan en 'data' después de la solicitud.
+    // Ejemplo de estructura de datos:
+    // const data = { title: "Documento de ejemplo", content: "Contenido del documento..." };
+
+    // Actualiza el estado con los datos obtenidos.
+    setData(data);
+  }, [location.search]);
+
+  if (!data) {
+    return <div>Cargando...</div>;
+  }
 
   return (
-    <div>
-      <h1>PDF Viewer</h1>
-      {pdfData && (
-        <PDFViewer width={600} height={400}>
-          <Document>
-            <Page size="A4">
-              <Text>This is a dynamically generated PDF.</Text>
-            </Page>
-            {Array.from(new Array(numPages), (el, index) => (
-          <Page key={`page_${index + 1}`} pageNumber={index + 1}>
-          <CustomHeader />
+    <PDFViewer width="1000" height="600">
+      <Document>
+        <Page size="LETTER">
+          {/* Construye aquí el contenido del PDF utilizando los datos */}
+          <div>
+            <h1>{data.title}</h1>
+            <p>{data.content}</p>
+          </div>
         </Page>
-        ))}
-          </Document>
-        </PDFViewer>
-      )}
-      {pdfData && (
-        <PDFDownloadLink document={<Document file={pdfData} />} fileName="generated.pdf">
-          {({ blob, url, loading, error }) => (loading ? 'Loading...' : 'Download PDF')}
-        </PDFDownloadLink>
-      )}
-    </div>
+      </Document>
+    </PDFViewer>
   );
 }
-  
-  export default PDFview;// la planilla pdf en formato web. recibiendo los props del boton para llenar segun sea el caso.
-// en caso de que se reciban datos vacios se debe llenar con no aplica.
+
+export default PDFView;
