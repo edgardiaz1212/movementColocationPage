@@ -43,8 +43,8 @@ class Description(db.Model):
     observations = db.Column(db.String(255))
     componentType = db.Column(db.String(100))
     # Relaciones con Rack y Equipment (un equipo y un rack tienen una descripción)
-    rack = db.relationship('Rack', uselist=False, back_populates='description')
-    equipment = db.relationship('Equipment', uselist=False, back_populates='description')
+    rack = db.relationship('Rack', uselist=False, back_populates='description', cascade='all, delete-orphan' )
+    equipment = db.relationship('Equipment', uselist=False, back_populates='description', cascade='all, delete-orphan')
     
     def __repr__(self):
         return f'<Description {self.id}>'
@@ -89,7 +89,7 @@ class Rack(db.Model):
     neutro = db.Column(db.Boolean())
     
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
-    description = db.relationship('Description', uselist=False, back_populates='rack')
+    description = db.relationship('Description', uselist=False, back_populates='rack',cascade = "all,delete")
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
@@ -160,7 +160,7 @@ class Equipment(db.Model):
     power_config = db.Column(db.String(20))
     
     description_id = db.Column(db.Integer, db.ForeignKey('description.id'), nullable=False)
-    description = db.relationship('Description', uselist=False, back_populates='equipment')
+    description = db.relationship('Description', uselist=False, back_populates='equipment', cascade = "all,delete")
     
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
