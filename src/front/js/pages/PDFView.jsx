@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
-import {PDFdocument, rgb} from 'pdf-lib'
+import React, { useEffect, useState, useContext } from "react";
+import {PDFDocument, rgb} from 'pdf-lib'
+import { PDFViewer,Document, Page } from "@react-pdf/renderer";
+import { Context } from "../store/appContext"
 
-function PDFView() {
+function PDFView({ type, data }) {
+  const { actions, store } = useContext(Context)
   const [filledPdf, setFilledPdf] = useState(null);
 
   async function fillPDFWithData(formData, isRack){
     //Carga de PDF desde el sistema
-    const pdfBuffer= "../../pdf/Formato Adecuación de Espacio FOR-BA7D.pdf"
+    const pdfResponse=  await fetch("../../pdf/Formato Adecuación de Espacio FOR-BA7D.pdf")
     //Carga de PDF a PDF-lib
-    const pdfDoc =await PDFdocument.load(pdfBuffer)
+    const pdfBuffer = await pdfResponse.arrayBuffer();
+
+    const pdfDoc =await PDFDocument.load(pdfBuffer)
     //Obtener los campos del formulario del PDF
     const form = pdfDoc.getForm()
     const fields=pdfDoc.getItems()
@@ -33,15 +38,17 @@ function PDFView() {
 
 
   useEffect(() => {
-    // Supongamos que tienes formData y isRack según lo que seleccionó el usuario.
-    const formData = /* Obtén los datos de rack o equipment */;
-    const isRack = /* Determina si es rack o equipment */;
-
-    // Llena el PDF con los datos y actualiza el estado con el PDF llenado.
-    fillPDFWithData(formData, isRack)
-      .then((pdfBytes) => setFilledPdf(pdfBytes))
-      .catch((error) => console.error("Error al llenar el PDF:", error));
-  }, []);
+    // Determina si es un rack o equipment y llena el PDF con los datos adecuados.
+    if (type === 'rack') {
+      fillPDFWithDataForRack(data)
+        .then((pdfBytes) => setFilledPdf(pdfBytes))
+        .catch((error) => console.error("Error al llenar el PDF:", error));
+    } else if (type === 'equipment') {
+      fillPDFWithDataForEquipment(data)
+        .then((pdfBytes) => setFilledPdf(pdfBytes))
+        .catch((error) => console.error("Error al llenar el PDF:", error));
+    }
+  }, [type, data]);
 
   if (!filledPdf) {
     return <div>Cargando...</div>;
