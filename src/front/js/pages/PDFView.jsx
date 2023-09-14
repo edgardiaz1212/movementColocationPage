@@ -1,45 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { Document, Page, PDFViewer } from "react-pdf";
+import {PDFdocument, rgb} from 'pdf-lib'
 
 function PDFView() {
-  const location = useLocation();
-  const [data, setData] = useState(null);
+  const [filledPdf, setFilledPdf] = useState(null);
+
+  async function fillPDFWithData(formData, isRack){
+    //Carga de PDF desde el sistema
+    const pdfBuffer= "../../pdf/Formato Adecuación de Espacio FOR-BA7D.pdf"
+    //Carga de PDF a PDF-lib
+    const pdfDoc =await PDFdocument.load(pdfBuffer)
+    //Obtener los campos del formulario del PDF
+    const form = pdfDoc.getForm()
+    const fields=pdfDoc.getItems()
+  console.log (fields)
+  
+  if (isRack) {
+    // Llena campos específicos para rack
+    fields.get("rackField1").setText(formData.rackField1);
+    fields.get("rackField2").setText(formData.rackField2);
+  } else {
+    // Llena campos específicos para equipment
+    fields.get("equipmentField1").setText(formData.equipmentField1);
+    fields.get("equipmentField2").setText(formData.equipmentField2);
+  }
+
+  // Genera un nuevo PDF con los datos llenados
+  const filledPdfBytes = await pdfDoc.save();
+
+  return filledPdfBytes;
+  }
+
+
 
   useEffect(() => {
-    // Realiza una solicitud al backend para obtener datos según la URL.
-    // Utiliza location.search para obtener parámetros de la URL.
-    // Ejemplo: /pdfview?type=equipment&id=1
-    const params = new URLSearchParams(location.search);
-    const type = params.get("type");
-    const id = params.get("id");
+    // Supongamos que tienes formData y isRack según lo que seleccionó el usuario.
+    const formData = /* Obtén los datos de rack o equipment */;
+    const isRack = /* Determina si es rack o equipment */;
 
-    // Realiza una solicitud al backend para obtener datos según el tipo y el ID.
-    // Puedes usar fetch o axios aquí.
+    // Llena el PDF con los datos y actualiza el estado con el PDF llenado.
+    fillPDFWithData(formData, isRack)
+      .then((pdfBytes) => setFilledPdf(pdfBytes))
+      .catch((error) => console.error("Error al llenar el PDF:", error));
+  }, []);
 
-    // Supongamos que obtienes los datos en formato JSON.
-    // Asumiendo que los datos se almacenan en 'data' después de la solicitud.
-    // Ejemplo de estructura de datos:
-    // const data = { title: "Documento de ejemplo", content: "Contenido del documento..." };
-
-    // Actualiza el estado con los datos obtenidos.
-    setData(data);
-  }, [location.search]);
-
-  if (!data) {
+  if (!filledPdf) {
     return <div>Cargando...</div>;
   }
 
   return (
     <PDFViewer width="1000" height="600">
-      <Document>
-        <Page size="LETTER">
-          {/* Construye aquí el contenido del PDF utilizando los datos */}
-          <div>
-            <h1>{data.title}</h1>
-            <p>{data.content}</p>
-          </div>
-        </Page>
+      <Document file={{ data: filledPdf }}>
+        <Page pageNumber={1} />
       </Document>
     </PDFViewer>
   );
