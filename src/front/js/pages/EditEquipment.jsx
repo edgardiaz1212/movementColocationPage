@@ -53,6 +53,7 @@ function EditEquipment() {
           operation_temp: equipmentByIdData.operation_temp,
           thermal_disipation: equipmentByIdData.thermal_disipation,
           power_config: equipmentByIdData.power_config,
+          user:equipmentByIdData.user
 
         });
       })

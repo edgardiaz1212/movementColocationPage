@@ -11,7 +11,7 @@ function EditRack() {
   const { currentUser } = store
   const [data, setData] = useState({})
   const { id } = useParams()
-
+  
   useEffect(() => {
     // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
     if (id) {
@@ -51,6 +51,7 @@ function EditRack() {
             fases: rackByIdData.fases,
             output_connector: rackByIdData.output_connector,
             neutro: rackByIdData.neutro,
+            user:rackByIdData.user
 
           });
         })

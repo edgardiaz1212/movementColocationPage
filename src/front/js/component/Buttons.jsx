@@ -28,7 +28,7 @@ function Buttons({ editLink, id, type }) {
                 <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
-                <Link to={`/view-pdf ?type=${isRack ? 'rack' : 'equipment'} &id=${elementId}`} className="btn btn-primary btn-sm ">Ver Planilla</Link>
+                <Link to={`/view-pdf/${type === 'rack' ? 'rack' : 'equipment'}/${id}`} className="btn btn-primary btn-sm ">Ver Planilla</Link>
              
 
                 <button className="button_delete" type="button"

@@ -2,12 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import {PDFDocument, rgb} from 'pdf-lib'
 import { PDFViewer,Document, Page } from "@react-pdf/renderer";
 import { Context } from "../store/appContext"
+import { useParams } from "react-router-dom";
 
-function PDFView({ type, data }) {
+function PDFView({ type }) {
   const { actions, store } = useContext(Context)
   const [filledPdf, setFilledPdf] = useState(null);
-
-  async function fillPDFWithData(formData, isRack){
+  const [data, setData] = useState({})
+  const { id } = useParams()
+  console.log(data)
+  
+  
+  async function fillPDFWithData(data, rack){
     //Carga de PDF desde el sistema
     const pdfResponse=  await fetch("../../pdf/Formato Adecuación de Espacio FOR-BA7D.pdf")
     //Carga de PDF a PDF-lib
@@ -17,11 +22,11 @@ function PDFView({ type, data }) {
     //Obtener los campos del formulario del PDF
     const form = pdfDoc.getForm()
     const fields=pdfDoc.getItems()
-  console.log (fields)
   
-  if (isRack) {
+  
+  if (rack) {
     // Llena campos específicos para rack
-    fields.get("NOMBRE DE LA UNIDAD SOLICITANTE").setText(formData.coordination);
+    fields.get("NOMBRE DE LA UNIDAD SOLICITANTE").setText(data.coordination);
     fields.get("PERSONA RESPONSABLE UNIDAD SOLICITANTE").setText(formData.username);
     fields.get("FECHA DE SOLICITUD").setText(formData.created_at)
     fields.get("NOMBRE DEL CLIENTE FINAL").setText(formData.clientName)
@@ -104,16 +109,65 @@ function PDFView({ type, data }) {
   return filledPdfBytes;
   }
 
+  useEffect(() => {
+    // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
+    if (id) {
+      actions.getRackById(id)
+        .then((rackByIdData) => {
+          // Establece el estado inicial con los datos del equipo
+          setData({
+            model: rackByIdData.description.model,
+            brand: rackByIdData.description.brand,
+            serial: rackByIdData.description.serial,
+            number_part: rackByIdData.description.number_part,
+            componentType: rackByIdData.description.componentType,
+            five_years_prevition: rackByIdData.description.five_years_prevition,
+            observations: rackByIdData.description.observations,
+            has_cabinet: rackByIdData.has_cabinet,
+            leased: rackByIdData.leased,
+            equipment_height: rackByIdData.equipment_height,
+            total_cabinets: rackByIdData.total_cabinets,
+            open_closed: rackByIdData.open_closed,
+            security: rackByIdData.security,
+            type_security: rackByIdData.type_security,
+            has_extractors: rackByIdData.has_extractors,
+            extractors_ubication: rackByIdData.extractors_ubication,
+            modular: rackByIdData.modular,
+            lateral_doors: rackByIdData.lateral_doors,
+            lateral_ubication: rackByIdData.lateral_ubication,
+            rack_unit: rackByIdData.rack_unit,
+            rack_position: rackByIdData.rack_position,
+            rack_ubication: rackByIdData.rack_ubication,
+            has_accessory: rackByIdData.has_accessory,
+            accessory_description: rackByIdData.accessory_description,
+            rack_width: rackByIdData.rack_width,
+            rack_length: rackByIdData.rack_length,
+            rack_height: rackByIdData.rack_height,
+            internal_pdu: rackByIdData.internal_pdu,
+            input_connector: rackByIdData.input_connector,
+            fases: rackByIdData.fases,
+            output_connector: rackByIdData.output_connector,
+            neutro: rackByIdData.neutro,
+            user:rackByIdData.user
 
+          });
+        })
+        .catch((error) => {
+          toast.error(`Error al cargar los datos del equipo: ${error.message}`);
+        });
+    }
+  }, [id, actions]);
 
   useEffect(() => {
     // Determina si es un rack o equipment y llena el PDF con los datos adecuados.
     if (type === 'rack') {
-      fillPDFWithDataForRack(data)
+      fillPDFWithData(data)
+      console.log (data)
         .then((pdfBytes) => setFilledPdf(pdfBytes))
         .catch((error) => console.error("Error al llenar el PDF:", error));
     } else if (type === 'equipment') {
-      fillPDFWithDataForEquipment(data)
+      fillPDFWithData(data)
+      console.log (data)
         .then((pdfBytes) => setFilledPdf(pdfBytes))
         .catch((error) => console.error("Error al llenar el PDF:", error));
     }

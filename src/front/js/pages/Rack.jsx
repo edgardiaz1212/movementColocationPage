@@ -114,7 +114,7 @@ function Rack() {
         console.log("Registro exitoso")
       } else {
         toast.error("Error Registrando Rack")
-        console.log("Error en el registro de Rack")
+        console.log("Error en el registro de Rack ")
       }
     } catch (error) {
       console.log("newRack: ", error)
