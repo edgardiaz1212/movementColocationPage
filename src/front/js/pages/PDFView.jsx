@@ -21,41 +21,41 @@ function PDFView({ type, data }) {
   
   if (isRack) {
     // Llena campos específicos para rack
-    fields.get("NOMBRE DE LA UNIDAD SOLICITANTE").setText(formData.rackField1);
-    fields.get("PERSONA RESPONSABLE UNIDAD SOLICITANTE").setText(formData.rackField2);
-    fields.get("FECHA DE SOLICITUD").setText(formData.currentDate)
-    fields.get("NOMBRE DEL CLIENTE FINAL").setText(formData.currentDate)
-    fields.get("PREVISIÓN DE 5 ANOS DE EQUIPO A INSTALAR").setText(formData.currentDate)
-    fields.get("OBSERVACIONES").setText(formData.currentDate)
-    fields.get("Servicio").setText(formData.currentDate)
-    fields.get("MARCA").setText(formData.currentDate)
-    fields.get("MODELO").setText(formData.currentDate)
-    fields.get("SERIAL").setText(formData.currentDate)
-    fields.get("N/P").setText(formData.currentDate)
-    fields.get("TIPO DE COMPONENTE").setText(formData.currentDate)
-    fields.get("GABINETE").setText(formData.currentDate)
-    fields.get("propio o arrendado").setText(formData.currentDate)
-    fields.get("Número Total de Gabinetes").setText(formData.rackField1);
-    fields.get("Número Total de Gabinetes").setText(formData.rackField1);
-    fields.get("seguridad").setText(formData.rackField1);
-    fields.get("Qué tipo de seguridad  y Cuántos").setText(formData.rackField1);
-    fields.get("EXTRACTORES").setText(formData.rackField1);
-    fields.get("Ubicacion de extractores").setText(formData.rackField1);
-    fields.get("MODULAR").setText(formData.rackField1);
-    fields.get("PUERTAS").setText(formData.rackField1);
-    fields.get("Si es afirmativo indique dónde").setText(formData.rackField1);
-    fields.get("Total de unidades de Rack que posee").setText(formData.rackField1);
-    fields.get("De ser varios Racks que posición ocupa u ocupará en la fila").setText(formData.rackField1);
-    fields.get("ACCESORIOS").setText(formData.rackField1);
-    fields.get("De ser afirmativo indique").setText(formData.rackField1);
-    fields.get("Alto rack").setText(formData.rackField1);
-    fields.get("Ancho rack").setText(formData.rackField1);
-    fields.get("Profundo rack").setText(formData.rackField1);
-    fields.get("Cantidad de pdu internos").setText(formData.currentDate)
-    fields.get("Tipo de Toma a la Entrada").setText(formData.currentDate)
-    fields.get("N de circuitos o fases que posee").setText(formData.currentDate)
-    fields.get("Nro De Receptáculos").setText(formData.currentDate)
-    fields.get("neutro").setText(formData.currentDate)
+    fields.get("NOMBRE DE LA UNIDAD SOLICITANTE").setText(formData.coordination);
+    fields.get("PERSONA RESPONSABLE UNIDAD SOLICITANTE").setText(formData.username);
+    fields.get("FECHA DE SOLICITUD").setText(formData.created_at)
+    fields.get("NOMBRE DEL CLIENTE FINAL").setText(formData.clientName)
+    fields.get("PREVISIÓN DE 5 ANOS DE EQUIPO A INSTALAR").setText(formData.five_years_prevition)
+    fields.get("OBSERVACIONES").setText(formData.observations)
+    fields.get("Servicio").setText(formData.service)
+    fields.get("MARCA").setText(formData.brand)
+    fields.get("MODELO").setText(formData.model)
+    fields.get("SERIAL").setText(formData.serial)
+    fields.get("N/P").setText(formData.number_part)
+    fields.get("TIPO DE COMPONENTE").setText(formData.componentType)
+    fields.get("GABINETE").setText(formData.has_cabinet)
+    fields.get("propio o arrendado").setText(formData.leased)
+    fields.get("Número Total de Gabinetes").setText(formData.total_cabinets);
+    fields.get("Número Total de Gabinetes").setText(formData.open_closed);
+    fields.get("seguridad").setText(formData.security);
+    fields.get("Qué tipo de seguridad  y Cuántos").setText(formData.type_security);
+    fields.get("EXTRACTORES").setText(formData.has_extractors);
+    fields.get("Ubicacion de extractores").setText(formData.extractors_ubication);
+    fields.get("MODULAR").setText(formData.modular);
+    fields.get("PUERTAS").setText(formData.lateral_doors);
+    fields.get("Si es afirmativo indique dónde").setText(formData.lateral_ubication);
+    fields.get("Total de unidades de Rack que posee").setText(formData.rack_unit);
+    fields.get("De ser varios Racks que posición ocupa u ocupará en la fila").setText(formData.rack_position);
+    fields.get("ACCESORIOS").setText(formData.has_accessory);
+    fields.get("De ser afirmativo indique").setText(formData.accessory_description);
+    fields.get("Alto rack").setText(formData.rack_height);
+    fields.get("Ancho rack").setText(formData.rack_width);
+    fields.get("Profundo rack").setText(formData.rack_length);
+    fields.get("Cantidad de pdu internos").setText(formData.internal_pdu)
+    fields.get("Tipo de Toma a la Entrada").setText(formData.input_connector)
+    fields.get("N de circuitos o fases que posee").setText(formData.fases)
+    fields.get("Nro De Receptáculos").setText(formData.output_connector)
+    fields.get("neutro").setText(formData.neutro)
     
   } else {
     // Llena campos específicos para equipment
