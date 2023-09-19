@@ -71,11 +71,11 @@ function PDFView({ type }) {
                 user: rackByIdData.user
 
               });
-              const coordination = form.getTextField('NOMBRE DE LA UNIDAD SOLICITANTE');
-              const username = form.getTextField('PERSONA RESPONSABLE UNIDAD SOLICITANTE');
-              const date = form.getTextField('FECHA DE SOLICITUD');
-              const client = form.getTextField('NOMBRE DEL CLIENTE FINAL');
-              const prevision = form.getTextField('PREVISIÓN DE 5 ANOS DE EQUIPO A INSTALAR');
+              const coordination = form.getTextField('UNIDAD_SOLICITANTE');
+              const username = form.getTextField('PERSONA_SOLICITANTE');
+              const date = form.getTextField('FECHA_SOLICITUD');
+              const client = form.getTextField('CLIENTE_FINAL');
+              const prevision = form.getTextField('PREVISION');
               const obs = form.getTextField('OBSERVACIONES');
               const service = form.getDropdown('Servicio');
               const servOptions = service.getOptions()
@@ -84,47 +84,47 @@ function PDFView({ type }) {
               const model = form.getTextField('MODELO');
               const serial = form.getTextField('SERIAL');
               const np = form.getTextField('N/P');
-              const component = form.getTextField('TIPO DE COMPONENTE');
+              const component = form.getTextField('TIPO_COMPONENTE');
       
               const cab = form.getRadioGroup('GABINETE');
               const cabOptions = cab.getOptions();
               cab.select(cabOptions[0])
-              const leased=form.getRadioGroup('propio o arrendado')
+              const leased=form.getRadioGroup('PROPIO_ARRENDADO')
               const leasedOptions= leased.getOptions()
               leased.select(leasedOptions[0])
-              const totalCabs=form.getTextField()
-              const openClose=form.getRadioGroup('abierto o cerrado')
+              const totalCabs=form.getTextField('Total_Gabinetes')
+              const openClose=form.getRadioGroup('ABIERTO_CERRADO')
               const openCloseOptions= openClose.getOptions()
               openClose.select(openCloseOptions[0])
-              const security=form.getRadioGroup('seguridad')
+              const security=form.getRadioGroup('SEGURIDAD')
               const securityOptions= security.getOptions()
               security.select(securityOptions[0])
-              const secType = form.getTextField('Qué tipo de seguridad  y Cuántos')
+              const secType = form.getTextField('Tipo_Seguridad')
               const extractor= form.getRadioGroup('EXTRACTORES') 
               const extractorOptions= extractor.getOptions()
               extractor.select(extractorOptions[0])
-              const ubExtractors= form.getTextField('Ubicacion de extractores')
+              const ubExtractors= form.getTextField('Ubicacion_Extractores')
               const modular = form.getRadioGroup('MODULAR')
               const modularOptions= modular.getOptions()
               modular.select(modularOptions[0])
               const doors = form.getRadioGroup('PUERTAS')
               const doorsOptions= doors.getOptions()
               doors.select(doorsOptions[0])
-              const doorPosition= form.getTextField('Si es afirmativo indique dónde')
-              const totalRU= form.getTextField('Total de unidades de Rack que posee')
-              const rackPosition =form.getTextField('De ser varios Racks que posición ocupa u ocupará en la fila')
+              const doorPosition= form.getTextField('Ubicacion_Puertas')
+              const totalRU= form.getTextField('Total_RU')
+              const rackPosition =form.getTextField('Posicion_Rack')
               const accesory= form.getRadioGroup('ACCESORIOS')
               const accesoryOptions= accesory.getOptions()
               accesory.select(accesoryOptions[0])
-              const accesoryDescription= form.getTextField('De ser afirmativo indique')
-              const rackHeigth=form.getTextField('Alto rack')
-              const rackWidth=form.getTextField('Ancho rack')
-              const rackDeep =form.getTextField('Profundo rack')
-              const pdus = form.getTextField('Cantidad de pdu internos');
-              const connectorPdu = form.getTextField('Tipo de Toma a la Entrada')
-              const phase = form.getTextField('N de circuitos o fases que posee')
-              const outputPdu = form.getTextField('Nro De Receptáculos')
-              const neutro = form.getRadioGroup('neutro')
+              const accesoryDescription= form.getTextField('Tipo_Accesorio')
+              const rackHeigth=form.getTextField('Alto_Rack')
+              const rackWidth=form.getTextField('Ancho_Rack')
+              const rackDeep =form.getTextField('Profundo_Rack')
+              const pdus = form.getTextField('PDU_Internos');
+              const connectorPdu = form.getTextField('Toma_Entrada')
+              const phase = form.getTextField('Fases')
+              const outputPdu = form.getTextField('Receptaculos')
+              const neutro = form.getRadioGroup('NEUTRO')
               const neutroOptions= neutro.getOptions()
               neutro.select(neutroOptions[0])
 
@@ -201,11 +201,11 @@ function PDFView({ type }) {
                 user: equipmentByIdData.user
 
               });
-              const coordination = form.getTextField('NOMBRE DE LA UNIDAD SOLICITANTE');
-              const username = form.getTextField('PERSONA RESPONSABLE UNIDAD SOLICITANTE');
-              const date = form.getTextField('FECHA DE SOLICITUD');
-              const client = form.getTextField('NOMBRE DEL CLIENTE FINAL');
-              const prevision = form.getTextField('PREVISIÓN DE 5 ANOS DE EQUIPO A INSTALAR');
+              const coordination = form.getTextField('UNIDAD_SOLICITANTE');
+              const username = form.getTextField('PERSONA_SOLICITANTE');
+              const date = form.getTextField('FECHA_SOLICITUD');
+              const client = form.getTextField('CLIENTE_FINAL');
+              const prevision = form.getTextField('PREVISION');
               const obs = form.getTextField('OBSERVACIONES');
               const service = form.getDropdown('Servicio');
               const servOptions = service.getOptions()
@@ -214,10 +214,43 @@ function PDFView({ type }) {
               const model = form.getTextField('MODELO');
               const serial = form.getTextField('SERIAL');
               const np = form.getTextField('N/P');
-              const component = form.getTextField('TIPO DE COMPONENTE');
+              const component = form.getTextField('TIPO_COMPONENTE');
       
-              const equipHeight = form.getTextField('Alto equipo');
-              const equipWidth = form.getTextField('Ancho Equipo');
+              const equipHeight = form.getTextField('Alto_Equipo');
+              const equipWidth = form.getTextField('Ancho_Equipo');
+              const equipDeep =form.getTextField('Profundidad_Equipo')
+              const packHeight= form.getTextField('Alto_Embalaje')
+              const packWidth= form.getTextField('Ancho_Embalaje')
+              const packDeep =form.getTextField('Profundidad embalaje')
+              const weight =form.getTextField('Peso_Maximo')
+              const serviceArea =form.getRadioGroup('SERVICIO')
+              const areaOptions =serviceArea.getOptions()
+              serviceArea.select(areaOptions[0])
+              
+              const serviceFrontal= form.getTextField('frontal')
+              const serviceBack= form.getTextField('posterior')
+              const serviceSide= form.getTextField('lateral')
+
+              const anchorType =form.getTextField('Tipo_Anclaje')
+              const  accessLength=form.getTextField('Altura_Puerta')
+              const accessWidth =form.getTextField('Ancho_Puerta')
+              const accessInclination =form.getTextField('Inclinacion_Puerta')
+              const ubicationRack =form.getTextField('Ubicacion_fila_Numero_Rack')
+              const positionU =form.getTextField('Posicion_U')
+              const totalRUEq= form.gettextField ('Total_Unidades')
+              const acdc= form.getTextField('ACDC')
+              const volt= form.getTextField('Voltios')
+              const watss= form.getTextField('Potencia')
+              const psu= form.getTextField('Fuentes_Alimentacion')
+              const temp= form.getTextField('Temperatura')
+              const btu= form.getTextField('BTUHr')
+              const psuConfig =form.getDropdown('Fuentes')
+              const psuConfigOptions =psuConfig.getOptions()
+              psuConfig.select(psuConfigOptions[0])
+              
+
+
+
 
               const filledPdfBytes = await pdfDoc.save();
               setFilledPdf(filledPdfBytes);
