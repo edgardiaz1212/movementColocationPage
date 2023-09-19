@@ -32,7 +32,19 @@ module.exports = {
             options: { name: '[name].[ext]' }
           }
         }, //for images
-        { test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/, use: ['file-loader'] } //for fonts
+        { test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/, use: ['file-loader'] 
+      }, //for fonts
+      {
+        test: /\.(pdf)$/,
+        use: [
+          {
+            loader: 'file-loader', // o 'url-loader'
+            options: {
+              name: '[name].[ext]', // Puedes personalizar el nombre y la extensión del archivo de salida
+            },
+          },
+        ],
+      }
     ]
   },
   resolve: {

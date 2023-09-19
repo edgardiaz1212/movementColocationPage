@@ -1,7 +1,48 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import PDfBase from "../../pdf/FOR BA7D ED5.pdf"
+
+
+
+
 function Buttons({ editLink, id, type }) {
+
+    const handleFillPDF = async () => {
+        // Captura los valores de los campos de texto que deseas incluir en el PDF llenado.
+        const data = {
+          NOMBRE_DE_LA_UNIDAD_SOLICITANTE: "Valor del campo 1",
+          PERSONA_RESPONSABLE_UNIDAD_SOLICITANTE: "Valor del campo 2",
+          // Agrega más campos aquí...
+        };
+    
+        // Carga el PDF base.
+        const pdfBuffer = await fetch(PDfBase).then((response) => response.arrayBuffer());
+        const pdfDoc = await PDFDocument.load(pdfBuffer);
+    
+        // Llena los campos del PDF base con los valores capturados.
+        const form = pdfDoc.getForm();
+        for (const key in data) {
+          if (data.hasOwnProperty(key)) {
+            const value = data[key];
+            const textField = form.getTextField(key);
+            textField.setText(value);
+          }
+        }
+    
+        // Descarga el PDF resultante.
+        const filledPdfBytes = await pdfDoc.save();
+        const blob = new Blob([filledPdfBytes], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "filled-pdf.pdf";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+
+
+
 
     const { actions, store } = useContext(Context)
     const handleDelete = async () => {
@@ -22,6 +63,7 @@ function Buttons({ editLink, id, type }) {
         }
     }
 
+
     return (
         <>
             <div className="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -30,7 +72,8 @@ function Buttons({ editLink, id, type }) {
                 </Link>
                 <Link to={`/view-pdf/${type === 'rack' ? 'rack' : 'equipment'}/${id}`} className="btn btn-primary btn-sm ">Ver Planilla</Link>
              
-
+<button
+onClick={handleFillPDF}>prueba</button>
                 <button className="button_delete" type="button"
                     onClick={handleDelete}
 
