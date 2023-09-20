@@ -70,10 +70,9 @@ function PDFView() {
                 user: rackByIdData.user
 
               });
-
             })
             .catch((error) => {
-              console.error(`Error al cargar los datos del equipo: ${error.message}`);
+              console.error(`Error al cargar los datos del rack: ${error.message}`);
             });
         } else if (type === 'equipment') {
           actions.getEquipmentById(id)
@@ -149,16 +148,13 @@ function PDFView() {
         const ubExtractors = form.getTextField('Ubicacion_Extractores')
         const modular = form.getRadioGroup('MODULAR')
         const modularOptions = modular.getOptions()
-
         const doors = form.getRadioGroup('PUERTAS')
         const doorsOptions = doors.getOptions()
-
         const doorPosition = form.getTextField('Ubicacion_Puertas')
         const totalRU = form.getTextField('Total_RU')
         const rackPosition = form.getTextField('Posicion_Rack')
         const accesory = form.getRadioGroup('ACCESORIOS')
         const accesoryOptions = accesory.getOptions()
-
         const accesoryDescription = form.getTextField('Tipo_Accesorio')
         const rackHeigth = form.getTextField('Alto_Rack')
         const rackWidth = form.getTextField('Ancho_Rack')
@@ -169,6 +165,7 @@ function PDFView() {
         const outputPdu = form.getTextField('Receptaculos')
         const neutro = form.getRadioGroup('NEUTRO')
         const neutroOptions = neutro.getOptions()
+
         const equipHeight = form.getTextField('Alto_Equipo');
         const equipWidth = form.getTextField('Ancho_Equipo');
         const equipDeep = form.getTextField('Profundidad_Equipo')
@@ -180,9 +177,9 @@ function PDFView() {
         const areaOptions = serviceArea.getOptions()
         serviceArea.select(areaOptions[0])
 
-        const serviceFrontal = form.getTextField('frontal')
-        const serviceBack = form.getTextField('posterior')
-        const serviceSide = form.getTextField('lateral')
+        const serviceFrontal = form.getCheckBox('frontal')
+        const serviceBack = form.getCheckBox('posterior')
+        const serviceSide = form.getCheckBox('lateral')
 
         const anchorType = form.getTextField('Tipo_Anclaje')
         const accessLength = form.getTextField('Altura_Puerta')
@@ -190,7 +187,7 @@ function PDFView() {
         const accessInclination = form.getTextField('Inclinacion_Puerta')
         const ubicationRack = form.getTextField('Ubicacion_fila_Numero_Rack')
         const positionU = form.getTextField('Posicion_U')
-        const totalRUEq = form.gettextField('Total_Unidades')
+        const totalRUEq = form.getTextField('Total_Unidades')
         const acdc = form.getTextField('ACDC')
         const volt = form.getTextField('Voltios')
         const watss = form.getTextField('Potencia')
@@ -199,15 +196,21 @@ function PDFView() {
         const btu = form.getTextField('BTUHr')
         const psuConfig = form.getDropdown('Fuentes')
         const psuConfigOptions = psuConfig.getOptions()
-        psuConfig.select(psuConfigOptions[0])
 
-        coordination.setText(data.user.coordination)
-        username.setText(data.user.username)
-        date.setText(data.user.created_at)
-        client.setText(data.user.clientName)
+        //en general
+        if (data.user) {
+          username.setText(data.user.username);
+          coordination.setText(data.user.coordination);
+          date.setText(data.user.created_at);
+          client.setText(data.user.clientName);
+        } else {
+          // Si data.user no está definido, puedes establecer valores predeterminados o mostrar un mensaje de error, según corresponda.
+          username.setText('N/A');
+          coordination.setText('N/A');
+          date.setText('N/A');
+          client.setText('N/A');
+        }
 
-        prevision.setText(data.five_years_prevition)
-        obs.setText(data.observations)
         if (data.user.service && servOptions.includes(data.user.service)) {
           service.select(data.user.service);
         } else {
@@ -217,44 +220,172 @@ function PDFView() {
         brand.setText(data.brand)
         model.setText(data.model)
         serial.setText(data.serial)
-        np.setText(data.number_part)
+        np.setText(data ? data.number_part : 'N/A')
         component.setText(data.componentType)
+        prevision.setText(data ? data.five_years_prevition : 'N/A')
+        obs.setText(data ? data.observations : 'N/A')
 
-        cab.select(cabOptions[0])
-        leased.select(leasedOptions[0])
+        //de rack
+        if (typeof data.has_cabinet === 'boolean') {
+          if (data.has_cabinet) {
+            cab.select(cabOptions[0]); // "Sí"
+          } else {
+            cab.select(cabOptions[1]); // "No"
+          }
+        } else {
+          // No hagas nada, no selecciones ninguna opción si no hay datos disponibles.
+        }
 
-        totalCabs.setText(data.total_cabinets)
+        if (typeof data.leased === 'boolean') {
+          if (data.has_cabinet) {
+            leased.select(leasedOptions[0]); // "Sí"
+          } else {
+            leased.select(leasedOptions[1]); // "No"
+          }
+        } else {
+          
+        }
+        totalCabs.setText(data ? data.total_cabinets : 'N/A')
+        if (typeof data.open_closed === 'boolean') {
+          if (data.open_closed) {
+            openClose.select(openCloseOptions[0]); // "Sí"
+          } else {
+            openClose.select(openCloseOptions[1]); // "No"
+          }
+        } else {
+          
+        }
+        if (typeof data.security === 'boolean') {
+          if (data.security) {
+            security.select(securityOptions[0])
+          } else {
+            security.select(securityOptions[1])
+          }
+        } else {
+          
+        }
+        secType.setText(data ? data.type_security : 'N/A')
+        if (typeof data.has_extractors === 'boolean') {
+          if (data.has_extractors) {
+            extractor.select(extractorOptions[0])
+          } else {
+            extractor.select(extractorOptions[1])
+          }
+        } else {
+          
+        }
+        ubExtractors.setText(data ? data.extractors_ubication : 'N/A')
+        if (typeof data.modular === 'boolean') {
+          if (data.modular) {
+            modular.select(modularOptions[0])
+          } else {
+            modular.select(modularOptions[1])
+          }
+        } else {
+          
+        }
+        if (typeof data.lateral_doors === 'boolean') {
+          if (data.lateral_doors) {
+            doors.select(doorsOptions[0])
+          } else {
+            doors.select(doorsOptions[1])
+          }
+        } else {
+          
+        }
+        doorPosition.setText(data ? data.lateral_ubication : 'N/A')
+        totalRU.setText(data ? data.rack_unit : 'N/A')
+        if (data.rackPosition && data.rack_ubication) {
+          rackPosition.setText(`${data.rackPosition} ${data.rack_ubication}`);
+        } else if (data.rackPosition) {
+          rackPosition.setText(data.rackPosition);
+        } else if (data.rack_ubication) {
+          rackPosition.setText(data.rack_ubication);
+        } else {
+          rackPosition.setText('N/A');
+        }
+        if (typeof data.has_accessory === 'boolean') {
+          if (data.has_accessory) {
+            accesory.select(accesoryOptions[0])
+          } else {
+            accesory.select(accesoryOptions[1])
+          }
+        } else {
+          ;
+        }
+        accesoryDescription.setText(data ? data.accessory_description : 'N/A')
+        rackHeigth.setText(data ? data.rack_height : 'N/A')
+        rackWidth.setText(data ? data.rack_width : 'N/A')
+        rackDeep.setText(data ? data.rack_length : 'N/A')
+        pdus.setText(data ? data.internal_pdu : 'N/A');
+        connectorPdu.setText(data ? data.input_connector : 'N/A')
+        phase.setText(data ? data.fases : 'N/A')
+        outputPdu.setText(data ? data.output_connector : 'N/A')
+        if (typeof data.neutro === 'boolean') {
+          if (data.neutro) {
+            neutro.select(neutroOptions[0])
+          } else {
+            neutro.select(neutroOptions[1])
+          }
+        } else {
+          ;
+        }
+        //de equipment
+        equipHeight.setText(data ? data.equipment_height : 'N/A');
+        equipWidth.setText(data ? data.equipment_width : 'N/A');
+        equipDeep.setText(data ? data.equipment_length : 'N/A')
+        packHeight.setText(data ? data.packaging_height : 'N/A')
+        packWidth.setText(data ? data.packaging_width : 'N/A')
+        packDeep.setText(data ? data.packaging_length : 'N/A')
+        weight.setText(data ? data.weight : 'N/A')
+        anchorType.setText(data ? data.anchor_type : 'N/A')
+        if (typeof data.service_area === 'boolean') {
+          if (data.service_area) {
+            serviceArea.select(areaOptions[0])
+          } else {
+            serviceArea.select(areaOptions[1])
+          }
+        } else {
+          
+        }
 
-        openClose.select(openCloseOptions[0])
-        security.select(securityOptions[0])
+        serviceFrontal.check(data.service_frontal);
+        serviceBack.check(data.service_back)
+        serviceSide.check(data.service_lateral)
 
-        secType.setText(data.type_security)
-        extractor.select(extractorOptions[0])
-        modular.select(modularOptions[0])
-        doors.select(doorsOptions[0])
+        accessLength.setText(data ? data.access_length : 'N/A')
+        accessWidth.setText(data ? data.access_width : 'N/A')
+        accessInclination.setText(data ? data.access_inclination : 'N/A')
 
-        doorPosition.setText(data.lateral_ubication)
-        totalRU.setText(data.rack_unit)
-        rackPosition.setText('text type')
-        accesoryDescription.setText('text type')
-        accesory.select(accesoryOptions[0])
-        rackHeigth.setText('text type')
-        rackWidth.setText('text type')
-        rackDeep.setText('text type')
-        connectorPdu.setText('text type')
-        phase.setText('text type')
-        outputPdu.setText('text type')
-        pdus.setText('data.internal_pdu');
-        neutro.select(neutroOptions[0])
+        if (data.rack_number && data.equip_rack_ubication) {
+          ubicationRack.setText(`${data.rack_number} ${data.equip_rack_ubication}`);
+        } else if (data.rack_number) {
+          ubicationRack.setText(data.rack_number);
+        } else if (data.equip_rack_ubication) {
+          ubicationRack.setText(data.equip_rack_ubication);
+        } else {
+          ubicationRack.setText('N/A');
+        }
+        positionU.setText(data ? data.rack_unit_position : 'N/A')
+        totalRUEq.setText(data ? data.total_rack_units : 'N/A')
+        acdc.setText(data ? data.ac_dc : 'N/A')
+        volt.setText(data ? data.input_current : 'N/A')
+        watss.setText(data ? data.power : 'N/A')
+        psu.setText(data ? data.power_supply : 'N/A')
+        temp.setText(data ? data.operation_temp : 'N/A')
+        btu.setText(data ? data.thermal_disipation : 'N/A')
 
+        if (data.power_config && psuConfigOptions.includes(data.power_config)) {
+          psuConfig.select(data.power_config);
+        } else {
+          psuConfig.select(psuConfigOptions[0]);
+        }
 
         const filledPdfBytes = await pdfDoc.save();
         setFilledPdf(filledPdfBytes);
-
-
       })();
     }
-  }, [id, actions, type])
+  }, [id, actions, type, data])
 
   if (!filledPdf) {
     return <div>Cargando...</div>;
@@ -263,7 +394,7 @@ function PDFView() {
 
 
   return (
-    <PDFViewer width="1000" height="600">
+    <PDFViewer width="1000" height="400">
       <Document file={{ data: filledPdf }}>
         <Page pageNumber={4} />
       </Document>
