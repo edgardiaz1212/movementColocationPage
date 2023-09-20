@@ -14,7 +14,7 @@ function Consult() {
     const isNotCatalog = store.userData.contract === "Colocacion no Catalogado";
     const hasRackData = store.racksData.length > 0;
     const hasEquipmentData = store.equipmentsData.length > 0;
-
+    
     const getEquipmentsForRack = (rackNumber) => {
         return store.equipmentsData.filter((equipment) => equipment.rack_number === rackNumber);
     };
@@ -41,7 +41,7 @@ function Consult() {
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
                                         <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
-                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack'/>
+                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack'racksData={store.racksData}/>
                                     </div>
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
@@ -57,7 +57,7 @@ function Consult() {
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
 
-                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment"/>
+                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
 
                                                     </tr>
 
@@ -92,7 +92,7 @@ function Consult() {
 
                                         <tr key={equipment.id}>
                                             <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment"/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
                                         </tr>
 
                                     ))}
@@ -116,7 +116,7 @@ function Consult() {
                                     <>
                                         <tr key={equipment.id}>
                                             <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment"/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
                                         </tr>
                                         
                                     </>))}

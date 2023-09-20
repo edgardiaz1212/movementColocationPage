@@ -382,6 +382,8 @@ try {
       }
 
       const filledPdfBytes = await pdfDoc.save();
+      const blob = new Blob([filledPdfBytes], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob)
       setFilledPdf(filledPdfBytes);
       setIsLoading(false); // Marcar la carga como completa
     } catch (error) {
