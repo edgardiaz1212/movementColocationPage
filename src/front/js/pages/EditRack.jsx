@@ -17,6 +17,7 @@ function EditRack() {
     if (id) {
       actions.getRackById(id)
         .then((rackByIdData) => {
+          console.log("equi rac", rackByIdData)
           // Establece el estado inicial con los datos del equipo
           setData({
             model: rackByIdData.description.model,
@@ -28,7 +29,6 @@ function EditRack() {
             observations: rackByIdData.description.observations,
             has_cabinet: rackByIdData.has_cabinet,
             leased: rackByIdData.leased,
-            equipment_height: rackByIdData.equipment_height,
             total_cabinets: rackByIdData.total_cabinets,
             open_closed: rackByIdData.open_closed,
             security: rackByIdData.security,
@@ -63,14 +63,14 @@ function EditRack() {
 
   const handleEdit = async () => {
     if (!id) {
-      toast.error("ID del equipo no válido");
+      toast.error("ID del Rack no válido");
       return;
     }
 
     const response = await actions.editRack(data, id)
 
     if (response === 200 || 201) {
-      console.log("Equipo anadido")
+      console.log("rack anadido")
       navigate('/consult')
 
     } else {

@@ -2,7 +2,7 @@ import React from 'react'
 
 function CabinetFeatures({ handleFieldChange, data, currentUser }) {
     const isInstallationService = currentUser.service === 'Instalacion';
-    
+
     return (<>
         <div className="p-3 mb-2 bg-info">
             <h2>Caracteristicas del Gabinete</h2>
@@ -81,6 +81,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             id="total_cabinets"
                             name="total_cabinets"
+                            value={data.total_cabinets}
                             placeholder="Total de gabinetes que se requiere instalar"
                             onChange={handleFieldChange}
                         />
@@ -148,14 +149,15 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                         </div>
                     </div>
                     <div className="m-auto col-4">
-                        <label htmlFor="security" className="form-label">
+                        <label htmlFor="type_security" className="form-label">
                             Qué tipo de seguridad y Cuántos:
                         </label>
                         <input
                             type="text"
                             className="form-control"
-                            name="security"
-                            id="security"
+                            name="type_security"
+                            id="type_security"
+                            value={data.type_security}
                             placeholder="tipo de seguridad y cantidad"
                             onChange={handleFieldChange}
                             disabled={data.security === false}
@@ -202,6 +204,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             name="extractors_ubication"
                             id="extractors_ubication"
+                            value={data.extractors_ubication}
                             placeholder="Introduzca la ubicacion de los extractores"
                             onChange={handleFieldChange}
                             disabled={data.has_extractors === false}
@@ -280,6 +283,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             name='lateral_ubication'
                             id="lateral_ubication"
+                            value={data.lateral_ubication}
                             placeholder="Introduzca la ubicacion de las Puertas de Servicio"
                             onChange={handleFieldChange}
                             disabled={data.lateral_doors === false}
@@ -295,6 +299,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             name="rack_unit"
                             id="rack_unit"
+                            value={data.rack_unit}
                             placeholder="Introduzca la cantidad total de Unidades de Rack"
                             onChange={handleFieldChange}
                         />
@@ -308,24 +313,26 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             id="rack_position"
                             name="rack_position"
+                            value={data.rack_position}
                             placeholder="Introduzca la posicion del rack respecto a los demas"
                             onChange={handleFieldChange}
                         />
                     </div>
-                    {!isInstallationService &&(
-                    <div className="m-auto col-4">
-                        <label htmlFor="rack_position" className="form-label">
-                            Ubicacion en losa en el DC
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="rack_ubication"
-                            name="rack_ubication"
-                            placeholder="Introduzca la ubicacion del rack respecto en el DC"
-                            onChange={handleFieldChange}
-                        />
-                    </div>
+                    {!isInstallationService && (
+                        <div className="m-auto col-4">
+                            <label htmlFor="rack_position" className="form-label">
+                                Ubicacion en losa en el DC
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="rack_ubication"
+                                name="rack_ubication"
+                                value={data.rack_ubication}
+                                placeholder="Introduzca la ubicacion del rack respecto en el DC"
+                                onChange={handleFieldChange}
+                            />
+                        </div>
                     )}
                     <div className="m-auto col-4">
                         <p>¿Tiene Accesorios Adicionales?</p>
@@ -367,7 +374,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             className="form-control"
                             name="accessory_description"
                             id="accessory_description"
-
+                            value={data.accessory_description}
                             placeholder="Descripción de los accesorios adicionales"
                             onChange={handleFieldChange}
                             disabled={data.has_accessory === false}
@@ -386,6 +393,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                     className="form-control"
                                     name="rack_width"
                                     id="rack_width"
+                                    value={data.rack_width}
                                     placeholder="Introduzca el ancho del rack"
                                     onChange={handleFieldChange}
                                 />
@@ -400,6 +408,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                     className="form-control"
                                     name="rack_length"
                                     id="rack_length"
+                                    value={data.rack_length}
                                     placeholder="Introduzca el largo del rack"
                                     onChange={handleFieldChange}
                                 />
@@ -414,6 +423,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                     className="form-control"
                                     name="rack_height"
                                     id="rack_height"
+                                    value={data.rack_height}
                                     placeholder="Introduzca el alto del rack"
                                     onChange={handleFieldChange}
                                 />

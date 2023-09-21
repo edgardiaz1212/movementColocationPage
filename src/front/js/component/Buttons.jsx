@@ -10,7 +10,7 @@ function Buttons({ editLink, id, type }) {
     const handleFillPDF = async () => {
         const data =
             type === "rack"
-            // Cargar segun la seleccion
+                // Cargar segun la seleccion
                 ? await actions.getRackById(id)
                 : await actions.getEquipmentById(id);
         console.log("ladata", data)
@@ -24,14 +24,7 @@ function Buttons({ editLink, id, type }) {
 
         // Llena los campos del PDF base con los valores capturados.
         const form = pdfDoc.getForm();
-        // for (const key in data) {
-        //   if (data.hasOwnProperty(key)) {
-        //     const value = data[key];
-        //     const textField = form.getTextField(key);
-        //     textField.setText(value);
-        //     console.log("en for",data)
-        //   }
-        // }
+
         const coordination = form.getTextField('UNIDAD_SOLICITANTE');
         const username = form.getTextField('PERSONA_SOLICITANTE');
         const date = form.getTextField('FECHA_SOLICITUD');
@@ -119,8 +112,8 @@ function Buttons({ editLink, id, type }) {
             client.setText('N/A');
         }
 
-        if (data.user.service && servOptions.includes(data.user.service)) {
-            service.select(data.user.service);
+        if (data.user.service && servOptions.includes(data.user.service.toUpperCase())) {
+            service.select(data.user.service.toUpperCase());
         } else {
             // Si `data.service` no está definido o no es un valor válido, seleccionar el primer valor de `servOptions`
             service.select(servOptions[0]);
@@ -254,15 +247,23 @@ function Buttons({ editLink, id, type }) {
             }
         } else {
         }
-        serviceFrontal.check(data.service_frontal);
-        serviceBack.check(data.service_back)
-        serviceSide.check(data.service_lateral)
+        if (data.service_frontal) {
+            serviceFrontal.check(data.service_frontal);
+        }
+        
+        if (data.service_back) {
+            serviceBack.check(data.service_back);
+        }
+        
+        if (data.service_lateral) {
+            serviceSide.check(data.service_lateral);
+        }
         accessLength.setText(data ? data.access_length || 'N/A' : 'N/A')
         accessWidth.setText(data ? data.access_width || 'N/A' : 'N/A')
         accessInclination.setText(data ? data.access_inclination || 'N/A' : 'N/A')
 
         if (data.rack_number && data.equip_rack_ubication) {
-            ubicationRack.setText(`${data.rack_number} ${data.equip_rack_ubication}`);
+            ubicationRack.setText(`${data.rack_number}, ${data.equip_rack_ubication}`);
         } else if (data.rack_number) {
             ubicationRack.setText(data.rack_number);
         } else if (data.equip_rack_ubication) {
@@ -320,15 +321,18 @@ function Buttons({ editLink, id, type }) {
                 <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
-                {/* <Link to={`/view-pdf/${type === 'rack' ? 'rack' : 'equipment'}/${id}`} className="btn btn-primary btn-sm ">Ver Planilla</Link> */}
-
                 <button className="btn btn-primary btn-sm "
-                    onClick={handleFillPDF}>Planilla</button>
-                <button className="button_delete" type="button"
+                    onClick={handleFillPDF}>
+                    Planilla
+                </button>
+                <button
+                    className="button_delete"
+                    type="button"
                     onClick={handleDelete}
-
                 >
-                    <span className="button__text">Eliminar</span>
+                    <span className="button__text">
+                        Eliminar
+                    </span>
                     <span className="button__icon">
                         <svg className="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
                             <title></title>

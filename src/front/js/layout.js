@@ -10,7 +10,6 @@ import { Footer } from "./component/footer";
 import Rack from "./pages/Rack.jsx";
 import Equipment from "./pages/Equipment.jsx";
 import Consult from "./pages/Consult.jsx";
-import PDFView from "./pages/PDFView.jsx"
 import EditEquipment from "./pages/EditEquipment.jsx";
 import EditRack from "./pages/EditRack.jsx";
 
@@ -33,7 +32,6 @@ const Layout = () => {
                         <Route element={<Rack/>} path="/rack"/>
                         <Route element={<Equipment/>} path="/equipment"/>
                         <Route element={<Consult/>} path="/consult"/>
-                        <Route element={<PDFView/>} path= "/view-pdf/:type/:id"/>
                         <Route element={<EditEquipment/>} path ="/edit-equipment/:id"/>
                         <Route element={<EditRack/>} path ="edit-rack/:id"/>
                         <Route element={<h1>Not found!</h1>} />

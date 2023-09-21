@@ -13,6 +13,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               className="form-control"
               id="internal_pdu"
               name="internal_pdu"
+              value={data.internal_pdu}
               placeholder="Introduzca la cantidad de PDUs internas"
               onChange={handleFieldChange}
             />
@@ -26,6 +27,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               className="form-control"
               id="input_connector"
               name="input_connector"
+              value={data.input_connector}
               placeholder="Introduzca tipo de conector"
               onChange={handleFieldChange}
             />
@@ -39,6 +41,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               className="form-control"
               name="fases"
               id="fases"
+              value={data.fases}
               placeholder="Introduzca la cantidad de Fases para la PDU"
               onChange={handleFieldChange}
             />
@@ -52,6 +55,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               className="form-control"
               id="output_connector"
               name="output_connector"
+              value={data.output_connector}
               placeholder="Introduzca la cantidad de Tomas de la PDU"
               onChange={handleFieldChange}
             />

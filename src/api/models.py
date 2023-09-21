@@ -57,6 +57,7 @@ class Description(db.Model):
             'serial': self.serial,
             'number_part': self.number_part,
             'five_years_prevition': self.five_years_prevition,
+            'observations':self.observations,
             'componentType': self.componentType,
             
         }
@@ -102,7 +103,7 @@ class Rack(db.Model):
     def serialize(self):
         return{
             'id':self.id,
-            'has_cabinets':self.has_cabinet,
+            'has_cabinet':self.has_cabinet,
             'leased':self.leased,
             'total_cabinets':self.total_cabinets,
             'open_closed':self.open_closed,
@@ -116,8 +117,8 @@ class Rack(db.Model):
             'rack_unit':self.rack_unit,
             'rack_position':self.rack_position,
             'rack_ubication':self.rack_ubication,
-            'has_accesory':self.has_accessory,
-            'accesory_description':self.accessory_description,
+            'has_accessory':self.has_accessory,
+            'accessory_description':self.accessory_description,
             'rack_width':self.rack_width,
             'rack_length':self.rack_length,
             'rack_height':self.rack_height,
@@ -199,7 +200,7 @@ class Equipment(db.Model):
             'power_supply':self.power_supply,
             'operation_temp':self.operation_temp,
             'thermal_disipation':self.thermal_disipation,
-            'power_config':self.thermal_disipation,
+            'power_config':self.power_config,
             'description':self.description.serialize(),
             'user':self.user.serialize()
              }

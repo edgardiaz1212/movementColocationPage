@@ -23,8 +23,8 @@ function Consult() {
     const equipmentsWithoutRack = store.equipmentsData.filter(
         (equipment) => !equipment.rack_number || !store.racksData.some((rack) => rack.rack_position === equipment.rack_number)
     );
-
-
+console.log(store.racksData)
+  
     return (
         <div className="container">
             <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
@@ -47,20 +47,15 @@ function Consult() {
                                         <thead className="border-top border-bottom ">
                                             <tr>
                                                 <th>Equipos en Rack {rack.rack_ubication} Posicion {rack.rack_position}</th>
-
                                             </tr>
-
                                         </thead>
                                         <tbody>
                                             {getEquipmentsForRack(rack.rack_position).map((equipment) => (
                                                 <>
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
-
                                                         <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
-
                                                     </tr>
-
                                                 </>
                                             ))}
                                         </tbody>
@@ -79,8 +74,6 @@ function Consult() {
                                         .map((equipment) => equipment.rack_number)
                                         .join(", ")} */}
                                     </div>
-
-
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
                                             <tr>
@@ -89,22 +82,18 @@ function Consult() {
                                         </thead>
                                         <tbody>
                                             {equipmentsWithoutRack.map((equipment) => (
-
                                                 <tr key={equipment.id}>
                                                     <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
                                                     <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
                                                 </tr>
-
                                             ))}
                                         </tbody>
                                     </table></>)}
                         </div>
                     )}
                 </div>
-
                 {!isNotCatalog && (
                     <div className="col-12">
-
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -118,15 +107,12 @@ function Consult() {
                                             <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}</td>
                                             <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
                                         </tr>
-
                                     </>))}
                             </tbody>
                         </table>
                     </div>
-
                 )}
             </div>
-
             <p>Seleccionar otra actividad</p>
             {isNotCatalog && (
                 <Link to="/rack" className="btn btn-primary m-1">
@@ -136,11 +122,12 @@ function Consult() {
             <Link to="/equipment" className="btn btn-primary">
                 Agregar nuevo Equipo
             </Link>
-            <button
-                onClick={() => actions.deleteAll}
+            <Link to='/'
+                onClick={() => actions.deleteAll()}
+                
                 className="btn btn-secondary m-1">
                 Finalizar
-            </button>
+            </Link>
         </div>
     );
 }

@@ -155,7 +155,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify(equipment), // Convierte equipment a JSON
 					});
-
 					if (response.ok) {
 						return response;
 					} else {
@@ -176,12 +175,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 						},
 					});
-
-
 					if (response.ok) {
 						const equipmentByIdData = await response.json();
 						// Verificar si se obtuvieron datos válidos
-
 						if (equipmentByIdData) {
 							return equipmentByIdData; // Devuelve los datos del equipo encontrado
 						} else {
@@ -209,7 +205,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify(rack), // Convierte rack a JSON
 					});
-
 					if (response.ok) {
 						return response;
 					} else {
@@ -230,12 +225,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Content-Type": "application/json",
 						},
 					});
-
-
 					if (response.ok) {
 						const rackByIdData = await response.json();
 						// Verificar si se obtuvieron datos válidos
-
 						if (rackByIdData) {
 							return rackByIdData; // Devuelve los datos del rack encontrado
 						} else {

@@ -102,15 +102,14 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                         className="form-select"
                         aria-label="Default select example"
                         name="power_config"
-                        id={data.power_config}
+                        id='power_config'
                         onChange={handleFieldChange}
                         value={data.power_config}
                     >
-                        <option >Seleccione la Correcta</option>
                         <option value="1">1</option>
-                        <option value="2">n+1</option>
-                        <option value="3">2n+1</option>
-                        <option value="4">Descrita en observaciones</option>
+                        <option value="n+1">n+1</option>
+                        <option value="2n+1">2n+1</option>
+                        <option value="DESCRITA EN OBSERVACION">DESCRITA EN OBSERVACION</option>
                     </select>
                 </div>
             </div>
