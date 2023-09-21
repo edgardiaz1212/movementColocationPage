@@ -4,7 +4,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -37,7 +36,6 @@ const Layout = () => {
                         <Route element={<PDFView/>} path= "/view-pdf/:type/:id"/>
                         <Route element={<EditEquipment/>} path ="/edit-equipment/:id"/>
                         <Route element={<EditRack/>} path ="edit-rack/:id"/>
-                        <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

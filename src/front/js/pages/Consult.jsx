@@ -14,7 +14,7 @@ function Consult() {
     const isNotCatalog = store.userData.contract === "Colocacion no Catalogado";
     const hasRackData = store.racksData.length > 0;
     const hasEquipmentData = store.equipmentsData.length > 0;
-    
+
     const getEquipmentsForRack = (rackNumber) => {
         return store.equipmentsData.filter((equipment) => equipment.rack_number === rackNumber);
     };
@@ -23,8 +23,8 @@ function Consult() {
     const equipmentsWithoutRack = store.equipmentsData.filter(
         (equipment) => !equipment.rack_number || !store.racksData.some((rack) => rack.rack_position === equipment.rack_number)
     );
-        
-        
+
+
     return (
         <div className="container">
             <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
@@ -41,7 +41,7 @@ function Consult() {
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
                                         <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
-                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack'/>
+                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack' />
                                     </div>
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
@@ -73,31 +73,31 @@ function Consult() {
                         <div className="col-12 p-2 border-top border-secondary">
                             {equipmentsWithoutRack.length > 0 && (
                                 <>
-                                <div className="alert alert-warning" role="alert">
-                                    Estos equipos no están asociados a ningún rack o no hay un rack con su posición correspondiente
-                                    {/* {equipmentsWithoutRack
+                                    <div className="alert alert-warning" role="alert">
+                                        Estos equipos no están asociados a ningún rack o no hay un rack con su posición correspondiente
+                                        {/* {equipmentsWithoutRack
                                         .map((equipment) => equipment.rack_number)
                                         .join(", ")} */}
-                                </div>
-                                
-                            
-                            <table className="table table-striped">
-                                <thead className="border-top border-bottom ">
-                                    <tr>
-                                        <th>Equipo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {equipmentsWithoutRack.map((equipment) => (
+                                    </div>
 
-                                        <tr key={equipment.id}>
-                                            <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
-                                        </tr>
 
-                                    ))}
-                                </tbody>
-                            </table></>)}
+                                    <table className="table table-striped">
+                                        <thead className="border-top border-bottom ">
+                                            <tr>
+                                                <th>Equipo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {equipmentsWithoutRack.map((equipment) => (
+
+                                                <tr key={equipment.id}>
+                                                    <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
+                                                    <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
+                                                </tr>
+
+                                            ))}
+                                        </tbody>
+                                    </table></>)}
                         </div>
                     )}
                 </div>
@@ -118,7 +118,7 @@ function Consult() {
                                             <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}</td>
                                             <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
                                         </tr>
-                                        
+
                                     </>))}
                             </tbody>
                         </table>
@@ -136,7 +136,11 @@ function Consult() {
             <Link to="/equipment" className="btn btn-primary">
                 Agregar nuevo Equipo
             </Link>
-            <button className="btn btn-secondary m-1">Finalizar</button>
+            <button
+                onClick={() => actions.deleteAll}
+                className="btn btn-secondary m-1">
+                Finalizar
+            </button>
         </div>
     );
 }
