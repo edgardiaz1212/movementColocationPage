@@ -6,7 +6,7 @@ export const Navbar = () => {
   const { store, actions } = useContext(Context)
 	return (
 		<>
-		<nav className="navbar navbar-expand-lg bg-primary  ">
+		<nav className="navbar navbar-expand-lg  ">
   <div className="container-fluid">
     <Link to="/" className="navbar-brand text-white" >Sistema llenado PDF</Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

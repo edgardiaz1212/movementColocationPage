@@ -4,7 +4,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
     const isInstallationService = currentUser.service === 'Instalacion';
 
     return (<>
-        <div className="p-3 mb-2 bg-info">
+        <div className="p-3 mb-2 ">
             <h2>Caracteristicas del Gabinete</h2>
         </div>
         <div className="row">

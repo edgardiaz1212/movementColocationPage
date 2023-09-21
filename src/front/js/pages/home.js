@@ -67,7 +67,8 @@ export const Home = () => {
 
 			{!showSection ?(
 			<>
-				<h1>Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE</h1>
+				<h1>Bienvenido al Sistema de Gestion de </h1>
+					<h1>Solicitudes de Colocacion DCCE</h1>
 				<div className="m-auto col-4">
 					<label htmlFor="username" className="form-label">
 						Solicitante Cantv
@@ -126,7 +127,7 @@ export const Home = () => {
 				</div>
 				<button className="btn btn-primary m-4" 
 				onClick={handleSections}
-				>Anadir</button>
+				>Próximo Paso</button>
 			</>
 			):(
 			<>

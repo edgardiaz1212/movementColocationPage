@@ -3,7 +3,8 @@ import React from 'react'
 function RackPowerRequirements({ handleFieldChange, data }) {
   return (
     <>
-    <h2 className="mt-4">Requerimiento de energia para el rack</h2>
+    <h2 className="m-4">Requerimiento de energia para el rack</h2>
+    <div className="row">
           <div className="mb-3 col-4">
             <label htmlFor="internal_pdu" className="form-label">
               Unidades de Distribución de Energía (PDU) Internas:
@@ -18,7 +19,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-4">
+          <div className="mb-3 col-3">
             <label htmlFor="input_connector" className="form-label">
               Tipo de conector del PDU:
             </label>
@@ -32,7 +33,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-4">
+          <div className="mb-3 col-3">
             <label htmlFor="fases" className="form-label">
               Numero de Fases
             </label>
@@ -46,7 +47,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-4">
+          <div className="mb-3 col-3">
             <label htmlFor="output_connector" className="form-label">
               Numero de Tomas
             </label>
@@ -60,7 +61,7 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               onChange={handleFieldChange}
             />
           </div>
-          <div className="col-3 "></div>
+          <div className="col-3 ">
           <p>Tiene conexión al neutro?</p>
           <div className="form-check">
             <input
@@ -89,6 +90,8 @@ function RackPowerRequirements({ handleFieldChange, data }) {
             <label className="form-check-label" htmlFor="noNeutro">
               No
             </label>
+          </div>
+          </div>
           </div>
     </>
   )

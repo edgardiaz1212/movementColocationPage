@@ -3,11 +3,11 @@ import React from "react";
 function Details({handleFieldChange,  data}) {
   return (
     <>
-      <div className="p-3 mb-2 titles">
+      <div className="p-3 titles">
         <h2>DATOS GENERALES</h2>
       </div>
 
-      <div className="container row mt-5">
+      <div className="container row m-3">
         <h4 className="col-3">Descripcion del equipo</h4>
         <div className="col-6">
           <div className="m-auto">
