@@ -41,7 +41,7 @@ function Consult() {
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
                                         <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
-                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack'racksData={store.racksData}/>
+                                        <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack'/>
                                     </div>
                                     <table className="table table-striped">
                                         <thead className="border-top border-bottom ">
@@ -57,7 +57,7 @@ function Consult() {
                                                     <tr key={equipment.id}>
                                                         <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
 
-                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
+                                                        <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
 
                                                     </tr>
 
@@ -92,7 +92,7 @@ function Consult() {
 
                                         <tr key={equipment.id}>
                                             <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
                                         </tr>
 
                                     ))}
@@ -116,7 +116,7 @@ function Consult() {
                                     <>
                                         <tr key={equipment.id}>
                                             <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}</td>
-                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" equipmentsData={store.equipmentsData}/>
+                                            <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
                                         </tr>
                                         
                                     </>))}
@@ -136,7 +136,7 @@ function Consult() {
             <Link to="/equipment" className="btn btn-primary">
                 Agregar nuevo Equipo
             </Link>
-            <button>Finalizar</button>
+            <button className="btn btn-secondary m-1">Finalizar</button>
         </div>
     );
 }

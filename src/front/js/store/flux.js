@@ -291,7 +291,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null
 				}
 			},
-			
+			deleteAll: async ()=>{
+				const store =getStore()
+				try {
+					let response= await fetch(`${process.env.BACKEND_URL}/delete_all`)
+				} catch (error) {
+					console.log("error borrando todo")
+					
+				}
+
+			}
 
 		}
 	};

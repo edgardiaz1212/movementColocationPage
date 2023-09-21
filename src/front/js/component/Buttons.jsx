@@ -4,25 +4,13 @@ import { Context } from "../store/appContext";
 import PDfBase from "../../pdf/FOR BA7D ED5.pdf"
 import { PDFDocument, rgb } from 'pdf-lib'
 
-function Buttons({ editLink, id, type, racksData, equipmentsData }) {
+function Buttons({ editLink, id, type }) {
     const { actions, store } = useContext(Context)
 
     const handleFillPDF = async () => {
-        // Captura los valores de los campos de texto que deseas incluir en el PDF llenado.
-        // const data = {
-        //     // UNIDAD_SOLICITANTE: type === "rack" ? racksData.user.coordination : equipmentsData.coordination,
-        //     // PERSONA_SOLICITANTE: type === "rack" ?racksData.user.username : equipmentsData.user.username,
-        //     // FECHA_SOLICITUD:type === "rack" ?racksData.user.created_at : equipmentsData.user.created_at,
-        //     // CLIENTE_FINAL:type === "rack" ?racksData.user.clientName : equipmentsData.user.clientName,
-        //     // PREVISION:type === "rack" ?racksData.description.five_years_prevition : equipmentsData.description.five_years_prevition,
-        //     // OBSERVACIONES:type === "rack" ?racksData.description.observations : equipmentsData.description.observations,
-        //     // Servicio:type === "rack" ?racksData.user.service : equipmentsData.description.serial,
-        //     MARCA:type === "rack" ?racksData.brand : equipmentsData.serial,
-        //     MODELO:type === "rack" ?racksData.model : equipmentsData.serial,
-        //   // Agrega más campos aquí...
-        // };
         const data =
             type === "rack"
+            // Cargar segun la seleccion
                 ? await actions.getRackById(id)
                 : await actions.getEquipmentById(id);
         console.log("ladata", data)
@@ -302,14 +290,10 @@ function Buttons({ editLink, id, type, racksData, equipmentsData }) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = "filled-pdf.pdf";
+        a.download = `FOR-DA7D-${data.description.model}.pdf`;
         a.click();
         window.URL.revokeObjectURL(url);
     };
-
-
-
-
 
     const handleDelete = async () => {
         const confirmDelete = window.confirm(`Estas seguro de eliminar este ${type} ?`)
@@ -336,10 +320,10 @@ function Buttons({ editLink, id, type, racksData, equipmentsData }) {
                 <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
-                <Link to={`/view-pdf/${type === 'rack' ? 'rack' : 'equipment'}/${id}`} className="btn btn-primary btn-sm ">Ver Planilla</Link>
+                {/* <Link to={`/view-pdf/${type === 'rack' ? 'rack' : 'equipment'}/${id}`} className="btn btn-primary btn-sm ">Ver Planilla</Link> */}
 
-                <button
-                    onClick={handleFillPDF}>prueba</button>
+                <button className="btn btn-primary btn-sm "
+                    onClick={handleFillPDF}>Planilla</button>
                 <button className="button_delete" type="button"
                     onClick={handleDelete}
 
