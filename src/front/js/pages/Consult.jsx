@@ -27,7 +27,7 @@ console.log(store.racksData)
   
     return (
         <div className="container">
-            <h4>Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
+            <h3 className="m-2 text-center">Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h3>
             <div className="container">
                 <div className="row border border-secondary">
                     {isNotCatalog && hasRackData && (

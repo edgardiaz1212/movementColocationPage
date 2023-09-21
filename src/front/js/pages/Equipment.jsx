@@ -124,7 +124,7 @@ function Equipment() {
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-      <div className="container primer">
+      <div className="container">
         <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
         <Link to="/consult" className="btn btn-primary m-2"
           onClick={handleAddEquipment}

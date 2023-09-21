@@ -60,7 +60,9 @@
   .button_delete:active {
     border: 1px solid #b20000;
   }
-  .titles{ background: linear-gradient(266deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(40,115,157,0) 100%);;
+  h2{ background: linear-gradient(266deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(40,115,157,0) 100%);;
   color: aliceblue;}
   
-  .primer{background-color: rgb(240, 234, 228);}
+  .primer{background-color: rgb(238, 226, 213);}
+
+  
