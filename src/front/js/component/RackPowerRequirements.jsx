@@ -3,11 +3,11 @@ import React from 'react'
 function RackPowerRequirements({ handleFieldChange, data }) {
   return (
     <>
-    <h2 className="m-4">Requerimiento de energia para el rack</h2>
-    <div className="row">
-          <div className="mb-3 col-4">
+    <h2 className="mt-4">Requerimiento de energia para el rack</h2>
+    <div className="row gx-5">
+          <div className="mb-3 me-2 col-lg-4 col-sm-12">
             <label htmlFor="internal_pdu" className="form-label">
-              Unidades de Distribución de Energía (PDU) Internas:
+              Unidades de Distribución de Energía (PDU):
             </label>
             <input
               type="text"
@@ -15,11 +15,11 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               id="internal_pdu"
               name="internal_pdu"
               value={data.internal_pdu}
-              placeholder="Introduzca la cantidad de PDUs internas"
+              placeholder="Cantidad de regletas"
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-3">
+          <div className="mb-3 col-lg-3 col-sm-12">
             <label htmlFor="input_connector" className="form-label">
               Tipo de conector del PDU:
             </label>
@@ -29,11 +29,11 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               id="input_connector"
               name="input_connector"
               value={data.input_connector}
-              placeholder="Introduzca tipo de conector"
+              placeholder="Modelo enchufe"
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-3">
+          <div className="mb-3 col-lg-2 col-sm-12">
             <label htmlFor="fases" className="form-label">
               Numero de Fases
             </label>
@@ -43,13 +43,13 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               name="fases"
               id="fases"
               value={data.fases}
-              placeholder="Introduzca la cantidad de Fases para la PDU"
+              placeholder="Fases para la PDU"
               onChange={handleFieldChange}
             />
           </div>
-          <div className="mb-3 col-3">
+          <div className="mb-3 col-lg-2 col-sm-12">
             <label htmlFor="output_connector" className="form-label">
-              Numero de Tomas
+              Numero de Tomas PDU
             </label>
             <input
               type="text"
@@ -57,11 +57,11 @@ function RackPowerRequirements({ handleFieldChange, data }) {
               id="output_connector"
               name="output_connector"
               value={data.output_connector}
-              placeholder="Introduzca la cantidad de Tomas de la PDU"
+              placeholder="Cantidad de Tomas"
               onChange={handleFieldChange}
             />
           </div>
-          <div className="col-3 ">
+          <div className="col-lg-3 col-sm-12 ">
           <p>Tiene conexión al neutro?</p>
           <div className="form-check">
             <input

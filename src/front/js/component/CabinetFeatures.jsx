@@ -4,11 +4,11 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
     const isInstallationService = currentUser.service === 'Instalacion';
 
     return (<>
-        <div className="p-3 mb-2 ">
+        <div className="mb-3 ">
             <h2>Caracteristicas del Gabinete</h2>
         </div>
-        <div className="row">
-            <div className="col-4 ">
+        <div className="row gy-5 justify-content-center">
+            <div className="col-lg-3 col-sm-12 ">
                 <p>Posee Gabinete ?</p>
                 <div className="form-check">
                     <input
@@ -41,7 +41,8 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
             </div>
             {data.has_cabinet === true && (
                 <>
-                    <div className="col-4 m-auto">
+
+                    <div className="col-lg-2 col-sm-12 ">
                         <p>Propio o arrendado ?</p>
                         <div className="form-check">
                             <input
@@ -72,7 +73,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </label>
                         </div>
                     </div>
-                    <div className="m-auto col-4">
+                    <div className=" col-lg-3 col-sm-12">
                         <label htmlFor="total_cabinets" className="form-label">
                             Numero Total de Gabinetes
                         </label>
@@ -82,11 +83,11 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             id="total_cabinets"
                             name="total_cabinets"
                             value={data.total_cabinets}
-                            placeholder="Total de gabinetes que se requiere instalar"
+                            placeholder="Total gabinetes que requieren instalarse"
                             onChange={handleFieldChange}
                         />
                     </div>
-                    <div className="col-4 m-auto">
+                    <div className="col-lg-2 col-sm-12 ">
                         <p>Rack abrierto o Cerrado ?</p>
                         <div className="form-check">
                             <input
@@ -117,7 +118,8 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </label>
                         </div>
                     </div>
-                    <div className="col-4 m-auto">
+                    
+                    <div className="col-lg-3 col-sm-12">
                         <p>Posee seguridad ?</p>
                         <div className="form-check">
                             <input
@@ -148,7 +150,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </label>
                         </div>
                     </div>
-                    <div className="m-auto col-4">
+                    <div className="col-lg-3 col-sm-12">
                         <label htmlFor="type_security" className="form-label">
                             Qué tipo de seguridad y Cuántos:
                         </label>
@@ -158,12 +160,12 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name="type_security"
                             id="type_security"
                             value={data.type_security}
-                            placeholder="tipo de seguridad y cantidad"
+                            placeholder="Tipo de seguridad y cantidad"
                             onChange={handleFieldChange}
                             disabled={data.security === false}
                         />
                     </div>
-                    <div className="col-4">
+                    <div className="col-lg-2 col-sm-12">
                         <p>Posee Extractores ?</p>
                         <div className="form-check">
                             <input
@@ -195,9 +197,9 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                         </div>
                     </div>
 
-                    <div className="m-auto col-4">
+                    <div className="col-lg-3 col-sm-12">
                         <label htmlFor="extractors_ubication" className="form-label">
-                            Si la respuesta es SI, Dónde:
+                            Ubicacion Extractores
                         </label>
                         <input
                             type="text"
@@ -205,13 +207,13 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name="extractors_ubication"
                             id="extractors_ubication"
                             value={data.extractors_ubication}
-                            placeholder="Introduzca la ubicacion de los extractores"
+                            placeholder="Ubicacion de los extractores"
                             onChange={handleFieldChange}
                             disabled={data.has_extractors === false}
                         />
                     </div>
 
-                    <div className="col-4 m-auto">
+                    <div className="col-lg-2 col-sm-12">
                         <p>Es Modular ?</p>
                         <div className="form-check">
                             <input
@@ -242,7 +244,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </label>
                         </div>
                     </div>
-                    <div className="col-4 m-auto">
+                    <div className="col-lg-3 col-sm-12">
                         <p>Posee Puertas de servicio lateral: ?</p>
                         <div className="form-check">
                             <input
@@ -258,7 +260,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                 Si
                             </label>
                         </div>
-                        <div className="div-check">
+                        <div className="form-check">
                             <input
                                 className="form-check-input"
                                 type="radio"
@@ -274,9 +276,9 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                         </div>
                     </div>
 
-                    <div className="m-auto col-4">
+                    <div className="col-lg-3 col-sm-12">
                         <label htmlFor="lateral_ubication" className="form-label">
-                            Si la respuesta es SI, Dónde:
+                            Ubicacion puertas de servicio
                         </label>
                         <input
                             type="text"
@@ -284,15 +286,15 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name='lateral_ubication'
                             id="lateral_ubication"
                             value={data.lateral_ubication}
-                            placeholder="Introduzca la ubicacion de las Puertas de Servicio"
+                            placeholder="Ubicacion de las Puertas de Servicio"
                             onChange={handleFieldChange}
                             disabled={data.lateral_doors === false}
                         />
                     </div>
 
-                    <div className="m-auto col-4">
+                    <div className=" col-lg-3 col-sm-12">
                         <label htmlFor="rack_unit" className="form-label">
-                            Total de unidades de Rack
+                            Total de Unidades de Rack
                         </label>
                         <input
                             type="text"
@@ -300,13 +302,13 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name="rack_unit"
                             id="rack_unit"
                             value={data.rack_unit}
-                            placeholder="Introduzca la cantidad total de Unidades de Rack"
+                            placeholder="Unidades de Rack del gabinete"
                             onChange={handleFieldChange}
                         />
                     </div>
-                    <div className="m-auto col-4">
+                    <div className="col-lg-3 col-sm-12">
                         <label htmlFor="rack_position" className="form-label">
-                            De ser varios Racks, que posición ocupa u ocupará en la fila
+                            Posicion del rack en la fila
                         </label>
                         <input
                             type="text"
@@ -314,12 +316,12 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             id="rack_position"
                             name="rack_position"
                             value={data.rack_position}
-                            placeholder="Introduzca la posicion del rack respecto a los demas"
+                            placeholder="Posicion del rack(ejem: 1,2,..."
                             onChange={handleFieldChange}
                         />
                     </div>
                     {!isInstallationService && (
-                        <div className="m-auto col-4">
+                        <div className=" col-lg-2 col-sm-12">
                             <label htmlFor="rack_position" className="form-label">
                                 Ubicacion en losa en el DC
                             </label>
@@ -329,12 +331,12 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                 id="rack_ubication"
                                 name="rack_ubication"
                                 value={data.rack_ubication}
-                                placeholder="Introduzca la ubicacion del rack respecto en el DC"
+                                placeholder="Nomenclatura DC"
                                 onChange={handleFieldChange}
                             />
                         </div>
                     )}
-                    <div className="m-auto col-4">
+                    <div className="col-lg-3 col-sm-12">
                         <p>¿Tiene Accesorios Adicionales?</p>
                         <div className="form-check">
                             <input
@@ -365,9 +367,9 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </label>
                         </div>
                     </div>
-                    <div className="m-auto col-4">
+                    <div className="col-lg-4 col-sm-12">
                         <label htmlFor="accessory_description" className="form-label">
-                            Describa los accesorios adicionales:
+                            Accesorios adicionales:
                         </label>
                         <input
                             type="text"
@@ -381,10 +383,10 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                         />
                     </div>
 
-                    <div className="row">
-                        <h4 className="col-3">Dimensiones del Rack</h4>
-                        <div className="col-6">
-                            <div className="m-auto">
+                    <div className="mt-5 mb-3">
+                        <h4 className="">Dimensiones del Rack</h4>
+                        <div className="row justify-content-center">
+                            <div className="col-lg-3 col-sm-12">
                                 <label htmlFor="rack_width" className="form-label">
                                     Ancho (en cm):
                                 </label>
@@ -399,7 +401,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                 />
                             </div>
 
-                            <div className="m-auto">
+                            <div className="col-lg-3 col-sm-12">
                                 <label htmlFor="rack_length" className="form-label">
                                     Largo (en cm):
                                 </label>
@@ -414,7 +416,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                 />
                             </div>
 
-                            <div className="m-auto">
+                            <div className="col-lg-3 col-sm-12">
                                 <label htmlFor="rack_height" className="form-label">
                                     Alto (en cm):
                                 </label>
@@ -430,6 +432,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             </div>
                         </div>
                     </div>
+                    
                 </>
             )}
         </div>
