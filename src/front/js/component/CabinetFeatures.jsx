@@ -199,7 +199,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
 
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="extractors_ubication" className="form-label">
-                            Ubicacion Extractores
+                        Ubicación Extractores
                         </label>
                         <input
                             type="text"
@@ -207,7 +207,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name="extractors_ubication"
                             id="extractors_ubication"
                             value={data.extractors_ubication}
-                            placeholder="Ubicacion de los extractores"
+                            placeholder="Ubicación de los extractores"
                             onChange={handleFieldChange}
                             disabled={data.has_extractors === false}
                         />
@@ -278,7 +278,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
 
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="lateral_ubication" className="form-label">
-                            Ubicacion puertas de servicio
+                        Ubicación puertas de servicio
                         </label>
                         <input
                             type="text"
@@ -286,7 +286,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             name='lateral_ubication'
                             id="lateral_ubication"
                             value={data.lateral_ubication}
-                            placeholder="Ubicacion de las Puertas de Servicio"
+                            placeholder="Ubicación de las Puertas de Servicio"
                             onChange={handleFieldChange}
                             disabled={data.lateral_doors === false}
                         />
@@ -308,7 +308,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                     </div>
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="rack_position" className="form-label">
-                            Posicion del rack en la fila
+                        Posición del rack en la fila
                         </label>
                         <input
                             type="text"
@@ -316,14 +316,14 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                             id="rack_position"
                             name="rack_position"
                             value={data.rack_position}
-                            placeholder="Posicion del rack(ejem: 1,2,..."
+                            placeholder="Posición del rack(ejem: 1,2,..."
                             onChange={handleFieldChange}
                         />
                     </div>
                     {!isInstallationService && (
                         <div className=" col-lg-2 col-sm-12">
                             <label htmlFor="rack_position" className="form-label">
-                                Ubicacion en losa en el DC
+                            Ubicación en losa en el DC
                             </label>
                             <input
                                 type="text"

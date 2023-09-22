@@ -1,15 +1,16 @@
 import React from "react";
 
-function Details({handleFieldChange,  data}) {
+function Details({handleFieldChange,  data, currentUser}) {
   return (
     <>
       <div className="p-3 titles">
         <h2>DATOS GENERALES</h2>
       </div>
 
-      <div className="container row m-3">
-        <h4 className="col-3">Descripcion del equipo</h4>
-        <div className="col-6">
+      
+        <h4 className="text-center">Descripción del equipo para {currentUser.service}</h4>
+       <div className="row gy-4 m-3 justify-content-center"> 
+       <div className="col-lg-6 col-sm-8">
           <div className="m-auto">
             <label htmlFor="brand" className="form-label">
               Marca:

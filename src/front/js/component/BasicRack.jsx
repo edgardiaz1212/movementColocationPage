@@ -8,7 +8,7 @@ function BasicRack({ handleFieldChange, data, currentUser }) {
   const isRemovalOrDivestiture = currentUser.service === 'Retiro' || currentUser.service === 'Desincorporacion';
   return (
     <>
-      <Details handleFieldChange={handleFieldChange} data={data} />
+      <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
       <div className=" container ">
 
         <CabinetFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
