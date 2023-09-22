@@ -9,7 +9,7 @@ function BasicEquip({ handleFieldChange, data, currentUser }) {
   const isRemovalOrDivestiture = currentUser.service === 'Retiro' || currentUser.service === 'Desincorporacion';
   return (
     <>
-      <Details handleFieldChange={handleFieldChange} data={data} />
+      <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser}/>
       <EquipmentFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
       {!isRemovalOrDivestiture && (
         <EquipmentPowerRequeriment handleFieldChange={handleFieldChange} data={data} />

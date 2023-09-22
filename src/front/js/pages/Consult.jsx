@@ -23,7 +23,7 @@ function Consult() {
     const equipmentsWithoutRack = store.equipmentsData.filter(
         (equipment) => !equipment.rack_number || !store.racksData.some((rack) => rack.rack_position === equipment.rack_number)
     );
-console.log(store.racksData)
+
   
     return (
         <div className="container">

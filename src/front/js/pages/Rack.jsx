@@ -19,7 +19,7 @@ function Rack() {
     observations: "",
     five_years_prevition: "",
     has_cabinet: true,
-    leased: true,
+    leased: false,
     total_cabinets: "",
     open_closed: true,
     security: true,
@@ -68,11 +68,11 @@ function Rack() {
   };
 
   const handleAddRack = async () => {
-    if (!data.brand || !data.model || !data.serial || !data.componentType || !data.rack_position) {
+    if (!data.brand || !data.model || !data.serial || !data.componentType ) {
       console.log("faltan datos importantes")
       toast.error("Llene los campos necesarios")
       return
-    } else {
+    } 
       try {
         const formData = new FormData();
 
@@ -110,20 +110,21 @@ function Rack() {
         formData.append('user_id', currentUserId)
 
         const response = await actions.addRack(formData)
-        if (response === 201 || response === 200) {
-          setTimeout(() => {
-            navigate("/")
-          }, 2000)
+        if (response.status === 201 || response.status === 200) {
           toast.success("Successfully Registered")
           console.log("Registro exitoso")
+          setTimeout(() => {
+            navigate("/consult")
+          }, 2000)
+
         } else {
           toast.error("Error Registrando Rack")
-          console.log("Error en el registro de Rack ")
+          console.log("Error en el registro de Rack ", response.status)
         }
       } catch (error) {
         console.log("newRack: ", error)
       }
-    }
+    
   };
 
   return (
