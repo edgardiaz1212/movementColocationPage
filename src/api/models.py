@@ -35,13 +35,13 @@ class User(db.Model):
 
 class Description(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    brand = db.Column(db.String(120), )
-    model = db.Column(db.String(120), )
-    serial = db.Column(db.String(120), unique=False)
+    brand = db.Column(db.String(120),nullable=False )
+    model = db.Column(db.String(120), nullable=False)
+    serial = db.Column(db.String(120), unique=False, nullable=False)
     number_part = db.Column(db.String(120))
     five_years_prevition = db.Column(db.String(255))
     observations = db.Column(db.String(255))
-    componentType = db.Column(db.String(100))
+    componentType = db.Column(db.String(100), nullable=False)
     # Relaciones con Rack y Equipment (un equipo y un rack tienen una descripción)
     rack = db.relationship('Rack', uselist=False, back_populates='description', cascade='all, delete-orphan' )
     equipment = db.relationship('Equipment', uselist=False, back_populates='description', cascade='all, delete-orphan')

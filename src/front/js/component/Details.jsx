@@ -13,7 +13,7 @@ function Details({handleFieldChange,  data, currentUser}) {
        <div className="col-lg-6 col-sm-8">
           <div className="m-auto">
             <label htmlFor="brand" className="form-label">
-              Marca:
+              Marca*
             </label>
             <input
               type="text"
@@ -28,7 +28,7 @@ function Details({handleFieldChange,  data, currentUser}) {
 
           <div className="m-auto">
             <label htmlFor="model" className="form-label">
-              Modelo:
+              Modelo*:
             </label>
             <input
               type="text"
@@ -43,7 +43,7 @@ function Details({handleFieldChange,  data, currentUser}) {
 
           <div className="m-auto">
             <label htmlFor="serial" className="form-label">
-              Serial:
+              Serial*:
             </label>
             <input
               type="text"
@@ -71,7 +71,7 @@ function Details({handleFieldChange,  data, currentUser}) {
           </div>
           <div className="m-auto">
             <label htmlFor="componentType" className="form-label">
-              Tipo de componente:
+              Tipo de componente*:
             </label>
             <input
               type="text"

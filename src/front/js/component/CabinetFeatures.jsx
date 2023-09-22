@@ -308,7 +308,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                     </div>
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="rack_position" className="form-label">
-                        Posición del rack en la fila
+                        Posición del rack en la fila*
                         </label>
                         <input
                             type="text"
