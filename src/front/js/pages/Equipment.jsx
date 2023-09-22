@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +9,7 @@ function Equipment() {
   const { actions, store } = useContext(Context)
   const currentUserId = store.currentUser.user_id
   const { currentUser } = store
+  const navigate = useNavigate()
   const initialState = {
     model: "",
     brand: "",
@@ -111,8 +112,12 @@ function Equipment() {
 
       const response = await actions.addEquipment(formData)
 
-      if (response === 200 || 201) {
-        console.log("Equipo anadido")
+      if (response.status === 201 || response.status === 200) {
+        toast.success("Equipo registrado")
+          console.log("Equipo anadido")
+          setTimeout(() => {
+            navigate("/consult")
+          }, 1000)
       } else {
         toast.error("Error registrando")
       }
@@ -126,9 +131,10 @@ function Equipment() {
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div className="container">
         <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
-        <Link to="/consult" className="btn btn-primary m-2"
+        
+        <button className="btn btn-primary m-2"
           onClick={handleAddEquipment}
-        >Agregar</Link>
+        >Agregar</button>
 
       </div>
 

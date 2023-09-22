@@ -71,9 +71,12 @@ function EditEquipment() {
     }
     const response = await actions.editEquipment(data, id)
 
-    if (response === 200 || 201) {
+    if (response.status === 201 || response.status === 200) {
       console.log("Equipo anadido")
-      navigate('/consult')
+      toast.success("Equipo registrado")
+      setTimeout(() => {
+        navigate("/consult")
+      }, 1000)
 
     } else {
       toast.error("Error registrando")
@@ -98,15 +101,19 @@ function EditEquipment() {
       }));
     }
   };
-  console.log(data)
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div className="container">
         <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
-        <button className="btn btn-secondary"
+        <button className="btn btn-success"
           onClick={handleEdit}>
           Terminar Edicion</button>
+
+          <button className="btn btn-secondary ms-3" onClick={goBack}>Cancelar</button>
       </div>
 
     </>

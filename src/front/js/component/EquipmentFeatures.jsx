@@ -1,7 +1,7 @@
 import React from "react";
 
 function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
-    const isInstallationService = currentUser.service === 'Instalacion' && currentUser.contract==='Colocacion Catalogado';
+    const isInstallationService = currentUser.service === 'Instalacion' && currentUser.contract === 'Colocacion Catalogado';
 
     return (
         <>
@@ -25,7 +25,6 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
-
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="equipment_length" className="form-label">
                             Largo (en cm):
@@ -40,7 +39,6 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
-
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="equipment_height" className="form-label">
                             Alto (en cm):
@@ -57,113 +55,112 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                     </div>
                 </div>
                 <div className="row mt-5 gy-3 justify-content-center">
-                        <div className=" col-lg-3 col-sm-12 ">
-                            <label htmlFor="weight" className="form-label">
-                                Peso Maximo del equipo
-                            </label>
+                    <div className=" col-lg-3 col-sm-12 ">
+                        <label htmlFor="weight" className="form-label">
+                            Peso Maximo del equipo
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="weight"
+                            name="weight"
+                            value={data.weight}
+                            placeholder="Introduzca el peso"
+                            onChange={handleFieldChange}
+                        />
+                    </div>
+                    <div className=" col-lg-3 col-sm-12">
+                        <label htmlFor="anchor_type" className="form-label">
+                            Tipo de anclaje al rack
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="anchor_type"
+                            name="anchor_type"
+                            value={data.anchor_type}
+                            placeholder="Introduzca elementos fijantes"
+                            onChange={handleFieldChange}
+                        />
+                    </div>
+                    <div className=" col-lg-4 col-sm-12">
+                        <p>Requiere área de servicio</p>
+                        <div className="form-check">
                             <input
-                                type="text"
-                                className="form-control"
-                                id="weight"
-                                name="weight"
-                                value={data.weight}
-                                placeholder="Introduzca el peso"
+                                className="form-check-input"
+                                type="radio"
+                                id="serviceAreaYes"
+                                name="service_area"
+                                value={true}
+                                checked={data.service_area === true}
                                 onChange={handleFieldChange}
                             />
-                        </div>
-                        <div className=" col-lg-3 col-sm-12">
-                            <label htmlFor="anchor_type" className="form-label">
-                                Tipo de anclaje al rack
+                            <label className="form-check-label" htmlFor="serviceAreaYes">
+                                Sí
                             </label>
+                        </div>
+                        <div className="form-check">
                             <input
-                                type="text"
-                                className="form-control"
-                                id="anchor_type"
-                                name="anchor_type"
-                                value={data.anchor_type}
-                                placeholder="Introduzca elementos fijantes"
+                                className="form-check-input"
+                                type="radio"
+                                name="service_area"
+                                id="serviceAreaNo"
+                                value={false}
+                                checked={data.service_area === false}
                                 onChange={handleFieldChange}
                             />
+                            <label className="form-check-label" htmlFor="serviceAreaNo">
+                                No
+                            </label>
                         </div>
-                        <div className=" col-lg-4 col-sm-12">
-                            <p>Requiere área de servicio</p>
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    id="serviceAreaYes"
-                                    name="service_area"
-                                    value={true}
-                                    checked={data.service_area === true}
-                                    onChange={handleFieldChange}
-                                />
-                                <label className="form-check-label" htmlFor="serviceAreaYes">
-                                    Sí
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="service_area"
-                                    id="serviceAreaNo"
-                                    value={false}
-                                    checked={data.service_area === false}
-                                    onChange={handleFieldChange}
-                                />
-                                <label className="form-check-label" htmlFor="serviceAreaNo">
-                                    No
-                                </label>
-                            </div>
-                            Ubicacion area de servicio
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    name="service_frontal"
-                                    id="service_frontal"
-                                    value={data.service_frontal}
-                                    //checked
-                                    onChange={handleFieldChange}
-                                    disabled={data.service_area === false}
-                                />
-                                <label className="form-check-label" htmlFor="service_frontal">
-                                    Frontal
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    name="service_back"
-                                    id="service_back"
-                                    value={data.service_back}
-                                    //checked
-                                    onChange={handleFieldChange}
-                                    disabled={data.service_area === false}
-                                />
-                                <label className="form-check-label" htmlFor="service_back">
-                                    Posterior
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    className="form-check-input"
-                                    type="checkbox"
-                                    name="service_lateral"
-                                    id="service_lateral"
-                                    value={data.service_lateral}
-                                    //checked
-                                    onChange={handleFieldChange}
-                                    disabled={data.service_area === false}
-                                />
-                                <label className="form-check-label" htmlFor="service_lateral">
-                                    Lateral
-                                </label>
-                            </div>
+                        Ubicacion area de servicio
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                name="service_frontal"
+                                id="service_frontal"
+                                value={data.service_frontal}
+                                //checked
+                                onChange={handleFieldChange}
+                                disabled={data.service_area === false}
+                            />
+                            <label className="form-check-label" htmlFor="service_frontal">
+                                Frontal
+                            </label>
                         </div>
-
-                        <div className="col-lg-3 col-sm-12">
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                name="service_back"
+                                id="service_back"
+                                value={data.service_back}
+                                //checked
+                                onChange={handleFieldChange}
+                                disabled={data.service_area === false}
+                            />
+                            <label className="form-check-label" htmlFor="service_back">
+                                Posterior
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                name="service_lateral"
+                                id="service_lateral"
+                                value={data.service_lateral}
+                                //checked
+                                onChange={handleFieldChange}
+                                disabled={data.service_area === false}
+                            />
+                            <label className="form-check-label" htmlFor="service_lateral">
+                                Lateral
+                            </label>
+                        </div>
+                    </div>
+                    <div className="col-lg-3 col-sm-12">
                         <label htmlFor="rack_number" className="form-label">
                             Numero de Rack donde estara ubicado *
                         </label>
@@ -207,7 +204,6 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
-
                     <div className="col-lg-3 col-sm-12">
                         <label htmlFor="total_rack_units" className="form-label">
                             Total de unidades de Rack
@@ -222,9 +218,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             onChange={handleFieldChange}
                         />
                     </div>
-
-                    </div>
-
+                </div>
                 <div className="container mt-5">
                     <h4 >Dimensiones de la caja del equipo</h4>
                     <div className="row justify-content-center">
@@ -273,7 +267,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             />
                         </div>
                     </div>
-                   
+
                 </div>
                 <div className="container mt-5 mb-5 ">
                     <h4 >Dimensiones Requeridas ruta de acceso</h4>
@@ -324,10 +318,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                         </div>
                     </div>
 
-
-                    
                 </div>
-
             </div>
         </>
     )

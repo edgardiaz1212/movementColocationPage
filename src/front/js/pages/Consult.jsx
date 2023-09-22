@@ -27,9 +27,9 @@ function Consult() {
   
     return (
         <div className="container">
-            <h3 className="m-2 text-center">Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h3>
-            <div className="container">
-                <div className="row border border-secondary">
+            <h4 className="mb-5 mt-5">Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
+            <div className="container mb-3">
+                <div className="row border border-dark">
                     {isNotCatalog && hasRackData && (
                         <div className="col-12 ">
                             {store.racksData.some((rack) => getEquipmentsForRack(rack.rack_position).length === 0) ? (
@@ -40,13 +40,13 @@ function Consult() {
                             {store.racksData.map((rack) => (
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
-                                        <h2 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h2>
+                                        <h3 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h3>
                                         <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack' />
                                     </div>
-                                    <table className="table table-striped">
+                                    <table className="table ">
                                         <thead className="border-top border-bottom ">
                                             <tr>
-                                                <th>Equipos en Rack {rack.rack_ubication} Posicion {rack.rack_position}</th>
+                                                <th >Equipos en Rack {rack.rack_ubication} Posicion {rack.rack_position}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

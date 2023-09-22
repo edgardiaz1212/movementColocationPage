@@ -11,7 +11,7 @@ function EditRack() {
   const { currentUser } = store
   const [data, setData] = useState({})
   const { id } = useParams()
-  
+
   useEffect(() => {
     // Realiza una solicitud para obtener los datos del equipo con el ID "theid"
     if (id) {
@@ -51,7 +51,7 @@ function EditRack() {
             fases: rackByIdData.fases,
             output_connector: rackByIdData.output_connector,
             neutro: rackByIdData.neutro,
-            user:rackByIdData.user
+            user: rackByIdData.user
 
           });
         })
@@ -69,9 +69,12 @@ function EditRack() {
 
     const response = await actions.editRack(data, id)
 
-    if (response === 200 || 201) {
+    if (response.status === 201 || response.status === 200) {
       console.log("rack anadido")
-      navigate('/consult')
+      toast.success("Equipo registrado")
+      setTimeout(() => {
+        navigate("/consult")
+      }, 1000)
 
     } else {
       toast.error("Error registrando")
@@ -97,16 +100,22 @@ function EditRack() {
       }));
     }
   };
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div className="container">
         <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={{ currentUser }} />
-        <Link to="/consult"
+        <button
           className="btn btn-success"
           onClick={handleEdit}>
           Terminar Ediciones
-        </Link>
+        </button>
+        <button className="btn btn-secondary ms-3" onClick={goBack}>Cancelar</button>
+
       </div>
     </>
   )
