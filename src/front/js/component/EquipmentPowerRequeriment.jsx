@@ -17,7 +17,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                         id="ac_dc"
                         name="ac_dc"
                         value={data.ac_dc}
-                        placeholder="Introduzca el valor"
+                        placeholder="Introduzca el tipo"
                         onChange={handleFieldChange}
                     />
                 </div>
@@ -32,7 +32,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                         id="input_current"
                         name="input_current"
                         value={data.input_current}
-                        placeholder="Introduzca el valor"
+                        placeholder="Introduzca el valor en voltios"
                         onChange={handleFieldChange}
                     />
                 </div>
@@ -62,7 +62,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                         id="power_supply"
                         name="power_supply"
                         value={data.power_supply}
-                        placeholder="Introduzca la cantidad de alimentacion"
+                        placeholder="Introduzca la cantidad de alimentación"
                         onChange={handleFieldChange}
                     />
                 </div>
