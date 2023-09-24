@@ -3,7 +3,7 @@ import React from 'react'
 function Observations({ handleFieldChange, data }) {
   return (
     <>
-      <div className="input-group mb-3">
+      <div className="input-group mb-3 mt-3">
         <span className="input-group-text">Observaciones</span>
         <textarea
           className="form-control"

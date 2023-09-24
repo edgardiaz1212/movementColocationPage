@@ -57,7 +57,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                 <div className="row mt-5 gy-3 justify-content-center">
                     <div className=" col-lg-3 col-sm-12 ">
                         <label htmlFor="weight" className="form-label">
-                            Peso Maximo del equipo
+                            Peso Máximo del equipo
                         </label>
                         <input
                             type="text"
@@ -113,7 +113,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                                 No
                             </label>
                         </div>
-                        Ubicacion area de servicio
+                        Ubicacion área de servicio
                         <div className="form-check">
                             <input
                                 className="form-check-input"
@@ -200,7 +200,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                             id="rack_unit_position"
                             name="rack_unit_position"
                             value={data.rack_unit_position}
-                            placeholder="Introduzca las unidades de rack"
+                            placeholder="Posicion dentro del rack"
                             onChange={handleFieldChange}
                         />
                     </div>
@@ -304,7 +304,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
 
                         <div className="col-lg-3 col-sm-12">
                             <label htmlFor="access_inclination" className="form-label">
-                                Inclinacion :
+                            Inclinación :
                             </label>
                             <input
                                 type="text"
@@ -312,7 +312,7 @@ function EquipmentFeatures({ handleFieldChange, data, currentUser }) {
                                 id="access_inclination"
                                 name="access_inclination"
                                 value={data.access_inclination}
-                                placeholder="Introduzca la inclinacion permitida"
+                                placeholder="Introduzca la inclinación permitida"
                                 onChange={handleFieldChange}
                             />
                         </div>
