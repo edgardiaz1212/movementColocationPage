@@ -26,7 +26,7 @@ function CloseWindow() {
                                 className="btn btn-primary"
                                 onClick={() => {
                                     actions.deleteAll()
-                                    navigate = '/'
+                                    navigate('/')
                                 }}
                             >
                                 Acepto y salir

@@ -29,7 +29,7 @@ function Consult() {
     return (
         <div className="container">
             <h4 className="mb-5 mt-5">Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
-            <div className="container mb-3">
+            <div className="container mb-3 bg-body text-body">
                 <div className="row border border-dark">
                     {isNotCatalog && hasRackData && (
                         <div className="col-12 ">
@@ -40,12 +40,12 @@ function Consult() {
                             ) : null}
                             {store.racksData.map((rack) => (
                                 <div key={rack.id}>
-                                    <div className="border-top border-bottom ">
+                                    <div className="border-top border-bottom  ">
                                         <h3 >RACK {rack.description.model} posición {rack.rack_ubication}  {rack.rack_position} </h3>
                                         <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack' />
                                     </div>
-                                    <table className="table ">
-                                        <thead className="border-top border-bottom ">
+                                    <table className="table table-striped ">
+                                        <thead >
                                             <tr>
                                                 <th >Equipos en Rack {rack.rack_ubication} Posición {rack.rack_position}</th>
                                             </tr>
@@ -54,8 +54,9 @@ function Consult() {
                                             {getEquipmentsForRack(rack.rack_position).map((equipment) => (
                                                 <>
                                                     <tr key={equipment.id}>
-                                                        <td>El componente {equipment.description.componentType} modelo {equipment.description.model}</td>
+                                                        <td>El componente {equipment.description.componentType} modelo {equipment.description.model}
                                                         <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
+                                                        </td>
                                                     </tr>
                                                 </>
                                             ))}
@@ -66,7 +67,7 @@ function Consult() {
                         </div>
                     )}
                     {isNotCatalog && hasEquipmentData && (
-                        <div className="col-12 p-2 border-top border-secondary">
+                        <div className="col-12 p-2 border-top">
                             {equipmentsWithoutRack.length > 0 && (
                                 <>
                                     <div className="alert alert-warning" role="alert">
@@ -75,17 +76,18 @@ function Consult() {
                                         .map((equipment) => equipment.rack_number)
                                         .join(", ")} */}
                                     </div>
-                                    <table className="table table-striped">
-                                        <thead className="border-top border-bottom ">
+                                    <table className="table table-warning table-striped">
+                                        <thead >
                                             <tr>
-                                                <th>Equipo</th>
+                                                <th>Equipo(s)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {equipmentsWithoutRack.map((equipment) => (
                                                 <tr key={equipment.id}>
-                                                    <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}</td>
+                                                    <td>Componente tipo {equipment.description.componentType}, modelo {equipment.description.model} para asociar con rack {equipment.rack_number}
                                                     <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
+                                                    </td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -105,8 +107,9 @@ function Consult() {
                                 {store.equipmentsData.map((equipment) => (
                                     <>
                                         <tr key={equipment.id}>
-                                            <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}</td>
+                                            <td>Componente {equipment.description.componentType}, marca {equipment.description.brand}, modelo {equipment.description.model}
                                             <Buttons editLink={`/edit-equipment/${equipment.id}`} id={equipment.id} type="equipment" />
+                                            </td>
                                         </tr>
                                     </>))}
                             </tbody>
