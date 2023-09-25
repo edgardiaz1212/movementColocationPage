@@ -17,7 +17,6 @@ function EditRack() {
     if (id) {
       actions.getRackById(id)
         .then((rackByIdData) => {
-          console.log("equi rac", rackByIdData)
           // Establece el estado inicial con los datos del equipo
           setData({
             model: rackByIdData.description.model,
@@ -103,7 +102,7 @@ function EditRack() {
   const goBack = () => {
     navigate(-1);
   };
-  console.log(data)
+ 
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
