@@ -12,7 +12,7 @@ import Equipment from "./pages/Equipment.jsx";
 import Consult from "./pages/Consult.jsx";
 import EditEquipment from "./pages/EditEquipment.jsx";
 import EditRack from "./pages/EditRack.jsx";
-
+import { NotFound } from "./component/NotFound.jsx";
 
 //create your first component
 const Layout = () => {
@@ -34,7 +34,7 @@ const Layout = () => {
                         <Route element={<Consult/>} path="/consult"/>
                         <Route element={<EditEquipment/>} path ="/edit-equipment/:id"/>
                         <Route element={<EditRack/>} path ="edit-rack/:id"/>
-                        <Route element={<h1>Not found!</h1>} />
+                        <Route element={<NotFound />} path="*" />
                     </Routes>
                     <Footer />
                 </ScrollToTop>
