@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Buttons from "../component/Buttons.jsx";
+import CloseWindow from "../component/CloseWindow.jsx";
 
 function Consult() {
     const { actions, store } = useContext(Context);
@@ -24,7 +25,7 @@ function Consult() {
         (equipment) => !equipment.rack_number || !store.racksData.some((rack) => rack.rack_position === equipment.rack_number)
     );
 
-  
+
     return (
         <div className="container">
             <h4 className="mb-5 mt-5">Planillas de Solicitud para {store.userData.clientName} en el Contexto del Servicio {store.userData.service} y el Contrato {store.userData.contract}</h4>
@@ -122,12 +123,18 @@ function Consult() {
             <Link to="/equipment" className="btn btn-primary">
                 Agregar nuevo Equipo
             </Link>
+
             <Link to='/'
                 onClick={() => actions.deleteAll()}
-                
+
                 className="btn btn-secondary m-1">
                 Finalizar
             </Link>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Launch demo modal
+            </button>
+
+            <CloseWindow />
         </div>
     );
 }
