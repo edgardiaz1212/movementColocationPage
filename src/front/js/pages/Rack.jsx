@@ -113,6 +113,7 @@ function Rack() {
         if (response.status === 201 || response.status === 200) {
           toast.success("Successfully Registered")
           console.log("Registro exitoso")
+          console.log(data)
           setTimeout(() => {
             navigate("/consult")
           }, 2000)

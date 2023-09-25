@@ -40,13 +40,13 @@ function Consult() {
                             {store.racksData.map((rack) => (
                                 <div key={rack.id}>
                                     <div className="border-top border-bottom ">
-                                        <h3 >RACK {rack.rack_ubication} posicion {rack.rack_position} </h3>
+                                        <h3 >RACK {rack.description.model} posición {rack.rack_ubication}  {rack.rack_position} </h3>
                                         <Buttons editLink={`/edit-rack/${rack.id}`} id={rack.id} type='rack' />
                                     </div>
                                     <table className="table ">
                                         <thead className="border-top border-bottom ">
                                             <tr>
-                                                <th >Equipos en Rack {rack.rack_ubication} Posicion {rack.rack_position}</th>
+                                                <th >Equipos en Rack {rack.rack_ubication} Posición {rack.rack_position}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

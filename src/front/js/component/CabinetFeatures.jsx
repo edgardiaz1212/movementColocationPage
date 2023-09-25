@@ -63,7 +63,7 @@ function CabinetFeatures({ handleFieldChange, data, currentUser }) {
                                 className="form-check-input"
                                 type="radio"
                                 name="leased"
-                                id="leased"
+                                id="yesleased"
                                 value={true}
                                 checked={data.leased === true}
                                 onChange={handleFieldChange}

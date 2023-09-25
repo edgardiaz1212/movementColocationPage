@@ -1,12 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useNavigate, useParams, Link } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Context } from '../store/appContext'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BasicRack from '../component/BasicRack.jsx';
 
 function EditRack() {
-  const navigate = useNavigate
+  const navigate = useNavigate()
   const { actions, store } = useContext(Context)
   const { currentUser } = store
   const [data, setData] = useState({})
@@ -103,7 +103,7 @@ function EditRack() {
   const goBack = () => {
     navigate(-1);
   };
-
+  console.log(data)
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />

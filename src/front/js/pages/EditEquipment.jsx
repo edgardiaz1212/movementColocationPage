@@ -104,6 +104,8 @@ function EditEquipment() {
   const goBack = () => {
     navigate(-1);
   };
+
+  
   return (
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
