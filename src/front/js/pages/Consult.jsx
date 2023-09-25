@@ -123,17 +123,9 @@ function Consult() {
             <Link to="/equipment" className="btn btn-primary">
                 Agregar nuevo Equipo
             </Link>
-
-            <Link to='/'
-                onClick={() => actions.deleteAll()}
-
-                className="btn btn-secondary m-1">
+            <button type="button " className="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Finalizar
-            </Link>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
             </button>
-
             <CloseWindow />
         </div>
     );
