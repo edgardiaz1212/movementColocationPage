@@ -3,7 +3,7 @@ import { Context } from '../store/appContext'
 import { useNavigate } from 'react-router-dom'
 
 
-function CloseWindow() {
+function ExitModal() {
     const { actions } = useContext(Context)
     const navigate = useNavigate()
     return (
@@ -39,4 +39,4 @@ function CloseWindow() {
     )
 }
 
-export default CloseWindow
+export default ExitModal

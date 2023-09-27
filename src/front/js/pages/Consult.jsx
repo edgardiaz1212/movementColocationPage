@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import Buttons from "../component/Buttons.jsx";
-import CloseWindow from "../component/CloseWindow.jsx";
+import ExitModal from "../component/ExitModal.jsx";
 
 function Consult() {
     const { actions, store } = useContext(Context);
@@ -129,7 +129,7 @@ function Consult() {
             <button type="button " className="btn btn-secondary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Finalizar
             </button>
-            <CloseWindow />
+            <ExitModal />
         </div>
     );
 }

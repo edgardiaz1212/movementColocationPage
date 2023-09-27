@@ -321,8 +321,9 @@ function Buttons({ editLink, id, type }) {
                 <Link to={editLink} className="btn btn-primary btn-sm " >
                     Editar
                 </Link>
-                <button className="btn btn-primary btn-sm "
+                <button className="btn btn-primary btn-sm buttonDownload"
                     onClick={handleFillPDF}>
+                        
                     Planilla
                 </button>
                 <button
