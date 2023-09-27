@@ -14,17 +14,10 @@ export const Navbar = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
-        {store.token &&(<>
-        <li className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/">Nueva Solicitud</Link>
+          <li className="nav-item">
+          <a className="nav-link" >FAQ</a>
         </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="/consult">Consulta</Link>
-        </li>
-        <li className="nav-item">
-          <Link className="nav-link" to="#">FAQ</Link>
-        </li>
-       </>)}
+       
       </ul>
     </div>
   </div>

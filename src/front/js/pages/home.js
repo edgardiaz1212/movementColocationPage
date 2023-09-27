@@ -111,7 +111,7 @@ export const Home = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="m-auto col-lg-3 col-sm-12npm">
+				<div className="m-auto col-lg-3 col-sm-12">
 					<label htmlFor="clientName" className="form-label">
 						Nombre del Cliente Final
 					</label>
