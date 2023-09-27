@@ -4,7 +4,7 @@ import { Context } from '../store/appContext'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const initialState={
+const initialState = {
 	username: "",
 	email: "",
 	coordination: "",
@@ -16,189 +16,197 @@ const initialState={
 export const Home = () => {
 
 	const { store, actions } = useContext(Context);
-	const [showSection, setShowSection] =useState(false)
-	const [newUser, setNewUser]= useState(initialState)
-	
+	const [showSection, setShowSection] = useState(false)
+	const [newUser, setNewUser] = useState(initialState)
+
 	const handleChange = ({ target }) => {
 		setNewUser({ ...newUser, [target.name]: target.value })
-	  };
-	
-	const handleSections =() =>{
-		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username){
+	};
+
+	const handleSections = () => {
+		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username) {
 			console.log("faltan datos")
 			toast.error("Llene todos los campos")
-			return}
+			return
+		}
 		setShowSection(true)
 	}
 
 	const handleAddAll = async () => {
-		if (!newUser.contract || !newUser.service){
+		if (!newUser.contract || !newUser.service) {
 			console.log("faltan datos")
 			toast.error("Llene todos los campos")
 			return
 		}
 		try {
-			const formData =new FormData()
-			formData.append("email",newUser.email)
+			const formData = new FormData()
+			formData.append("email", newUser.email)
 			formData.append("coordination", newUser.coordination)
 			formData.append("username", newUser.username)
-			formData.append("clientName",newUser.clientName)
+			formData.append("clientName", newUser.clientName)
 			formData.append("contract", newUser.contract)
-			formData.append("service",newUser.service)
+			formData.append("service", newUser.service)
 
 			const response = await actions.addUser(formData)
 			//await actions.getUserData()
-			if (response == 200 || 201){
+			if (response == 200 || 201) {
 				console.log("Data registrada");
-			}else{
+			} else {
 				toast.error("Error registrando")
 			}
 		} catch (error) {
 			console.log("Error en la solicitud de registro:", error)
 		}
 
-		
+
 	};
 
 	return (
 		<>
-		<ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
-		<div className="container text-center mt-5">
+			<ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
+			<div className="container text-center mt-5">
 
-			{!showSection ?(
-			<>
-				<h1>Bienvenido al Sistema de Gestion de </h1>
-					<h1>Solicitudes de Colocacion DCCE</h1>
-				<div className="m-auto col-lg-3 col-sm-12">
-					<label htmlFor="username" className="form-label">
-						Solicitante Cantv
-					</label>
-					<input
-						type="text"
-						className="form-control"
-						id="username"
-						name="username"
-						placeholder="Ingrese su Nombre y Apellido"
-						value={newUser.username}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="m-auto col-lg-3 col-sm-12">
-					<label htmlFor="coordination" className="form-label">
-						Coordinacion o Unidad a la que pertenece
-					</label>
-					<input
-						type="text"
-						className="form-control"
-						id="coordination"
-						name="coordination"
-						placeholder="Ingrese la unidad en la que labora"
-						value={newUser.coordination}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="m-auto col-lg-3 col-sm-12">
-					<label htmlFor="coordination" className="form-label">
-						email
-					</label>
-					<input
-						type="text"
-						className="form-control"
-						id="email"
-						name="email"
-						placeholder="Ingrese su email"
-						value={newUser.email}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="m-auto col-lg-3 col-sm-12">
-					<label htmlFor="clientName" className="form-label">
-						Nombre del Cliente Final
-					</label>
-					<input
-						type="text"
-						className="form-control"
-						id="clientName"
-						name="clientName"
-						placeholder="Ingrese el nombre del cliente final"
-						value={newUser.clientName}
-						onChange={handleChange}
-					/>
-				</div>
-				<button className="btn btn-primary m-4" 
-				onClick={handleSections}
-				>Próximo Paso</button>
-			</>
-			):(
-			<>
-				<h1>Detalles de la solicitud</h1>
-				<div className="container">
-					Tipo de Contrato
-					<select
-						className="form-select"
-						aria-label="Default select example"
-						id="contract"
-						name="contract"
-						onChange={handleChange}
-						value={newUser.contract}
-					>
-						<option value="">Seleccionar Contrato</option>
-						<option value="Colocacion no Catalogado">Colocacion no Catalogado</option>
-						<option value="Colocacion Catalogado">Colocacion Catalogado</option>
-					</select>
-				</div>
+				{!showSection ? (
+					<>
+						<h1>Bienvenido al Sistema de Gestion de </h1>
+						<h1>Solicitudes de Colocacion DCCE</h1>
+						<div className="m-auto col-lg-3 col-sm-12">
+							<label htmlFor="username" className="form-label">
+								Solicitante Cantv
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								id="username"
+								name="username"
+								placeholder="Ingrese su Nombre y Apellido"
+								value={newUser.username}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="m-auto col-lg-3 col-sm-12">
+							<label htmlFor="coordination" className="form-label">
+								Coordinacion o Unidad a la que pertenece
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								id="coordination"
+								name="coordination"
+								placeholder="Ingrese la unidad en la que labora"
+								value={newUser.coordination}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="m-auto col-lg-3 col-sm-12">
+							<label htmlFor="coordination" className="form-label">
+								email
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								id="email"
+								name="email"
+								placeholder="Ingrese su email"
+								value={newUser.email}
+								onChange={handleChange}
+							/>
+						</div>
+						<div className="m-auto col-lg-3 col-sm-12">
+							<label htmlFor="clientName" className="form-label">
+								Nombre del Cliente Final
+							</label>
+							<input
+								type="text"
+								className="form-control"
+								id="clientName"
+								name="clientName"
+								placeholder="Ingrese el nombre del cliente final"
+								value={newUser.clientName}
+								onChange={handleChange}
+							/>
+						</div>
+						
+						<button className="button-next mx-auto mt-4"
+							onClick={handleSections}>
+							Próximo paso
+							<svg viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill-rule="evenodd"></path>
+							</svg>
+						</button>
 
-				
-					<div>
-						<div>Tipo de actividad</div>
-						<select
-							className="form-select"
-							aria-label="Default select example"
-							onChange={handleChange}
-							id="service"
-							name="service"
-							value={newUser.service}
-						>
-							<option value="">Seleccionar servicio</option>
-							<option value="Instalacion">Instalacion</option>
-							<option value="Retiro">Retiro</option>
-							<option value="Desincorporacion">Desincorporacion</option>
-							<option value="Mudanza">Mudanza</option>
-						</select>
 
-						{newUser.service && (
-							<div className="p-3">
-								{newUser.contract === "Colocacion Catalogado" && (
-									<Link to="/equipment"
-									className="btn btn-primary"
-									onClick={handleAddAll}
-								>
-									Agregar Equipo</Link>
-								)}
-								{newUser.contract === "Colocacion no Catalogado" && (
-									<>
-										
+					</>
+				) : (
+					<>
+						<h1>Detalles de la solicitud</h1>
+						<div className="container">
+							Tipo de Contrato
+							<select
+								className="form-select"
+								aria-label="Default select example"
+								id="contract"
+								name="contract"
+								onChange={handleChange}
+								value={newUser.contract}
+							>
+								<option value="">Seleccionar Contrato</option>
+								<option value="Colocacion no Catalogado">Colocacion no Catalogado</option>
+								<option value="Colocacion Catalogado">Colocacion Catalogado</option>
+							</select>
+						</div>
+
+
+						<div>
+							<div>Tipo de actividad</div>
+							<select
+								className="form-select"
+								aria-label="Default select example"
+								onChange={handleChange}
+								id="service"
+								name="service"
+								value={newUser.service}
+							>
+								<option value="">Seleccionar servicio</option>
+								<option value="Instalacion">Instalacion</option>
+								<option value="Retiro">Retiro</option>
+								<option value="Desincorporacion">Desincorporacion</option>
+								<option value="Mudanza">Mudanza</option>
+							</select>
+
+							{newUser.service && (
+								<div className="p-3">
+									{newUser.contract === "Colocacion Catalogado" && (
+										<Link to="/equipment"
+											className="btn btn-primary"
+											onClick={handleAddAll}
+										>
+											Agregar Equipo</Link>
+									)}
+									{newUser.contract === "Colocacion no Catalogado" && (
+										<>
+
 											<Link to="/rack"
 												className="btn btn-primary m-1"
 												onClick={handleAddAll}
 											>
 												Agregar Rack</Link>
-										
-										<Link to="/equipment"
+
+											<Link to="/equipment"
 												className="btn btn-primary"
 												onClick={handleAddAll}
 											>
 												Agregar Equipo</Link>
-										
-									</>
-								)}
-							</div>
-						 )} 
-					</div>
-				  
-			</>
-			)}
-		</div>
+
+										</>
+									)}
+								</div>
+							)}
+						</div>
+
+					</>
+				)}
+			</div>
 		</>
 	);
 }
