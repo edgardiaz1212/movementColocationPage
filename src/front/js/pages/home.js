@@ -69,7 +69,7 @@ export const Home = () => {
 			<>
 				<h1>Bienvenido al Sistema de Gestion de </h1>
 					<h1>Solicitudes de Colocacion DCCE</h1>
-				<div className="m-auto col-4">
+				<div className="m-auto col-lg-3 col-sm-12">
 					<label htmlFor="username" className="form-label">
 						Solicitante Cantv
 					</label>
@@ -83,7 +83,7 @@ export const Home = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="m-auto col-4">
+				<div className="m-auto col-lg-3 col-sm-12">
 					<label htmlFor="coordination" className="form-label">
 						Coordinacion o Unidad a la que pertenece
 					</label>
@@ -92,12 +92,12 @@ export const Home = () => {
 						className="form-control"
 						id="coordination"
 						name="coordination"
-						placeholder="Ingrese la unidad enla que labora"
+						placeholder="Ingrese la unidad en la que labora"
 						value={newUser.coordination}
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="m-auto col-4">
+				<div className="m-auto col-lg-3 col-sm-12">
 					<label htmlFor="coordination" className="form-label">
 						email
 					</label>
@@ -111,7 +111,7 @@ export const Home = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="m-auto col-4">
+				<div className="m-auto col-lg-3 col-sm-12npm">
 					<label htmlFor="clientName" className="form-label">
 						Nombre del Cliente Final
 					</label>
