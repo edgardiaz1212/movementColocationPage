@@ -126,7 +126,7 @@ export const Home = () => {
 								onChange={handleChange}
 							/>
 						</div>
-						
+
 						<button className="button-next mx-auto mt-4"
 							onClick={handleSections}>
 							Próximo paso
@@ -176,27 +176,39 @@ export const Home = () => {
 
 							{newUser.service && (
 								<div className="p-3">
-									{newUser.contract === "Colocacion Catalogado" && (
-										<Link to="/equipment"
-											className="btn btn-primary"
-											onClick={handleAddAll}
-										>
-											Agregar Equipo</Link>
+									{newUser.contract === "Colocacion Catalogado" && (<>
+										<Link to="/equipment">
+											<button className="button_add" onClick={handleAddAll}>
+												<span>
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
+													Agregar Equipo
+												</span>
+											</button></Link>
+									</>
 									)}
 									{newUser.contract === "Colocacion no Catalogado" && (
 										<>
 
-											<Link to="/rack"
-												className="btn btn-primary m-1"
-												onClick={handleAddAll}
-											>
-												Agregar Rack</Link>
-
-											<Link to="/equipment"
+											<Link to="/rack">
+												<button className="button_add me-3" onClick={handleAddAll}>
+													<span>
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
+														Agregar Rack
+													</span>
+												</button>
+											</Link>
+											{/* <Link to="/equipment"
 												className="btn btn-primary"
 												onClick={handleAddAll}
 											>
-												Agregar Equipo</Link>
+												Agregar Equipo</Link> */}
+											<Link to="/equipment">
+												<button className="button_add" onClick={handleAddAll}>
+													<span>
+														<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
+														Agregar Equipo
+													</span>
+												</button></Link>
 
 										</>
 									)}
