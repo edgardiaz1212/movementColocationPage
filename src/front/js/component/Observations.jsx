@@ -17,7 +17,7 @@ function Observations({ handleFieldChange, data }) {
       </div>
 
       <div className="input-group mb-5">
-        <span className="input-group-text">Previsión de 5 anos</span>
+        <span className="input-group-text">Previsión de 5 años</span>
         <textarea
           className="form-control"
           aria-label="With textarea"

@@ -7,7 +7,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                 <div className="p-3 mb-2 titles">
                     <h2 className="mt-4">Requerimiento de energia para el Equipo</h2>
                 </div>
-                <div className="mb-3 col-4">
+                <div className=" col-lg-3 col-sm-12">
                     <label htmlFor="ac_dc" className="form-label">
                         Tipo de Alimentación (AC/DC)
                     </label>
@@ -22,7 +22,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                     />
                 </div>
 
-                <div className="mb-3 col-4">
+                <div className="mb-3 col-lg-3 col-sm-12">
                     <label htmlFor="input_current" className="form-label">
                         Tensión de Alimentación (Voltios)
                     </label>
@@ -37,7 +37,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                     />
                 </div>
 
-                <div className="mb-3 col-4">
+                <div className="mb-3 col-lg-3 col-sm-12">
                     <label htmlFor="power" className="form-label">
                         Potencia consumida por fuente de poder (w):
                     </label>
@@ -52,7 +52,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                     />
                 </div>
 
-                <div className="mb-3 col-4">
+                <div className="mb-3 col-lg-3 col-sm-12">
                     <label htmlFor="power_supply" className="form-label">
                         Cantidad de Fuentes de Alimentación por equipo
                     </label>
@@ -67,7 +67,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                     />
                 </div>
 
-                <div className="mb-3 col-4">
+                <div className="mb-3 col-lg-3 col-sm-12">
                     <label htmlFor="operation_temp" className="form-label">
                         Rango de Temperatura de Operación del Equipo (°C)
                     </label>
@@ -82,7 +82,7 @@ function EquipmentPoweRequeriment({ handleFieldChange, data, currentUser }) {
                     />
                 </div>
 
-                <div className="mb-3 col-4">
+                <div className="mb-3 col-lg-3 col-sm-12">
                     <label htmlFor="thermal_disipation" className="form-label">
                         Disipación Térmica (BTU-Hr)
                     </label>
