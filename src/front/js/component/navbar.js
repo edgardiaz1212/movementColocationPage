@@ -15,7 +15,7 @@ export const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
           <li className="nav-item">
-          <Link to='/FAQ' className="nav-link" >FAQ</Link>
+          <Link to='/FAQ' className="nav-link" style={{textDecoration : 'none', color:'white'}}>FAQ</Link>
         </li>
        
       </ul>
