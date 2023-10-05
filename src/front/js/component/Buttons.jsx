@@ -98,6 +98,7 @@ function Buttons({ editLink, id, type }) {
         const psuConfig = form.getDropdown('Fuentes')
         const psuConfigOptions = psuConfig.getOptions()
 
+        const fontSize= 12
         //en general
         if (data.user) {
             username.setText(data.user.username);
@@ -124,7 +125,9 @@ function Buttons({ editLink, id, type }) {
         np.setText(data ? data.description.number_part || 'N/A' : 'N/A')
         component.setText(data.description.componentType)
         prevision.setText(data ? data.description.five_years_prevition || 'N/A' : 'N/A')
+        prevision.setFontSize(fontSize)
         obs.setText(data ? data.description.observations || 'N/A' : 'N/A')
+        obs.setFontSize(fontSize)
 
         //de rack
         if (typeof data.has_cabinet === 'boolean') {
@@ -239,6 +242,7 @@ function Buttons({ editLink, id, type }) {
         packDeep.setText(data ? data.packaging_length || 'N/A' : 'N/A')
         weight.setText(data ? data.weight || 'N/A' : 'N/A')
         anchorType.setText(data ? data.anchor_type || 'N/A' : 'N/A')
+        anchorType.setFontSize(fontSize)
         if (typeof data.service_area === 'boolean') {
             if (data.service_area) {
                 serviceArea.select(areaOptions[0])
@@ -279,6 +283,7 @@ function Buttons({ editLink, id, type }) {
         psu.setText(data ? data.power_supply || 'N/A' : 'N/A')
         temp.setText(data ? data.operation_temp || 'N/A' : 'N/A')
         btu.setText(data ? data.thermal_disipation || 'N/A' : 'N/A')
+        btu.setFontSize(fontSize)
 
         if (data.power_config && psuConfigOptions.includes(data.power_config)) {
             psuConfig.select(data.power_config);
