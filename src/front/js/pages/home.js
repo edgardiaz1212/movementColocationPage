@@ -18,19 +18,38 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [showSection, setShowSection] = useState(false)
 	const [newUser, setNewUser] = useState(initialState)
-
+const [emptyFields, setEmptyFields]=useState({
+	clientName: true,
+	email: true,
+	coordination: true,
+	username: true
+})
 	const handleChange = ({ target }) => {
 		setNewUser({ ...newUser, [target.name]: target.value })
 	};
 
 	const handleSections = () => {
-		if (!newUser.clientName || !newUser.email || !newUser.coordination || !newUser.username) {
+		const requiredFields=["username", "coordination", "email", "clientName"]
+		const newEmptyFields ={}
+		let fieldsAreEmpty =false
+		
+		requiredFields.forEach((field) => {
+			if (!newUser[field]) {
+			  newEmptyFields[field] = true;
+			  fieldsAreEmpty = true;
+			} else {
+			  newEmptyFields[field] = false;
+			}
+		  })
+		
+		if (fieldsAreEmpty) {
 			console.log("faltan datos")
 			toast.error("Llene todos los campos")
-			return
-		}
+		}else{
 		setShowSection(true)
-	}
+		}
+		setEmptyFields(newEmptyFields)}
+	
 
 	const handleAddAll = async () => {
 		if (!newUser.contract || !newUser.service) {
@@ -70,13 +89,13 @@ export const Home = () => {
 					<>
 						<h1>Bienvenido al Sistema de Gestion de </h1>
 						<h1>Solicitudes de Colocacion DCCE</h1>
-						<div className="m-auto col-lg-3 col-sm-12">
+						<div className={`m-auto col-lg-3 col-sm-12 ${emptyFields.username ? 'is-invalid' : ''}`}>
 							<label htmlFor="username" className="form-label">
 								Solicitante Cantv
 							</label>
 							<input
 								type="text"
-								className="form-control"
+								className={`form-control ${emptyFields.username ? 'is-invalid' : ''}`}
 								id="username"
 								name="username"
 								placeholder="Ingrese su Nombre y Apellido"
@@ -84,13 +103,13 @@ export const Home = () => {
 								onChange={handleChange}
 							/>
 						</div>
-						<div className="m-auto col-lg-3 col-sm-12">
+						<div className={`m-auto col-lg-3 col-sm-12 ${emptyFields.coordination ? 'is-invalid' : ''}`}>
 							<label htmlFor="coordination" className="form-label">
 								Coordinacion o Unidad a la que pertenece
 							</label>
 							<input
 								type="text"
-								className="form-control"
+								className={`form-control ${emptyFields.coordination ? 'is-invalid' : ''}`}
 								id="coordination"
 								name="coordination"
 								placeholder="Ingrese la unidad en la que labora"
@@ -98,13 +117,13 @@ export const Home = () => {
 								onChange={handleChange}
 							/>
 						</div>
-						<div className="m-auto col-lg-3 col-sm-12">
+						<div className={`m-auto col-lg-3 col-sm-12 ${emptyFields.email ? 'is-invalid' : ''}`}>
 							<label htmlFor="coordination" className="form-label">
 								email
 							</label>
 							<input
 								type="text"
-								className="form-control"
+								className={`form-control ${emptyFields.email ? 'is-invalid' : ''}`}
 								id="email"
 								name="email"
 								placeholder="Ingrese su email"
@@ -112,13 +131,13 @@ export const Home = () => {
 								onChange={handleChange}
 							/>
 						</div>
-						<div className="m-auto col-lg-3 col-sm-12">
+						<div className={`m-auto col-lg-3 col-sm-12 ${emptyFields.clientName ? 'is-invalid' : ''}`}>
 							<label htmlFor="clientName" className="form-label">
 								Nombre del Cliente Final
 							</label>
 							<input
 								type="text"
-								className="form-control"
+								className={`form-control ${emptyFields.clientName ? 'is-invalid' : ''}`}
 								id="clientName"
 								name="clientName"
 								placeholder="Ingrese el nombre del cliente final"
