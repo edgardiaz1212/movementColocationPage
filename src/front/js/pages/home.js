@@ -29,10 +29,10 @@ export const Home = () => {
 	};
 
 	const handleSections = () => {
-		const requiredFields = ["username", "coordination", "email", "clientName"]
-		const newEmptyFields = {}
-		let fieldsAreEmpty = false
-
+		const requiredFields = ["username", "coordination", "email", "clientName"];
+		const newEmptyFields = {};
+		let fieldsAreEmpty = false;
+	
 		requiredFields.forEach((field) => {
 			if (!newUser[field]) {
 				newEmptyFields[field] = true;
@@ -40,17 +40,17 @@ export const Home = () => {
 			} else {
 				newEmptyFields[field] = false;
 			}
-		})
-
+		});
+	
 		if (fieldsAreEmpty) {
-			console.log("faltan datos")
-			toast.error("Llene todos los campos")
+			console.log("faltan datos");
+			toast.error("Llene todos los campos");
 		} else {
-			setShowSection(true)
+			setShowSection(true);
 		}
-		setEmptyFields(newEmptyFields)
-	}
-
+		setEmptyFields(newEmptyFields);
+	};
+	
 
 	const handleAddAll = async () => {
 		if (!newUser.contract || !newUser.service) {
