@@ -19,10 +19,10 @@ export const Home = () => {
 	const [showSection, setShowSection] = useState(false)
 	const [newUser, setNewUser] = useState(initialState)
 	const [emptyFields, setEmptyFields] = useState({
-		clientName: true,
-		email: true,
-		coordination: true,
-		username: true
+		clientName: false,
+		email: false,
+		coordination: false,
+		username: false
 	})
 	const handleChange = ({ target }) => {
 		setNewUser({ ...newUser, [target.name]: target.value })
