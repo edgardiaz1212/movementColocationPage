@@ -46,7 +46,7 @@ function Rack() {
   }
 
   const [data, setData] = useState(initialState);
-
+  const [isAdding, setIsAdding] = useState(false)
   const handleFieldChange = (event) => {
     const { name, type, checked, value } = event.target;
 
@@ -132,10 +132,13 @@ function Rack() {
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div id="rackForm" className="container">
-        <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
+        <BasicRack handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding} />
 
         <button className="btn btn-primary m-2 agregar"
-          onClick={handleAddRack}
+          onClick={() => {
+            handleAddRack()
+            setIsAdding(true)
+          }}
           type="button">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#fffffff" stroke-width="2"></path>

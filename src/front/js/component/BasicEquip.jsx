@@ -10,7 +10,7 @@ function BasicEquip({ handleFieldChange, data, currentUser, isAdding }) {
   return (
     <>
       <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding}/>
-      <EquipmentFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding}/>
+      <EquipmentFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
       {!isRemovalOrDivestiture && (
         <EquipmentPowerRequeriment handleFieldChange={handleFieldChange} data={data} />
       )}

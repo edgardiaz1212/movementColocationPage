@@ -4,14 +4,14 @@ import Observations from "./Observations.jsx";
 import CabinetFeatures from './CabinetFeatures.jsx';
 import RackPowerRequirements from './RackPowerRequirements.jsx';
 
-function BasicRack({ handleFieldChange, data, currentUser }) {
+function BasicRack({ handleFieldChange, data, currentUser, isAdding }) {
   const isRemovalOrDivestiture = currentUser.service === 'Retiro' || currentUser.service === 'Desincorporacion';
   return (
     <>
-      <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
+      <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding} />
       <div className=" container ">
 
-        <CabinetFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
+        <CabinetFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser}  />
         {!isRemovalOrDivestiture && (
           <RackPowerRequirements handleFieldChange={handleFieldChange} data={data} />
         )}

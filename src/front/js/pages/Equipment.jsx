@@ -115,10 +115,10 @@ function Equipment() {
 
       if (response.status === 201 || response.status === 200) {
         toast.success("Equipo registrado")
-          console.log("Equipo anadido")
-          setTimeout(() => {
-            navigate("/consult")
-          }, 1000)
+        console.log("Equipo anadido")
+        setTimeout(() => {
+          navigate("/consult")
+        }, 1000)
       } else {
         toast.error("Error registrando")
       }
@@ -131,8 +131,8 @@ function Equipment() {
     <>
       <ToastContainer theme="dark" position="top-center" pauseOnFocusLoss={false} autoClose={3000} hideProgressBar />
       <div className="container">
-        <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding}/>
-        
+        <BasicEquip handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding} />
+
         <button className="btn btn-primary m-2 agregar"
           onClick={() => {
             handleAddEquipment();
