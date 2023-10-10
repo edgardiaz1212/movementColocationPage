@@ -18,38 +18,39 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const [showSection, setShowSection] = useState(false)
 	const [newUser, setNewUser] = useState(initialState)
-const [emptyFields, setEmptyFields]=useState({
-	clientName: true,
-	email: true,
-	coordination: true,
-	username: true
-})
+	const [emptyFields, setEmptyFields] = useState({
+		clientName: true,
+		email: true,
+		coordination: true,
+		username: true
+	})
 	const handleChange = ({ target }) => {
 		setNewUser({ ...newUser, [target.name]: target.value })
 	};
 
 	const handleSections = () => {
-		const requiredFields=["username", "coordination", "email", "clientName"]
-		const newEmptyFields ={}
-		let fieldsAreEmpty =false
-		
+		const requiredFields = ["username", "coordination", "email", "clientName"]
+		const newEmptyFields = {}
+		let fieldsAreEmpty = false
+
 		requiredFields.forEach((field) => {
 			if (!newUser[field]) {
-			  newEmptyFields[field] = true;
-			  fieldsAreEmpty = true;
+				newEmptyFields[field] = true;
+				fieldsAreEmpty = true;
 			} else {
-			  newEmptyFields[field] = false;
+				newEmptyFields[field] = false;
 			}
-		  })
-		
+		})
+
 		if (fieldsAreEmpty) {
 			console.log("faltan datos")
 			toast.error("Llene todos los campos")
-		}else{
-		setShowSection(true)
+		} else {
+			setShowSection(true)
 		}
-		setEmptyFields(newEmptyFields)}
-	
+		setEmptyFields(newEmptyFields)
+	}
+
 
 	const handleAddAll = async () => {
 		if (!newUser.contract || !newUser.service) {

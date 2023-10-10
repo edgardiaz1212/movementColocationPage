@@ -5,12 +5,12 @@ import EquipmentFeatures from "./EquipmentFeatures.jsx";
 import EquipmentPowerRequeriment from "./EquipmentPowerRequeriment.jsx"
 
 
-function BasicEquip({ handleFieldChange, data, currentUser }) {
+function BasicEquip({ handleFieldChange, data, currentUser, isAdding }) {
   const isRemovalOrDivestiture = currentUser.service === 'Retiro' || currentUser.service === 'Desincorporacion';
   return (
     <>
       <Details handleFieldChange={handleFieldChange} data={data} currentUser={currentUser}/>
-      <EquipmentFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} />
+      <EquipmentFeatures handleFieldChange={handleFieldChange} data={data} currentUser={currentUser} isAdding={isAdding}/>
       {!isRemovalOrDivestiture && (
         <EquipmentPowerRequeriment handleFieldChange={handleFieldChange} data={data} />
       )}
