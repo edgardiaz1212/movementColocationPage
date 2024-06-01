@@ -90,6 +90,53 @@ export const Home = () => {
 					<>
 						<h1>Bienvenido al Sistema de Gestion de </h1>
 						<h1>Solicitudes de Colocacion DCCE</h1>
+						<h2>Aca podras registrar de manera sencilla las solicitudes de los clientes del DCCE </h2>
+
+						<h2>Te invitamos a aclarar dudas  </h2>
+
+						<div className="accordion accordion-flush" id="accordionFlushExample">
+							<div className="accordion-item">
+								<h2 className="accordion-header">
+									<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+									¿Por qué es crucial completar todos los campos del formato de Solicitud de Adecuación de Espacio?
+									</button>
+								</h2>
+								<div id="flush-collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+									<div className="accordion-body"> 
+									Es fundamental completar todos los campos del formato para garantizar que se cuente con la información necesaria 
+									para evaluar y aprobar la conexión de los equipos solicitados. 
+									Además, el llenado completo del formulario facilita el estudio de rentabilidad de cada caso</div>
+								</div>
+							</div>
+							<div className="accordion-item">
+								<h2 className="accordion-header">
+									<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+									¿Por qué se recomienda adjuntar la hoja técnica o Datasheet de cada equipo en la solicitud?
+									</button>
+								</h2>
+								<div id="flush-collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+									<div className="accordion-body">
+									Adjuntar la hoja técnica de cada equipo es fundamental para proporcionar detalles técnicos precisos sobre los equipos a instalar o trasladar. 
+									Esto facilita la evaluación de los requerimientos de energía, espacio y otros aspectos necesarios para la adecuación del espacio.
+										</div>
+								</div>
+							</div>
+							<div className="accordion-item">
+								<h2 className="accordion-header">
+									<button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+									¿Qué precauciones se deben tomar al instalar equipos con una sola fuente de energía según las notas del formato? 
+									</button>
+								</h2>
+								<div id="flush-collapseThree" className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+									<div className="accordion-body">
+									Se recomienda tomar previsiones adicionales al instalar equipos con una sola fuente de energía, 
+									ya que carecen de redundancia y representan un riesgo para el solicitante. 
+									Es importante considerar medidas de seguridad y continuidad en caso de fallos en la fuente de energía principal.
+									  </div>
+								</div>
+							</div>
+						</div>
+
 						<div className={`m-auto col-lg-3 col-sm-12 ${emptyFields.username ? 'is-invalid' : ''}`}>
 							<label htmlFor="username" className="form-label">
 								Solicitante Cantv
@@ -150,7 +197,7 @@ export const Home = () => {
 						<button className="button-next mx-auto mt-4"
 							onClick={handleSections}>
 							Próximo paso
-							<svg viewBox="0 0 16 16" class="bi bi-arrow-right" fill="currentColor" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+							<svg viewBox="0 0 16 16" className="bi bi-arrow-right" fill="currentColor" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
 								<path d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" fill-rule="evenodd"></path>
 							</svg>
 						</button>
