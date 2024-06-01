@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext'
+import heroback from '../../img/imac.png'
 
-import "react-toastify/dist/ReactToastify.css";
 
 
 export const Home = () => {
@@ -13,34 +13,32 @@ export const Home = () => {
 		<>
 			<div id="hero" className="hero-section">
 
-				<div id="hero-carousel" className="hero-carousel carousel carousel-fade slide" data-bs-ride="carousel" data-bs-interval="10000">
+				<div id="hero-main" className="hero-main" >
 
 					<div className="figure-holder-wrapper">
 						<div className="container">
 							<div className="row justify-content-end">
 								<div className="figure-holder">
-									figura<img className="figure-image img-fluid" src="../../img/imac.png" alt="image" />
+									<img className="figure-image img-fluid" src={heroback}  />
 								</div>
 							</div>
 						</div>
 					</div>
 
-									
-					<div className="carousel-inner">
 
-						<div className="carousel-item item-1 active">
+					<div className="main-inner">
+
+						<div className="main-item item-1 active">
 							<div className="item-content container">
 								<div className="item-content-inner">
-
-									<h2 className="heading">AppKit Landing is the perfect landing page template 
-									<br className="d-none d-md-block"></br> for your product</h2>
-									<p className="intro">It helps you to build a beautiful and effective landing page to promote your product or side project!</p>
-									
+									<h2 className="heading">Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE
+										<p class="intro">Aca podras registrar de manera sencilla las solicitudes de los clientes del Centro de Datos el Hatillo!</p>
+									</h2>
 								</div>
 							</div>
 						</div>
 
-											
+
 					</div>
 
 				</div>

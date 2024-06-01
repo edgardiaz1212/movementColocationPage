@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import logo from '../../img/CDHLogo.jpg';
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context)
@@ -11,10 +12,10 @@ export const Navbar = () => {
           <div className="container-fluid position-relative">
 
             <Link to="/" className="logo navbar-brand text-white" >
-              <span class="logo-icon-wrapper">
-                <img class="logo-icon" src="../../../../cantv.ico" alt="icon" />
+              <span className="logo-icon-wrapper">
+                <img className="logo-icon" src={logo} alt="icon" />
               </span>
-              <span class="text highlight">Planilla FOR-BA7D</span>
+              <span className="text ">Planilla<span className="highlight">FOR-BA7D</span> </span>
             </Link>
 
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
