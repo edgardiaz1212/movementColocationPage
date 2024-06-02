@@ -208,42 +208,33 @@
 
 /* ======= Hero Section ======= */
 .hero-section {
-  min-height: 560px;
-  background: #494d55;
+  min-height: 500px;
+  
+  background-size: cover;
   position: relative;
-}
-
-.hero-section .figure-holder-wrapper {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  overflow: hidden;
-}
-
-.hero-section .figure-holder {
-  position: relative;
-  height: 560px;
-  width: 100%;
-}
-
-.hero-section .figure-holder .figure-image {
-  position: absolute;
-  bottom: 0;
-  right: 15px;
-  z-index: 10;
+  background-image:url('../img/dch.jpg') ;
 }
 
 .hero-main {
-  height: 560px;
-  color: #ffffff;
+  color: #332d2d;
 }
-.hero-main .main-inner .main-item {
-  height: 560px;
-  background-position: center center;
+.figure-holder-wrapper {
+  position: relative;
 }
 
-.hero-main .main-inner .item-1 {
+.figure-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.main-item .item-1 {
   background-image: url("../../../public/hero-1.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -251,7 +242,7 @@
   background-size: cover;
 }
 
-.hero-main .main-inner .heading {
+.heading {
   font-size: 30px;
   line-height: 1.4;
   font-weight: bold;
@@ -259,8 +250,18 @@
   margin-bottom: 15px;
 }
 
-.hero-main .main-inner .intro {
+.intro {
   font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .hero-main .row {
+      flex-direction: column-reverse;
+  }
+
+  .figure-holder {
+      margin-top: 20px;
+  }
 }
 
 .button-next {

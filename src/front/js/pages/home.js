@@ -1,58 +1,44 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext'
-import heroback from '../../img/imac.png'
-
+import heroback from '../../img/OIG2.jpeg'
 
 
 export const Home = () => {
 
 	return (
 		<>
-			<div id="hero" className="hero-section">
-
-				<div id="hero-main" className="hero-main" >
-
-					<div className="figure-holder-wrapper">
-						<div className="container">
-							<div className="row justify-content-end">
-								<div className="figure-holder">
-									<img className="figure-image img-fluid" src={heroback}  />
+			<div  id="hero" className="hero-section pt-5 " >
+				<div id="hero-main" className="hero-main ">
+					<div className="figure-holder-wrapper ">
+						<div className="container ">
+							<div className="row align-items-center ">
+								<div className="col-md-6  ">
+									<div className="main-item item-1 active">
+										<div className="item-content container">
+											<div className="item-content-inner">
+												<h2 className="heading">
+													Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE
+												</h2>
+												<p className="intro">
+													Aca podras registrar de manera sencilla las solicitudes respecto a colocacion de los clientes del Centro de Datos el Hatillo!
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div className="col-md-6 figure-holder">
+									<img className="figure-image img-fluid" src={heroback} alt="Hero Image" />
 								</div>
 							</div>
 						</div>
 					</div>
-
-
-					<div className="main-inner">
-
-						<div className="main-item item-1 active">
-							<div className="item-content container">
-								<div className="item-content-inner">
-									<h2 className="heading">Bienvenido al Sistema de Gestion de Solicitudes de Colocacion DCCE
-										<p class="intro">Aca podras registrar de manera sencilla las solicitudes de los clientes del Centro de Datos el Hatillo!</p>
-									</h2>
-								</div>
-							</div>
-						</div>
-
-
-					</div>
-
 				</div>
 			</div>
 
 			<div className="container text-center mt-5">
-
-
-				<h1>Bienvenido al Sistema de Gestion de </h1>
-				<h1>Solicitudes de Colocacion DCCE</h1>
-				<h2>Aca podras registrar de manera sencilla las solicitudes de los clientes del DCCE </h2>
-
 				<h2>Te invitamos a aclarar dudas  </h2>
-
 				<div className="accordion accordion-flush" id="accordionFlushHome">
-
 					<div className="accordion-item">
 						<h2 className="accordion-header">
 							<button
