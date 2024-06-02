@@ -7,8 +7,6 @@ import heroback from '../../img/imac.png'
 
 export const Home = () => {
 
-
-
 	return (
 		<>
 			<div id="hero" className="hero-section">
