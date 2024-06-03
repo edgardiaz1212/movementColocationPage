@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from '../store/appContext'
-import heroback from '../../img/OIG2.jpeg'
-
+import heroback from '../../img/hero-1.jpg'
+import logorack from '../../img/OIG2.jpeg'
+import RegisterUser from "../component/RegisterUser.jsx";
 
 export const Home = () => {
 
 	return (
 		<>
-			<div  id="hero" className="hero-section pt-5 " >
+			<div  id="hero" className="hero-section pt-5 bg " style={{ backgroundImage: `url(${heroback})` }} >
 				<div id="hero-main" className="hero-main ">
 					<div className="figure-holder-wrapper ">
 						<div className="container ">
@@ -28,16 +29,17 @@ export const Home = () => {
 									</div>
 								</div>
 								<div className="col-md-6 figure-holder">
-									<img className="figure-image img-fluid" src={heroback} alt="Hero Image" />
+									{/* <img className="figure-image img-fluid" src={logorack} alt="Hero Image" /> */}
+									<RegisterUser/> 
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
+			
 			<div className="container text-center mt-5">
-				<h2>Te invitamos a aclarar dudas  </h2>
+				<h2>Dudas mas comunes  </h2>
 				<div className="accordion accordion-flush" id="accordionFlushHome">
 					<div className="accordion-item">
 						<h2 className="accordion-header">
